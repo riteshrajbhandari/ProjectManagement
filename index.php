@@ -34,9 +34,10 @@
                                 <a class="nav-link py-1" href="#">Cart</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-1" href="#">Welcome, USER
-                                    <?
+                                <a class="nav-link py-1" href="#">Welcome, 
+                                    <?php
                                     //get username from db
+                                    echo " USER";
                                     ?></a>
                             </li>
                         </ul>
