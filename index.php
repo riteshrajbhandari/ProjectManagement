@@ -35,7 +35,8 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link py-1" href="#">Welcome, USER
-                                    <? //get username from db
+                                    <?
+                                    //get username from db
                                     ?></a>
                             </li>
                         </ul>
@@ -49,9 +50,23 @@
                     <li class="nav-item">
                         <a class="nav-link py-1" href="#">Offers</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-1" href="#">Browse by Category</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link py-1 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse by Category</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php
+                            $no_of_categories = 5/* retrieve from db */;
+                            for ($i = 0; $i < $no_of_categories; $i++)
+                                echo '<li><a class="dropdown-item" href="#">'.
+                                'Action '.$i.
+                                '</a></li>';
+                            ?>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link py-1" href="#">Contact</a>
                     </li>
