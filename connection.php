@@ -1,5 +1,5 @@
 <?php 
-$conn = oci_connect('ritesh', 'HelloWorld@650#', 'Ritesh-Dell/XE');
+$conn = oci_connect('C7261155', 'HelloWorld123', 'localhost/XE');
 if (!$conn) {
     $m = oci_error();
     echo $m['message'], "\n";
@@ -7,5 +7,5 @@ if (!$conn) {
 } else {
     print "Connected to Oracle!";
 }
-oci_close($conn);
+// oci_close($conn);
 ?>
