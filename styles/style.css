@@ -12,15 +12,9 @@ html::-webkit-scrollbar{
 /* NAVBAR */
 ul.navbar-links{
 	justify-content: right;
-	/* text-align: right; */
-	/* align-self: right; */
 }
-/* form.navbar-nav.justify-content-center.d-flex{
-	padding-left: 10vw;
-} */
-
-.nav-search{
-	margin-left: 5vw;
+.navcolor{
+	background-color: #e3f2fd;
 }
 /* (769px and up) */
 @media only screen and (min-width: 769px) {
@@ -29,12 +23,38 @@ ul.navbar-links{
 		width: 25vw;
 	}
 }
+/* (1090px and up) */
+@media only screen and (min-width: 1090px) {
+	.nav-search{
+		margin-left: 3vw;
+		width: 40vw;
+	}
+}
 /* (1260px and up) */
 @media only screen and (min-width: 1260px) {
 	.nav-search{
 		margin-left: 10vw;
 		width: 50vw;
 	}
+}
+#logo {
+	font-family: "Amita", cursive;
+	display: inline;
+}
+#logo h1{
+	display: inline;
+}
+#logo #fresh {
+	color: #577e07;
+	display: inline;
+}
+#logo #mart {
+	color: #a67c52;
+	display: inline;
+}
+
+a {
+	text-decoration: none;
 }
 
 
@@ -82,40 +102,7 @@ ul.navbar-links{
 	
 
 } */
-img#footer {
-	padding: 10%;
-}
-a {
-	text-decoration: none;
-}
-ul#footer {
-	list-style: none;
-}
-ul#footer li {
-	padding-top: 1em;
-}
-.col#footer {
-	text-align: center;
-}
-.row#footer-icons {
-	display: inline-block;
-	text-align: center;
-}
-#logo {
-	font-family: "Amita", cursive;
-	display: inline;
-}
-#logo h1{
-	display: inline;
-}
-#logo #fresh {
-	color: #577e07;
-	display: inline;
-}
-#logo #mart {
-	color: #a67c52;
-	display: inline;
-}
+
 .carousel-item{
 	background:rgba(0,0,0,0.6);
 
@@ -151,14 +138,34 @@ ul#footer li {
 	overflow: hidden;
 	height:200px;
 }
-
-.footer-card#footer img{
-	background-color: rgba(255, 255, 255, 0);
-}
 .card.essentials-large{
 	height:400px;
 }
 .card.essentials-large img{
 	overflow: hidden;
 	height:400px;
+}
+
+
+/* FOOTER */
+img#footer {
+	padding: 10%;
+	max-width: 15em;
+}
+ul#footer {
+	list-style: none;
+}
+ul#footer li {
+	padding-top: 1em;
+}
+.col-md#footer, .col-md-3, .col-md-3>img#footer {
+	text-align: center;
+}
+
+.row#footer-icons {
+	display: inline-block;
+	text-align: center;
+}
+.footer-card#footer img{
+	background-color: rgba(255, 255, 255, 0);
 }
