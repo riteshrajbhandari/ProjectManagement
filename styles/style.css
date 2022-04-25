@@ -146,6 +146,25 @@ a {
 	height:400px;
 }
 
+/* PROFILE SETTINGS */
+ul.nostyle {
+	list-style: none;
+}
+ul.inline li{
+	display: inline;
+}
+.profile-pic {
+	position: relative;
+  }
+  
+  .profile-pic-edit {
+	position: absolute;
+	bottom: 10%;
+	right: 55%;
+	height: 20px;
+	width: 20px;
+  }
+
 
 /* FOOTER */
 img#footer {
