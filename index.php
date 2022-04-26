@@ -12,68 +12,109 @@
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Document</title>
+    <title>Your home to fresh products</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #e3f2fd;">
-        <div class="container-fluid d-flex bd-highlight">
-            <a class="navbar-brand p-2 flex-grow-1 bd-highlight" href="#">
-                <img src="images\logo(small).png" alt="" width="30" height="24" class="d-inline-block align-text-top logo">
-                <div id="logo">
-                    <div id="fresh">
-                        <h1>Fresh</h1>
+    <!-- NAVBAR -->
+    <div class="container-nav flex-row">
+        <nav class="navbar navbar-expand-md navbar-light navcolor">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./index.php">
+                    <img src="images\logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
+                    <div id="logo">
+                        <div id="fresh">
+                            <h1>Fresh</h1>
+                        </div>
+                        <div id="mart">
+                            <h1>Mart</h1>
+                        </div>
                     </div>
-                    <div id="mart">
-                        <h1>Mart</h1>
-                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+                    <form class="navbar-nav justify-content-center d-flex nav-search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                    <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
+                        <li class="nav-item me-2">
+                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="#"> <img src="images/bag-heart.svg" alt="">
+                                Cart</a>
+                        </li>
+                        <li class="nav-item me-2 dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Welcome, USER!
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+        <div class="container">
+            <a href="/" class="navbar-brand d-flex w-50 me-auto">Navbar 3</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar3">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex bd-highlight">
-                    <li class="nav_item p-2 bd-highlight">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <!-- <button class="btn btn-primary" type="submit">Search</button> -->
-                        </form>
+            <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+                <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li> -->
-                    <li class="nav-item p-2 bd-highlight">
-                        <a class="nav-link" href="#">Browse by Category</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="//codeply.com">Codeply</a>
                     </li>
-                    <li class="nav-item p-2 bd-highlight">
-                        <a class="nav-link" href="#">Contact</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
                     </li>
-                    <li class="nav-item p-2 bd-highlight">
-                        <a class="nav-link" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
-                                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-                            </svg>
-                            Cart
-                        </a>
+                </ul>
+                <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Right</a>
                     </li>
-                    <li class="nav-item dropdown p-2 bd-highlight">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome, USER!</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Right</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Menu </a>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="#">Item</a></li>
+                            <li><a class="dropdown-item" href="#">Item</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="#">Item</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
+
+
+
+
+    <!-- CAROUSEL -->
     <div class="container">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -84,21 +125,21 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="images\indeterminate-tomato-variety-1403423-01-bf3ec05de4754840abbd8dc26514bee77.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                         <h5>First slide label</h5>
                         <p>Some representative placeholder content for the first slide.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="images\Untitled.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="images\Untitled.png" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                         <h5>Third slide label</h5>
                         <p>Some representative placeholder content for the third slide.</p>
                     </div>
@@ -115,7 +156,6 @@
         </div>
 
     </div>
-
 
     <!-- <div class="menu-wrapper">
 	<ul class="menu">
@@ -141,49 +181,51 @@
     <div class="container title">
         Offers
     </div>
+
+    <!-- OFFERS SLIDER -->
     <div class="container-slider">
         <div class="row slider">
             <div class="col"></div>
-            <div class="col-10 scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+            <div class="col-lg-10 scrolling-wrapper row flex-row flex-nowrap">
 
-                <div class="col-4">
-                    <div class="card card-block card-1"><img src="images\image.jfif" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-1"><img src="images\image.jfif" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-2"><img src="images\ed04b09381eec3f9.webp" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-2"><img src="images\ed04b09381eec3f9.webp" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-3"><img src="images\groceries-offers.jpg" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-3"><img src="images\groceries-offers.jpg" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-4"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-4"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-5"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-5"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-6"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-6"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-7"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-7"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-8"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-8"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-9"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-9"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
-                <div class="col-4">
-                    <div class="card card-block card-10"><img src="images\Untitled.png" alt="" srcset=""></div>
+                <div class="col-4 fixed-width-card">
+                    <div class="card card-block card-10"><img src="images\Untitled.png" alt="" srcset="" class="offers-img"></div>
                     <div>Lorem ipsum dolor sit amet. <br> $00.00</div>
                 </div>
             </div>
@@ -196,12 +238,112 @@
             <div class="col-3" id="slide" type="button">Next</div>
         </div> -->
     </div>
+    <!-- <br><br><br><br><br><br>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="cards-wrapper">
+                    <div class="card">
+                        <img src="images\image.jfif" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\ed04b09381eec3f9.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\groceries-offers.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="cards-wrapper">
+                    <div class="card">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="cards-wrapper">
+                    <div class="card">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card d-none d-md-block">
+                        <img src="images\Untitled.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <br><br><br> -->
     <br><br>
     <div class="container title">
         Shops
     </div><br>
+
+    <!-- SHOPS -->
     <div class="container">
-        <div class="row row-cols-3 row-cols-md-5 g-4">
+        <div class="row row-cols-2 row-cols-lg-5 g-4">
             <div class="col">
                 <div class="card shop">
                     <img src="images\butchers-knife-17307-1.jpg" class="card-img-top" alt="...">
@@ -248,11 +390,13 @@
     <div class="container title">
         Essentials
     </div><br>
+
+    <!-- ESSENTIALS GRID -->
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <div class="card essentials essentials-large"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
-                    <div class="card-text">
+            <div class="col-md-6 p-3">
+                <div class="card essentials essentials-large gap-3"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
+                    <div class="card-text p-3">
                         <h2>Hello</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -270,17 +414,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 p-3">
                 <div class="row mb-3">
                     <div class="col-6">
                         <div class="card essentials"><img src="images\fishmongers_256623856_1000.jpg" alt="" srcset="">
-                            <div class="card-text">Hello<br>$00.00</div>
+                            <div class="card-text p-2">Hello<br>$00.00</div>
                         </div>
 
                     </div>
                     <div class="col-6">
                         <div class="card essentials"><img src="images\Screenshot 2022-04-09 184212.png" alt="" srcset="">
-                            <div class="card-text">Hello<br>$00.00</div>
+                            <div class="card-text p-2">Hello<br>$00.00</div>
                         </div>
 
                     </div>
@@ -288,13 +432,13 @@
                 <div class="row mb-3">
                     <div class="col-6">
                         <div class="card essentials"><img src="images\Delicatessen-1024x688.jpg" alt="" srcset="">
-                            <div class="card-text">Hello<br>$00.00</div>
+                            <div class="card-text p-2">Hello<br>$00.00</div>
                         </div>
 
                     </div>
                     <div class="col-6">
                         <div class="card essentials"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
-                            <div class="card-text">Hello<br>$00.00</div>
+                            <div class="card-text p-2">Hello<br>$00.00</div>
                         </div>
 
                     </div>
@@ -302,8 +446,10 @@
             </div>
         </div>
     </div>
-    <div class="footer" style="background-color: #e3f2fd;">
-        <div class="container footer" style="background-color: #e3f2fd;">
+
+
+    <!-- <div class="footer navcolor">
+        <div class="container footer navcolor">
             <div class="row">
                 <div class="col-3">
                     <div class="card border-0 footer-card bg-transparent"><img id="footer" src="images\logo.png" alt="" srcset=""></div>
@@ -342,8 +488,41 @@
                     </a>
                 </div>
             </div>
-<br>
+            <br>
         </div>
+    </div> -->
+
+    <div class="footer navcolor">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img id="footer" src="images\logo.png" alt="" srcset="">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md my-auto justify-content-center" id="footer">
+                    <ul id="footer">
+                        <li><a href="http://">Browse By Category</a></li>
+                        <li><a href="http://">Contact</a></li>
+                        <li><a href="http://">Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-1"></div>
+
+                <div class="col-md my-auto" id="footer">
+                    <h2>About Us</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="row" id="footer-icons">
+                    <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
+                    <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
+                    <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
+                    <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
+                </div>
+            </div>
+        </div>
+        <br>
     </div>
 
     <!--Bootstrap JS-->

@@ -16,10 +16,10 @@
 </head>
 
 <body>
-    <div class="container-nav">
+<div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="./index.php">
                     <img src="images\logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
                     <div id="logo">
                         <div id="fresh">
@@ -53,7 +53,7 @@
                                 Welcome, USER!
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -62,7 +62,6 @@
                             </ul>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
