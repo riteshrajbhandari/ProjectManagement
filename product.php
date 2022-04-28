@@ -118,7 +118,7 @@ $result = mysqli_query($connection, $query);
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="../index.php">
+                    <a href="./index.php">
                         <img id="footer" src="images\logo.png" alt="" srcset="">
                     </a>
                 </div>
