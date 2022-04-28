@@ -224,6 +224,19 @@ a {
 	height: 200px;
 }
 
+/* .card-body#shops{
+	padding: 0%;
+	margin: 0%;
+} */
+
+/* (769px and below) */
+@media only screen and (max-width: 769px) {
+	.card-body#shops {
+		padding: 3%;
+		margin: 1%;
+	}
+}
+
 .card.essentials {
 	height: 200px;
 }
@@ -248,15 +261,48 @@ ul.inline li {
 	display: inline;
 }
 .profile-pic {
-	position: relative;
+	background-image: url("../images/106926409_3180377422020755_2425918696468094178_n.jpg");
+	object-fit: cover;
+	height: 15em;
+	width: 15em;
+	border-radius: 50%;
+}
+
+.edit-hover {
+	position: absolute;
+	object-fit: cover;
+	height: 15em;
+	width: 15em;
+	border-radius: 50%;
+	opacity: 50%;
+}
+.edit-hover:hover {
+	background-color: aliceblue;
 }
 
 .profile-pic-edit {
-	position: absolute;
-	bottom: 10%;
-	right: 55%;
-	height: 20px;
-	width: 20px;
+	margin-left: 6em;
+	margin-top: 13em;
+}
+
+ul.settings-links-col {
+	display: none;
+}
+#settings-body{
+	padding: 2em;
+}
+.settings-body > ul.settings-tabs {
+	display: block;
+}
+
+/* (769px and up) */
+@media only screen and (min-width: 769px) {
+	ul.settings-links-col {
+		display: block;
+	}
+	.settings-body > ul.settings-tabs {
+		display: none !important;
+	}
 }
 
 /* FOOTER */
@@ -287,7 +333,6 @@ ul#footer li {
 	width: 100vw;
 }
 
-
-li.categories{
-	display:none;
+li.categories {
+	display: none;
 }
