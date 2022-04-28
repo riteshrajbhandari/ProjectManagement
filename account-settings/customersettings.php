@@ -67,41 +67,6 @@
         </nav>
     </div>
     <div class="row">
-        <!-- <div class="col-3 settings-tabs">
-            <ul class="nostyle">
-                <a href="http://">
-                    <li>
-                        My Profile
-                    </li>
-                </a>
-                <a href="http://">
-                    <li>
-                        My Orders
-                    </li>
-                </a>
-                <a href="http://">
-                    <li>
-                        Contact Information
-                    </li>
-                </a>
-                <a href="http://">
-                    <li>
-                        Change Password
-                    </li>
-                </a>
-                <a href="http://">
-                    <li>
-                        Payment Information
-                    </li>
-                </a>
-                <a href="http://">
-                    <li>
-                        My Wishlist
-                    </li>
-                </a>
-            </ul>
-
-        </div> -->
         <ul class="nav flex-column col-3 settings-links-col">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#" id="myprofile">My Profile</a>
@@ -152,11 +117,6 @@
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
                         </a>
                     </div>
-
-                    <!-- this is not gonna work because scaling breaks placement of edit button 
-                    within profile pic. make a circle div, put the profile pic inside it, and then 
-                    place the edit button using % i.e. relative to parent (which in this case should 
-                    be the circle) -->
                     <div class="col-lg-4">
                         <h1>Full Name</h1>
                         email@domain.com <img src="../images/pencil-square.svg" alt="">

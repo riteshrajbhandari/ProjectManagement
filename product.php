@@ -72,7 +72,7 @@
 
 
 
-    <!-- $result = "";
+        <!-- $result = "";
 if (isset($_POST['submitSearch']) && $_POST['category'] != 'Select your category') {
     $query = "SELECT * FROM search_products WHERE Category = '" . $_POST['category'] . "' and Name LIKE '%" . $_POST['searchtxt'] . "%';";
 $result = mysqli_query($connection, $query);
@@ -84,8 +84,8 @@ $result = mysqli_query($connection, $query);
         <div class="row">
             <div class="col-lg-6"><img src="./images/amazon-pantry-offer-660_071118044704.webp" alt="" srcset="" style="width: 400px;"></div>
             <div class="col-lg-6">
-                <h1><?php echo $_GET['pid']?>
-                Product Title</h1><br>
+                <h1><?php echo $_GET['pid'] ?>
+                    Product Title</h1><br>
                 rating
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi repudiandae ratione iure molestiae. Quaerat animi maiores doloribus nam voluptate?
@@ -105,10 +105,10 @@ $result = mysqli_query($connection, $query);
                 for ($i = 0; $i < 3; $i++) {
                     echo $fullname;
                     echo $dateWritten;
-                    
+
                     for ($j = 0; $j < $noOfStars; $j++)
                         echo " Star";
-                    echo $review."<br><br>";
+                    echo $review . "<br><br>";
                 }
                 ?>
             </div>
@@ -118,7 +118,9 @@ $result = mysqli_query($connection, $query);
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <img id="footer" src="images\logo.png" alt="" srcset="">
+                    <a href="../index.php">
+                        <img id="footer" src="images\logo.png" alt="" srcset="">
+                    </a>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md my-auto justify-content-center" id="footer">
