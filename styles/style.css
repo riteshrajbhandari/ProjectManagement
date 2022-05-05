@@ -336,3 +336,30 @@ ul#footer li {
 li.categories {
 	display: none;
 }
+
+/* ABOUT */
+body.about{
+    background: #eee;
+}
+
+.heading{
+    margin: 1em;
+    padding: 1em;
+    font-weight: bold;
+    margin-left: 12em;
+}
+
+.main {
+    border-radius: 5em;
+    width: 12em;
+    height: 10em;
+}
+
+.row-1#about{
+    padding: 1em;
+}
+
+.about-team h6{
+    margin: 1em;
+    padding-left: 1.5em;
+}

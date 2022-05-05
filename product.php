@@ -84,7 +84,12 @@ $result = mysqli_query($connection, $query);
         <div class="row">
             <div class="col-lg-6"><img src="./images/amazon-pantry-offer-660_071118044704.webp" alt="" srcset="" style="width: 400px;"></div>
             <div class="col-lg-6">
-                <h1><?php echo $_GET['pid'] ?>
+                <h1><?php
+                    $result = "";
+                    if (isset($_GET['pid']))
+                        echo $_GET['pid'];
+                    else echo 0000;
+                    ?>
                     Product Title</h1><br>
                 rating
                 <p>
