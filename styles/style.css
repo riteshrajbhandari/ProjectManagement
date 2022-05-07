@@ -158,7 +158,7 @@ a {
 // 	background: #009938;
 // } */
 .card-text svg {
-	display: inline-block;
+	/* display: inline-block; */
 	float: right;
 }
 .card-text h2 {
@@ -363,3 +363,11 @@ body.about{
     margin: 1em;
     padding-left: 1.5em;
 }
+
+/* PRODUCT */
+.row.product{
+	padding-top: 4em;
+}
+/* .row.empty{
+	padding-bottom: 10vw;
+} */

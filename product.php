@@ -1,3 +1,6 @@
+<?php
+include('connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +84,7 @@ $result = mysqli_query($connection, $query);
 
 
 
-        <div class="row">
+        <div class="row product">
             <div class="col-lg-6"><img src="./images/amazon-pantry-offer-660_071118044704.webp" alt="" srcset="" style="width: 400px;"></div>
             <div class="col-lg-6">
                 <h1><?php
@@ -92,16 +95,20 @@ $result = mysqli_query($connection, $query);
                     ?>
                     Product Title</h1><br>
                 rating
+                <br>
+                Price
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi repudiandae ratione iure molestiae. Quaerat animi maiores doloribus nam voluptate?
                 </p>
             </div>
         </div>
+        <!-- <div class="row product empty"></div> -->
         <div class="row">
             <div class="col-lg-6">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptatum laboriosam, eos consectetur aliquam officiis voluptate repudiandae quaerat, sapiente voluptatibus assumenda nulla sunt deserunt illo veniam quo, recusandae enim! Obcaecati dolorem libero deserunt aspernatur architecto itaque perferendis, repellat sint cum molestiae magni et reiciendis placeat nihil! Obcaecati neque minima praesentium?</p>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 reviews">
+                <hr>
                 <?php
                 $fullname = "full name ";
                 $dateWritten = " dd/mm/yyyy ";
