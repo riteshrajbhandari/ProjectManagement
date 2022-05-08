@@ -83,48 +83,95 @@ $result = mysqli_query($connection, $query);
 
 
 
+        <?php
 
-        <div class="row product">
-            <div class="col-lg-6"><img src="./images/amazon-pantry-offer-660_071118044704.webp" alt="" srcset="" style="width: 400px;"></div>
-            <div class="col-lg-6">
-                <h1><?php
-                    $result = "";
-                    if (isset($_GET['pid']))
-                        echo $_GET['pid'];
-                    else echo 0000;
+
+        $pid = $_GET['pid'];
+
+        $stid = oci_parse($connection, "SELECT * FROM product WHERE product_id = '$pid'");
+        oci_execute($stid);
+
+        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+            $product_name = $row['PRODUCT_NAME'];
+            $price = $row['UNIT_PRICE'];
+            $stock = $row['STOCK'];
+            $shop_id = $row['SHOP_ID'];
+            // $offer_id = $row['OFFER_ID'];
+            $cateogory_id = $row['CATEGORY_ID'];
+            $availability = $row['AVAILABLE'];
+            $description = $row['PRODUCT_DESCRIPTION'];
+            $report_id = $row['REPORT_ID'];
+            $img_url = $row['IMG_URL'];
+            $shop_id = $row['SHOP_ID'];
+            $category_id = $row['CATEGORY_ID'];
+            // header("Location: index.php");
+            // foreach ($row as $item) {
+            //       $row[0];
+            //     TODO: how to get just the first_name
+            //     $_SESSION['user']=$item;
+            //     header("Location: index.php");
+            //     echo ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;");
+            // }
+        } else echo 'product does not exist';
+
+        // while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+        //     echo $row['ID'] . "<br>\n";
+        //     echo $row['DESCRIPTION']->read(11) . "<br>\n"; // this will output first 11 bytes from DESCRIPTION
+        // }
+
+        ?>
+
+
+
+        <?php
+        if (isset($_GET['pid'])) {
+        ?>
+            <div class="row product">
+                <div class="col-lg-6"><img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;"></div>
+                <div class="col-lg-6">
+                    <h1><?php
+                        $result = "";
+                        if (isset($_GET['pid']))
+                            echo $_GET['pid'];
+                        else echo 0000;
+                        ?>
+                        Product Title</h1><br>
+                    rating
+                    <br>
+                    Price
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi repudiandae ratione iure molestiae. Quaerat animi maiores doloribus nam voluptate?
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="row product empty"></div> -->
+            <div class="row product">
+                <div class="col-lg-6">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptatum laboriosam, eos consectetur aliquam officiis voluptate repudiandae quaerat, sapiente voluptatibus assumenda nulla sunt deserunt illo veniam quo, recusandae enim! Obcaecati dolorem libero deserunt aspernatur architecto itaque perferendis, repellat sint cum molestiae magni et reiciendis placeat nihil! Obcaecati neque minima praesentium?</p>
+                </div>
+                <div class="col-lg-6 reviews">
+                    <hr>
+                    <?php
+                    $fullname = "full name ";
+                    $dateWritten = " dd/mm/yyyy ";
+                    $noOfStars = 4;
+                    $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
+                    for ($i = 0; $i < 3; $i++) {
+                        echo $fullname;
+                        echo $dateWritten;
+
+                        for ($j = 0; $j < $noOfStars; $j++)
+                            echo " Star";
+                        echo $review . "<br><br>";
+                    }
                     ?>
-                    Product Title</h1><br>
-                rating
-                <br>
-                Price
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi repudiandae ratione iure molestiae. Quaerat animi maiores doloribus nam voluptate?
-                </p>
+                </div>
             </div>
-        </div>
-        <!-- <div class="row product empty"></div> -->
-        <div class="row">
-            <div class="col-lg-6">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptatum laboriosam, eos consectetur aliquam officiis voluptate repudiandae quaerat, sapiente voluptatibus assumenda nulla sunt deserunt illo veniam quo, recusandae enim! Obcaecati dolorem libero deserunt aspernatur architecto itaque perferendis, repellat sint cum molestiae magni et reiciendis placeat nihil! Obcaecati neque minima praesentium?</p>
-            </div>
-            <div class="col-lg-6 reviews">
-                <hr>
-                <?php
-                $fullname = "full name ";
-                $dateWritten = " dd/mm/yyyy ";
-                $noOfStars = 4;
-                $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
-                for ($i = 0; $i < 3; $i++) {
-                    echo $fullname;
-                    echo $dateWritten;
+        <?php
+        }
+        ?>
 
-                    for ($j = 0; $j < $noOfStars; $j++)
-                        echo " Star";
-                    echo $review . "<br><br>";
-                }
-                ?>
-            </div>
-        </div>
+
     </div>
     <div class="footer navcolor">
         <div class="container">

@@ -65,7 +65,7 @@
                                     echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
                                 } else{
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
-                                    echo '<li><a class="dropdown-item" href="#">Register</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }
                                 ?>
                                 <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
@@ -238,7 +238,7 @@
     <!-- ESSENTIALS GRID -->
     <div class="container">
         <div class="row">
-            <div class="col-md-6 p-3"><a href="./product.php?pid=1234">
+            <div class="col-md-6 p-3"><a href="./product.php?pid=4">
                     <div class="card essentials essentials-large gap-3"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
                         <div class="card-text p-3">
                             <h2>Hello</h2>

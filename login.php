@@ -33,17 +33,18 @@ session_start();
         $stid = oci_parse($connection, "SELECT username, first_name FROM users WHERE username = '$username' and password = '$password'");
         oci_execute($stid);
 
-        if ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-            foreach ($row as $item) {
-                // echo $item['first_name'];
-                // TODO: how to get just the first_name
-                $_SESSION['user']=$item;
-                header("Location: index.php");
-                // echo ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;");
-            }
+        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+            $_SESSION['user'] = $row['FIRST_NAME'];
+            header("Location: index.php");
+            // foreach ($row as $item) {
+            //     echo $row[0];
+            //     TODO: how to get just the first_name
+            //     $_SESSION['user']=$item;
+            //     header("Location: index.php");
+            //     echo ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;");
+            // }
         } else
             echo 'username and password combination incorrect. New user? <a href="register.php">Register now</a>';
-            
     }
     ?>
 
