@@ -1,3 +1,5 @@
+
+   
 --------------------------------------------------------------
 -- Database creation Script
 
@@ -54,11 +56,11 @@ CREATE TABLE PAYMENT(
 	payment_id	INTEGER NOT NULL,
 	payment_method	VARCHAR(20),
 	net_price	FLOAT(8),
-	-- user_id	INTEGER,
+	-- user_id	INTEGER, hata
 	payed_amt	FLOAT(8),
 	returned_amt	FLOAT(8),
 	payment_date	DATE,
-	-- order_id	INTEGER,
+	order_id	INTEGER,
 	fk1_user_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "PAYMENT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
@@ -164,7 +166,7 @@ CREATE TABLE SHOP(
 	shop_id	INTEGER NOT NULL,
 	shop_name	VARCHAR(20),
 	user_id	INTEGER,
-	-- fk1_trader_id	INTEGER NOT NULL,
+	fk1_trader_id	INTEGER NOT NULL, // kabat ayo trader ko table xaina
 	-- Specify the PRIMARY KEY constraint for table "SHOP".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_SHOP PRIMARY KEY (shop_id)
@@ -246,21 +248,21 @@ CREATE TABLE WISHLIST_PRODUCT(
 -- Create a Database table to represent the "ORDER_PRODUCT" entity.
 CREATE TABLE ORDER_PRODUCT(
 	order_id	INTEGER NOT NULL,
-	-- product_id	INTEGER NOT NULL,
-	fk1_product_id	INTEGER NOT NULL,
+	product_id	INTEGER NOT NULL,
+	-- fk1_product_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDER_PRODUCT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
-	CONSTRAINT	pk_ORDER_PRODUCT PRIMARY KEY (order_id,fk1_product_id)
+	CONSTRAINT	pk_ORDER_PRODUCT PRIMARY KEY (order_id,product_id)
 );
 
 -- Create a Database table to represent the "ORDER_REPORT" entity.
 CREATE TABLE ORDER_REPORT(
 	order_id	INTEGER NOT NULL,
-	-- report_id	INTEGER NOT NULL,
-	fk1_report_id	INTEGER NOT NULL,
+	report_id	INTEGER NOT NULL,
+	-- fk1_report_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDER_REPORT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
-	CONSTRAINT	pk_ORDER_REPORT PRIMARY KEY (order_id,fk1_report_id)
+	CONSTRAINT	pk_ORDER_REPORT PRIMARY KEY (order_id,report_id)
 );
 
 
@@ -451,7 +453,7 @@ ALTER TABLE OFFER ADD CONSTRAINT fk1_OFFER_to_USER FOREIGN KEY(fk1_user_id) REFE
 -- This constraint ensures that the foreign key of table "SHOP"
 -- correctly references the primary key of table "USER"
 
-ALTER TABLE SHOP ADD CONSTRAINT fk1_SHOP_to_USER FOREIGN KEY(user_id) REFERENCES USERS(user_id);
+ALTER TABLE SHOP ADD CONSTRAINT fk1_SHOP_to_USER FOREIGN KEY(fk1_trader_id) REFERENCES USERS(user_id);
 
 -- Alter table to add new constraints required to implement the "PAYMENT_USER" relationship
 
@@ -553,18 +555,18 @@ begin
   end if; 
 end;
 /
-
-DROP SEQUENCE review_seq;
-CREATE SEQUENCE review_seq;
-create or replace trigger add_new_review
-BEFORE
-insert on review
-for each row
-begin
-  if :NEW.review_id is null then 
-    select review_seq.nextval into :NEW.review_id from sys.dual; 
-  end if; 
-end;
-/
 commit;
 /
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
