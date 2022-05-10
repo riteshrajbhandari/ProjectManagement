@@ -71,21 +71,7 @@ include('connection.php');
         </nav>
     </div>
     <div class="container">
-
-
-
-
-        <!-- $result = "";
-if (isset($_POST['submitSearch']) && $_POST['category'] != 'Select your category') {
-    $query = "SELECT * FROM search_products WHERE Category = '" . $_POST['category'] . "' and Name LIKE '%" . $_POST['searchtxt'] . "%';";
-$result = mysqli_query($connection, $query);
-} -->
-
-
-
         <?php
-
-
         $pid = $_GET['pid'];
 
         $stid = oci_parse($connection, "SELECT * FROM product WHERE product_id = '$pid'");
@@ -99,19 +85,107 @@ $result = mysqli_query($connection, $query);
             // $offer_id = $row['OFFER_ID'];
             $cateogory_id = $row['CATEGORY_ID'];
             $availability = $row['AVAILABLE'];
+            $short_description = $row['SHORT_DESCRIPTION'];
             $description = $row['PRODUCT_DESCRIPTION'];
             $report_id = $row['REPORT_ID'];
             $img_url = $row['IMG_URL'];
+            $rating = $row['RATING'];
             $shop_id = $row['SHOP_ID'];
             $category_id = $row['CATEGORY_ID'];
-            // header("Location: index.php");
-            // foreach ($row as $item) {
-            //       $row[0];
-            //     TODO: how to get just the first_name
-            //     $_SESSION['user']=$item;
-            //     header("Location: index.php");
-            //     echo ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;");
-            // }
+
+            if (isset($_GET['pid'])) {
+        ?>
+                <div class="row product">
+                    <div class="col-lg-6"><img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;"></div>
+                    <div class="col-lg-6">
+                        <h1><?php
+                            echo $product_name;
+                            ?>
+                        </h1><br>
+                        rating:
+                        <?php echo $rating; ?>
+                        <br>
+                        Price: <?php echo $price; ?>
+                        <p>
+                            <?php echo $short_description; ?>
+                        </p>
+                    </div>
+                </div>
+                <!-- <div class="row product empty"></div> -->
+                <div class="row product">
+                    <div class="col-lg-6">
+                        <p><?php echo $description; ?>
+                        </p>
+                    </div>
+                    <div class="col-lg-6 reviews">
+                        <hr>
+                        <div class="add-review">
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <fieldset>
+                                    <label for="rating">Rating: </label>
+
+                                    <input type="text" name="emailTxt" value="<?php if (isset($_POST['rating'])) {
+                                                                                    echo $_POST['emailTxt'];
+                                                                                } else echo ''; ?>" /><br />
+                                    <legend>Comments</legend>
+                                    <label for="email">Email: </label>
+                                    <input type="text" name="emailTxt" value="<?php if (isset($_POST['emailTxt'])) {
+                                                                                    echo $_POST['emailTxt'];
+                                                                                } else echo ''; ?>" /><br />
+                                    <textarea rows="4" cols="50" name="commentTxt"><?php if (isset($_POST['commentTxt'])) {
+                                                                                        echo $_POST['commentTxt'];
+                                                                                    } else echo ''; ?></textarea><br />
+                                    <label for="confirm">Click to Confirm: </label>
+                                    <input type="checkbox" name="checkBox" value="agree"><br />
+                                    <input type="submit" value="Submit" name="sendComment" />
+                                    <input type="reset" value="Clear" />
+                                </fieldset>
+                            </form>
+                            <?php
+                            $confirm = 'Not Agreed<br />';
+                            if (isset($_POST['checkBox'])) {
+                                if (isset($_POST['sendComment'])) {
+                                    if (!empty($_POST['emailTxt'])) {
+                                        if (filter_var($_POST['emailTxt'], FILTER_VALIDATE_EMAIL)) {
+                                            if (!empty($_POST['commentTxt'])) {
+                                                $sendEmail = $_POST['emailTxt'];
+                                                $sendComment = $_POST['commentTxt'];
+                                                echo '<br/>' . $sendEmail;
+                                                echo '<br/>' . $sendComment;
+                                                $confirm = 'Agreed<br />';
+                                            } else {
+                                                echo 'comment must not be empty<br />';
+                                            }
+                                        } else {
+                                            echo 'email not valid<br />';
+                                        }
+                                    } else {
+                                        echo 'email must not be empty<br />';
+                                    }
+                                }
+                            }
+
+                            echo $confirm;
+                            ?>
+                        </div>
+                        <?php
+                        $fullname = "full name ";
+                        $dateWritten = " dd/mm/yyyy ";
+                        $noOfStars = 4;
+                        $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
+                        for ($i = 0; $i < 3; $i++) {
+                            echo $fullname;
+                            echo $dateWritten;
+
+                            for ($j = 0; $j < $noOfStars; $j++)
+                                echo " Star";
+                            echo $review . "<br><br>";
+                        }
+                        ?>
+                    </div>
+                </div>
+        <?php
+            }
         } else echo 'product does not exist';
 
         // while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
@@ -124,51 +198,7 @@ $result = mysqli_query($connection, $query);
 
 
         <?php
-        if (isset($_GET['pid'])) {
-        ?>
-            <div class="row product">
-                <div class="col-lg-6"><img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;"></div>
-                <div class="col-lg-6">
-                    <h1><?php
-                        $result = "";
-                        if (isset($_GET['pid']))
-                            echo $_GET['pid'];
-                        else echo 0000;
-                        ?>
-                        Product Title</h1><br>
-                    rating
-                    <br>
-                    Price
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi repudiandae ratione iure molestiae. Quaerat animi maiores doloribus nam voluptate?
-                    </p>
-                </div>
-            </div>
-            <!-- <div class="row product empty"></div> -->
-            <div class="row product">
-                <div class="col-lg-6">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptatum laboriosam, eos consectetur aliquam officiis voluptate repudiandae quaerat, sapiente voluptatibus assumenda nulla sunt deserunt illo veniam quo, recusandae enim! Obcaecati dolorem libero deserunt aspernatur architecto itaque perferendis, repellat sint cum molestiae magni et reiciendis placeat nihil! Obcaecati neque minima praesentium?</p>
-                </div>
-                <div class="col-lg-6 reviews">
-                    <hr>
-                    <?php
-                    $fullname = "full name ";
-                    $dateWritten = " dd/mm/yyyy ";
-                    $noOfStars = 4;
-                    $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
-                    for ($i = 0; $i < 3; $i++) {
-                        echo $fullname;
-                        echo $dateWritten;
 
-                        for ($j = 0; $j < $noOfStars; $j++)
-                            echo " Star";
-                        echo $review . "<br><br>";
-                    }
-                    ?>
-                </div>
-            </div>
-        <?php
-        }
         ?>
 
 

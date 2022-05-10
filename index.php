@@ -46,7 +46,7 @@
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -238,7 +238,7 @@
     <!-- ESSENTIALS GRID -->
     <div class="container">
         <div class="row">
-            <div class="col-md-6 p-3"><a href="./product.php?pid=4">
+            <div class="col-md-6 p-3"><a href="./product.php?pid=1">
                     <div class="card essentials essentials-large gap-3"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
                         <div class="card-text p-3">
                             <h2>Hello</h2>
