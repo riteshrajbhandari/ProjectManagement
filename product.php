@@ -81,29 +81,28 @@ include('connection.php');
             $product_name = $row['PRODUCT_NAME'];
             $price = $row['UNIT_PRICE'];
             $stock = $row['STOCK'];
-            $shop_id = $row['SHOP_ID'];
+            // $shop_id = $row['SHOP_ID'];
             // $offer_id = $row['OFFER_ID'];
-            $cateogory_id = $row['CATEGORY_ID'];
+            $category_id = $row['FK3_CATEGORY_ID'];
             $availability = $row['AVAILABLE'];
             $short_description = $row['SHORT_DESCRIPTION'];
             $description = $row['PRODUCT_DESCRIPTION'];
-            $report_id = $row['REPORT_ID'];
+            // $report_id = $row['FK4_REPORT_ID'];
             $img_url = $row['IMG_URL'];
             $rating = $row['RATING'];
-            $shop_id = $row['SHOP_ID'];
-            $category_id = $row['CATEGORY_ID'];
+            $shop_id = $row['FK2_SHOP_ID'];
 
             if (isset($_GET['pid'])) {
         ?>
                 <div class="row product">
-                    <div class="col-lg-6"><img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;"></div>
                     <div class="col-lg-6">
-                        <h1><?php
-                            echo $product_name;
-                            ?>
+                        <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;">
+                    </div>
+                    <div class="col-lg-6">
+                        <h1>
+                            <?php echo $product_name; ?>
                         </h1><br>
-                        rating:
-                        <?php echo $rating; ?>
+                        rating: <?php echo $rating; ?>
                         <br>
                         Price: <?php echo $price; ?>
                         <p>
@@ -120,6 +119,50 @@ include('connection.php');
                     <div class="col-lg-6 reviews">
                         <hr>
                         <div class="add-review">
+                            <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
+                                <fieldset>
+                                    <legend>
+                                        Create Review
+                                    </legend>
+                                    <!-- <label for="review-title">Title </label> -->
+                                    <input type="text" id="review-title" name="review-title" value="<?php if (isset($_POST['submitReview'])) echo $_POST['review-title'];
+                                                                                                    elseif (isset($_POST['clearReview'])) echo "";
+                                                                                                    ?>" placeholder="Title" />
+                                    <textarea rows="4" cols="50" name="review-body" placeholder="Your review"><?php if (isset($_POST['review-body'])) {
+                                                                                                                    echo $_POST['review-body'];
+                                                                                                                } else echo ''; ?></textarea><br />
+                                    <span><?php
+                                            if (isset($_POST['submitReview'])) {
+                                                $review = $_POST['review-body'];
+                                                if (empty($email)) {
+                                                    echo '<br/>Can not submit empty review';
+                                                    $error = true;
+                                                }
+                                            }
+                                            if (isset($_POST['clearReview'])) {
+                                                echo '';
+                                                $error = false;
+                                            } ?></span>
+
+                                    <input type="submit" value="Submit" name="submitReview" />
+                                    <input type="reset" value="Clear" name="clearReview" />
+                                </fieldset>
+                            </form>
+                            <?php
+                            if (isset($_POST['submitReview'])) {
+
+                                // $username = $_POST['username'];
+                                // $email = $_POST['email'];
+                                // $password = $_POST['password'];
+                                if (!$error) {
+                                    $stid = oci_parse($connection, "INSERT INTO users (username, email, password)
+            VALUES ('$username', '$email', '$password')");
+                                    oci_execute($stid); // The row is committed and immediately visible to other users
+                                    header("Location: login.php");
+                                }
+                            }
+
+                            ?>
                             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <fieldset>
                                     <label for="rating">Rating: </label>
