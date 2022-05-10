@@ -22,6 +22,7 @@ ul.navbar-links {
 .navcolor {
 	background-color: #e3f2fd;
 }
+
 .container-nav {
 	width: 100vw;
 }
@@ -350,7 +351,7 @@ body.about{
 }
 
 .main {
-    border-radius: 5em;
+    border-radius: 3em;
     width: 12em;
     height: 10em;
 }
