@@ -20,11 +20,12 @@
   $username = $_POST['txtusername'];
   $password = $_POST['txtpassword'];
 
-  $stid = oci_parse($connection, "SELECT username, first_name FROM users WHERE username = '$username' and password = '$password'");
+  $stid = oci_parse($connection, "SELECT user_id, username, first_name FROM users WHERE username = '$username' and password = '$password'");
   oci_execute($stid);
 
   if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
       $_SESSION['user'] = $row['FIRST_NAME'];
+      $_SESSION['user_id'] = $row['USER_ID'];
       header("Location: main.php");
       // foreach ($row as $item) {
       //     echo $row[0];
@@ -59,7 +60,7 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form action="login.php">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>

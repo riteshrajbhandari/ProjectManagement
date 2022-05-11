@@ -372,3 +372,13 @@ body.about{
 /* .row.empty{
 	padding-bottom: 10vw;
 } */
+
+/* REVIEW */
+.review-title{
+	font-size: 150%;
+}
+.review-profile-pic{
+	height: 1em;
+	width: auto;
+	/* display: inline-block; */
+}

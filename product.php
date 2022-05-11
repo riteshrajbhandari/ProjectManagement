@@ -82,7 +82,7 @@ include('connection.php');
             $price = $row['UNIT_PRICE'];
             $stock = $row['STOCK'];
             // $shop_id = $row['SHOP_ID'];
-            // $offer_id = $row['OFFER_ID'];
+            $offer_id = $row['FK1_OFFER_ID'];
             $category_id = $row['FK3_CATEGORY_ID'];
             $availability = $row['AVAILABLE'];
             $short_description = $row['SHORT_DESCRIPTION'];
@@ -108,8 +108,28 @@ include('connection.php');
                         <p>
                             <?php echo $short_description; ?>
                         </p>
+                        <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
+                            <div class="quantity">
+                                Quantity:
+                                <input type="number" value="1" min="1" class="quantity-field">
+                                <input class="btn btn-primary" type="button" value="Add to cart">
+                            </div>
+                        </form>
+                        <?php //TODO: after order
+                        // if (isset($_POST['Add to cart'])) {
+
+                        //         $stid = oci_parse($connection, "INSERT INTO cart (username, email, password)
+                        //         VALUES ('$username', '$email', '$password')");
+                        //         oci_execute($stid); // The row is committed and immediately visible to other users
+                        //         header("Location: login.php");
+                        //     }
+                        // }
+
+                        ?>
                     </div>
+
                 </div>
+
                 <!-- <div class="row product empty"></div> -->
                 <div class="row product">
                     <div class="col-lg-6">
@@ -130,62 +150,52 @@ include('connection.php');
                                                                                                     ?>" placeholder="Title" />
                                     <textarea rows="4" cols="50" name="review-body" placeholder="Your review"><?php if (isset($_POST['review-body'])) {
                                                                                                                     echo $_POST['review-body'];
-                                                                                                                } else echo ''; ?></textarea><br />
+                                                                                                                } elseif (isset($_POST['clearReview'])) echo "";
+                                                                                                                ?></textarea><br />
                                     <span><?php
                                             if (isset($_POST['submitReview'])) {
-                                                $review = $_POST['review-body'];
-                                                if (empty($email)) {
-                                                    echo '<br/>Can not submit empty review';
-                                                    $error = true;
+                                                if (!isset($_SESSION['user'])) {
+                                                    echo 'Please <a href="login.php">login</a> to post your review.<br>';
+                                                } else {
+                                                    $review = $_POST['review-body'];
+                                                    if (empty($_POST['review-body'])) {
+                                                        echo '<br/>Can not submit empty review';
+                                                        $error = true;
+                                                    }
+
+                                                    if (isset($_POST['clearReview'])) {
+                                                        echo '';
+                                                        $error = false;
+                                                    }
                                                 }
-                                            }
-                                            if (isset($_POST['clearReview'])) {
-                                                echo '';
-                                                $error = false;
                                             } ?></span>
+                                    <label for="rating">Rating: </label>
+
+                                    <input type="number" name="rating" value="<?php /* if (isset($_POST['rating'])) {
+                                                                                    echo $_POST['rating'];
+                                                                                } elseif (isset($_POST['clearReview'])) echo "1";  */ ?>" min="1" max="5" step="0.5" /><br>
 
                                     <input type="submit" value="Submit" name="submitReview" />
-                                    <input type="reset" value="Clear" name="clearReview" />
+                                    <input type="submit" value="Clear" name="clearReview" />
                                 </fieldset>
                             </form>
                             <?php
                             if (isset($_POST['submitReview'])) {
+                                $review_title = $_POST['review-title'];
+                                $review = $_POST['review-body'];
+                                $rating = $_POST['rating'];
+                                $user_id = $_SESSION['user_id'];
 
-                                // $username = $_POST['username'];
-                                // $email = $_POST['email'];
-                                // $password = $_POST['password'];
                                 if (!$error) {
-                                    $stid = oci_parse($connection, "INSERT INTO users (username, email, password)
-            VALUES ('$username', '$email', '$password')");
+                                    $stid = oci_parse($connection, "INSERT INTO review (review_title, review_text, rating, FK1_PRODUCT_ID, FK2_USER_ID)
+            VALUES ('$review_title', '$review', '$rating', '$pid', '$user_id')");
                                     oci_execute($stid); // The row is committed and immediately visible to other users
-                                    header("Location: login.php");
+                                    header("Location: ./product.php?pid=" . $pid);
                                 }
                             }
 
                             ?>
-                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <fieldset>
-                                    <label for="rating">Rating: </label>
-
-                                    <input type="text" name="emailTxt" value="<?php if (isset($_POST['rating'])) {
-                                                                                    echo $_POST['emailTxt'];
-                                                                                } else echo ''; ?>" /><br />
-                                    <legend>Comments</legend>
-                                    <label for="email">Email: </label>
-                                    <input type="text" name="emailTxt" value="<?php if (isset($_POST['emailTxt'])) {
-                                                                                    echo $_POST['emailTxt'];
-                                                                                } else echo ''; ?>" /><br />
-                                    <textarea rows="4" cols="50" name="commentTxt"><?php if (isset($_POST['commentTxt'])) {
-                                                                                        echo $_POST['commentTxt'];
-                                                                                    } else echo ''; ?></textarea><br />
-                                    <label for="confirm">Click to Confirm: </label>
-                                    <input type="checkbox" name="checkBox" value="agree"><br />
-                                    <input type="submit" value="Submit" name="sendComment" />
-                                    <input type="reset" value="Clear" />
-                                </fieldset>
-                            </form>
-                            <?php
-                            $confirm = 'Not Agreed<br />';
+                            <?php /* 
                             if (isset($_POST['checkBox'])) {
                                 if (isset($_POST['sendComment'])) {
                                     if (!empty($_POST['emailTxt'])) {
@@ -207,23 +217,76 @@ include('connection.php');
                                     }
                                 }
                             }
-
-                            echo $confirm;
+                            echo $confirm; */
                             ?>
                         </div>
                         <?php
-                        $fullname = "full name ";
-                        $dateWritten = " dd/mm/yyyy ";
-                        $noOfStars = 4;
-                        $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
-                        for ($i = 0; $i < 3; $i++) {
-                            echo $fullname;
-                            echo $dateWritten;
 
-                            for ($j = 0; $j < $noOfStars; $j++)
-                                echo " Star";
+                        $stid = oci_parse(
+                            $connection,
+                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID"
+                        );
+                        oci_execute($stid);
+
+
+                        $number_of_reviews = 0;
+                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false and $number_of_reviews < 5) {
+
+
+
+
+                            $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+                            $dateWritten = $row['REVIEW_DATE'];
+                            $rating = $row['RATING'];
+                            $review_title = $row['REVIEW_TITLE'];
+                            $review = $row['REVIEW_TEXT'];
+                            $profile_pic_url = $row['PROFILE_PIC_URL'];
+
+
+                            
+                            echo '<img src="'.$profile_pic_url.'" alt="profile_pic" class="review-profile-pic">';
+                            echo $fullname . "<br>";
+                            echo $rating . "";
+                            echo $dateWritten . " ";
+                            echo '<div class="review-title">' . $review_title . "</div>";
                             echo $review . "<br><br>";
                         }
+
+
+
+
+
+
+
+
+                        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+
+
+                            $fullname = "full name ";
+                            $dateWritten = " dd/mm/yyyy ";
+                            $noOfStars = 4;
+                            $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
+                            for ($i = 0; $i < 3; $i++) {
+                                echo $fullname;
+                                echo $dateWritten;
+
+                                for ($j = 0; $j < $noOfStars; $j++)
+                                    echo " Star";
+                                echo $review . "<br><br>";
+                            }
+                            // $$_SESSION['user'] = $row['FIRST_NAME'];
+                            // $_SESSION['user_id'] = $row['USER_ID'];
+                            // header("Location: main.php");
+                            // foreach ($row as $item) {
+                            //     echo $row[0];
+                            //     TODO: how to get just the first_name
+                            //     $_SESSION['user']=$item;
+                            //     header("Location: index.php");
+                            //     echo ($item !== null ? htmlentities($item, ENT_QUO  TES) : "&nbsp;");
+                            // }
+                        }
+
+
                         ?>
                     </div>
                 </div>

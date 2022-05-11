@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="myLeftCtn"> 
-                        <form class="myForm text-center method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?></form> ">
+                        <form class="myForm text-center method="POST" action="registration.php">
                             <header>Create new account</header>
                             <div class="form-group">
                                 <i class="fas fa-user"></i>

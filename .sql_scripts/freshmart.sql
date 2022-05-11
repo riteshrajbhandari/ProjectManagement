@@ -72,6 +72,7 @@ CREATE TABLE REVIEW(
 	review_title	VARCHAR(20),
 	review_text	VARCHAR(100),
 	-- user_id	INTEGER,
+	review_date DATE,
 	rating NUMBER(4,2)NOT NULL,
 	fk1_product_id	INTEGER NOT NULL,
 	fk2_user_id	INTEGER NOT NULL,
@@ -103,6 +104,7 @@ CREATE TABLE ORDERS(
 CREATE TABLE CART(
 	cart_id	INTEGER NOT NULL,
 	-- user_id	INTEGER,
+	amount INTEGER,
 	fk1_order_id	INTEGER NOT NULL,
 	-- Specify FK as unique to maintain 1:1 relationship
 	UNIQUE(fk1_order_id),
@@ -150,7 +152,7 @@ CREATE TABLE PRODUCT(
 	-- report_id	INTEGER,
 	img_url VARCHAR(100),
 	rating NUMBER(4,2),
-	fk1_offer_id	INTEGER,
+	fk1_offer_id	INTEGER DEFAULT 0,
 	fk2_shop_id	INTEGER NOT NULL,
 	fk3_category_id	INTEGER NOT NULL,
 	fk4_report_id	INTEGER,
@@ -188,7 +190,7 @@ CREATE TABLE OFFER(
 	start_date	DATE,
 	offer_amt	FLOAT(8),
 	offer_percentage	FLOAT(8),
-	fk1_user_id	INTEGER NOT NULL,
+	fk1_user_id	INTEGER,
 	-- Specify the PRIMARY KEY constraint for table "OFFER".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_OFFER PRIMARY KEY (offer_id)
@@ -222,12 +224,13 @@ CREATE TABLE USERS(
 	user_id	INTEGER NOT NULL,
 	first_name	VARCHAR(20),
 	last_name	VARCHAR(20),
-	report_id	INTEGER,
+	-- report_id	INTEGER,
 	date_joined	DATE,
 	username	VARCHAR(20),
 	password	VARCHAR(50),
 	user_type	VARCHAR(10),
 	email	VARCHAR(50),
+	profile_pic_url VARCHAR(100),
 	-- Specify the PRIMARY KEY constraint for table "USER".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_USER PRIMARY KEY (user_id)
@@ -499,15 +502,20 @@ ALTER TABLE PRODUCT ADD CONSTRAINT fk4_PRODUCT_to_REPORT FOREIGN KEY(fk4_report_
 --------------------------------------------------------------
 -- End of DDL file auto-generation
 --------------------------------------------------------------
-DROP SEQUENCE users_seq;
-CREATE SEQUENCE users_seq;
+DROP SEQUENCE customer_seq;
+-- DROP SEQUENCE trader_seq;
+CREATE SEQUENCE customer_seq START WITH 101;
+-- CREATE SEQUENCE trader_seq START WITH 1001;
 create or replace trigger add_new_user
 BEFORE
 insert on users
 for each row
 begin
-  if :NEW.user_id is null then 
-    select users_seq.nextval into :NEW.user_id from sys.dual; 
+  if :NEW.user_id is null and :NEW.user_type = 'Customer' then
+    select customer_seq.nextval into :NEW.user_id from sys.dual; 
+																--TODO: This is not working
+--   else if :NEW.user_id is null and :NEW.user_type = 'Trader' then
+--     select trader_seq.nextval into :NEW.user_id from sys.dual; 
   end if; 
 end;
 /
@@ -563,6 +571,19 @@ for each row
 begin
   if :NEW.review_id is null then 
     select review_seq.nextval into :NEW.review_id from sys.dual; 
+  end if; 
+end;
+/
+
+DROP SEQUENCE offer_seq;
+CREATE SEQUENCE offer_seq;
+create or replace trigger add_new_offer
+BEFORE
+insert on offer
+for each row
+begin
+  if :NEW.offer_id is null then 
+    select offer_seq.nextval into :NEW.offer_id from sys.dual; 
   end if; 
 end;
 /
