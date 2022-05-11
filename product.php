@@ -54,15 +54,29 @@ include('connection.php');
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, USER!
+                                <?php
+                                session_start();
+                                if (isset($_SESSION['user'])) {
+                                    echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
+                                } else echo 'Login/Register';
+                                ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
+                                <?php
+                                if (isset($_SESSION['user'])) {
+                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                } else {
+                                    echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
+                                }
+                                ?>
+                                <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                                <!-- <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -153,6 +167,7 @@ include('connection.php');
                                                                                                                 } elseif (isset($_POST['clearReview'])) echo "";
                                                                                                                 ?></textarea><br />
                                     <span><?php
+                                            $error = false;
                                             if (isset($_POST['submitReview'])) {
                                                 if (!isset($_SESSION['user'])) {
                                                     echo 'Please <a href="login.php">login</a> to post your review.<br>';
@@ -185,12 +200,13 @@ include('connection.php');
                                 $review = $_POST['review-body'];
                                 $rating = $_POST['rating'];
                                 $user_id = $_SESSION['user_id'];
-
+                                $review_date = date("d-M-y");
+                                // echo $review_date;
                                 if (!$error) {
-                                    $stid = oci_parse($connection, "INSERT INTO review (review_title, review_text, rating, FK1_PRODUCT_ID, FK2_USER_ID)
-            VALUES ('$review_title', '$review', '$rating', '$pid', '$user_id')");
+                                    $stid = oci_parse($connection, "INSERT INTO review (review_title, review_text, rating, FK1_PRODUCT_ID, FK2_USER_ID, review_date)
+            VALUES ('$review_title', '$review', '$rating', '$pid', '$user_id', '$review_date')");
                                     oci_execute($stid); // The row is committed and immediately visible to other users
-                                    header("Location: ./product.php?pid=" . $pid);
+                                    // header("Location: ./product.php?pid=" . $pid);
                                 }
                             }
 
@@ -243,8 +259,8 @@ include('connection.php');
                             $profile_pic_url = $row['PROFILE_PIC_URL'];
 
 
-                            
-                            echo '<img src="'.$profile_pic_url.'" alt="profile_pic" class="review-profile-pic">';
+
+                            echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
                             echo $fullname . "<br>";
                             echo $rating . "";
                             echo $dateWritten . " ";

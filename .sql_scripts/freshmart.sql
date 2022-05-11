@@ -69,8 +69,8 @@ CREATE TABLE PAYMENT(
 CREATE TABLE REVIEW(
 	review_id	INTEGER NOT NULL,
 	-- product_id	INTEGER,
-	review_title	VARCHAR(20),
-	review_text	VARCHAR(100),
+	review_title	VARCHAR(100),
+	review_text	VARCHAR(500),
 	-- user_id	INTEGER,
 	review_date DATE,
 	rating NUMBER(4,2)NOT NULL,
