@@ -105,7 +105,7 @@ CREATE TABLE CART(
 	cart_id	INTEGER NOT NULL,
 	-- user_id	INTEGER,
 	amount INTEGER,
-	fk1_order_id	INTEGER NOT NULL,
+	fk1_order_id	INTEGER,
 	-- Specify FK as unique to maintain 1:1 relationship
 	UNIQUE(fk1_order_id),
 	fk2_user_id	INTEGER NOT NULL,
@@ -230,7 +230,9 @@ CREATE TABLE USERS(
 	password	VARCHAR(50),
 	user_type	VARCHAR(10),
 	email	VARCHAR(50),
+	phone_number VARCHAR(15),
 	profile_pic_url VARCHAR(100),
+	gender VARCHAR(1),
 	-- Specify the PRIMARY KEY constraint for table "USER".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_USER PRIMARY KEY (user_id)
@@ -249,21 +251,21 @@ CREATE TABLE WISHLIST_PRODUCT(
 -- Create a Database table to represent the "ORDER_PRODUCT" entity.
 CREATE TABLE ORDER_PRODUCT(
 	order_id	INTEGER NOT NULL,
-	-- product_id	INTEGER NOT NULL,
-	fk1_product_id	INTEGER NOT NULL,
+	product_id	INTEGER NOT NULL,
+	-- fk1_product_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDER_PRODUCT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
-	CONSTRAINT	pk_ORDER_PRODUCT PRIMARY KEY (order_id,fk1_product_id)
+	CONSTRAINT	pk_ORDER_PRODUCT PRIMARY KEY (order_id,product_id)
 );
 
 -- Create a Database table to represent the "ORDER_REPORT" entity.
 CREATE TABLE ORDER_REPORT(
 	order_id	INTEGER NOT NULL,
-	-- report_id	INTEGER NOT NULL,
-	fk1_report_id	INTEGER NOT NULL,
+	report_id	INTEGER NOT NULL,
+	-- fk1_report_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDER_REPORT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
-	CONSTRAINT	pk_ORDER_REPORT PRIMARY KEY (order_id,fk1_report_id)
+	CONSTRAINT	pk_ORDER_REPORT PRIMARY KEY (order_id,report_id)
 );
 
 
@@ -497,6 +499,22 @@ ALTER TABLE REVIEW ADD CONSTRAINT fk2_REVIEW_to_USER FOREIGN KEY(fk2_user_id) RE
 -- correctly references the primary key of table "REPORT"
 
 ALTER TABLE PRODUCT ADD CONSTRAINT fk4_PRODUCT_to_REPORT FOREIGN KEY(fk4_report_id) REFERENCES REPORT(report_id);
+
+
+
+--Manually added later to fix the secondary linked entities problem
+
+ALTER TABLE CART_PRODUCT ADD CONSTRAINT fk1_CART_PRODUCT_to_CART FOREIGN KEY(cart_id) REFERENCES CART(cart_id);
+ALTER TABLE CART_PRODUCT ADD CONSTRAINT fk2_CART_PRODUCT_to_PRODUCT FOREIGN KEY(product_id) REFERENCES PRODUCT(product_id);
+
+ALTER TABLE WISHLIST_PRODUCT ADD CONSTRAINT fk1_WISHLIST_PRODUCT_to_WL FOREIGN KEY(wishlist_id) REFERENCES WISHLIST(wishlist_id);
+ALTER TABLE WISHLIST_PRODUCT ADD CONSTRAINT fk2_WISHLIST_PRODUCT_to_PR FOREIGN KEY(product_id) REFERENCES PRODUCT(product_id);
+
+ALTER TABLE ORDER_PRODUCT ADD CONSTRAINT fk1_ORDER_PRODUCT_to_ORDER FOREIGN KEY(order_id) REFERENCES ORDERS(order_id);
+ALTER TABLE ORDER_PRODUCT ADD CONSTRAINT fk2_ORDER_PRODUCT_to_PRODUCT FOREIGN KEY(product_id) REFERENCES PRODUCT(product_id);
+
+ALTER TABLE ORDER_REPORT ADD CONSTRAINT fk1_ORDER_REPORT_to_ORDER FOREIGN KEY(order_id) REFERENCES ORDERS(order_id);
+ALTER TABLE ORDER_REPORT ADD CONSTRAINT fk2_ORDER_REPORT_to_REPORT FOREIGN KEY(report_id) REFERENCES REPORT(report_id);
 
 
 --------------------------------------------------------------
