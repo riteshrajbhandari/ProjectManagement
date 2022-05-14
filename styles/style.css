@@ -262,7 +262,6 @@ ul.inline li {
 	display: inline;
 }
 .profile-pic {
-	background-image: url("../images/106926409_3180377422020755_2425918696468094178_n.jpg");
 	object-fit: cover;
 	height: 15em;
 	width: 15em;
@@ -381,4 +380,16 @@ body.about{
 	height: 1em;
 	width: auto;
 	/* display: inline-block; */
+}
+
+/* CART */
+.img-cart{
+	height: 5em;
+	width: auto;
+	display: flex;
+
+}
+.img-cart-inline{
+	display: flex;
+	width: 30%;
 }
