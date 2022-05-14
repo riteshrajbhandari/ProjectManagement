@@ -1,3 +1,7 @@
+<?php
+include('../connection.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,15 +54,22 @@
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, USER!
+                            <?php
+                                if (isset($_SESSION['user'])) {
+                                    echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
+                                } else echo 'Login/Register';
+                                ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <?php
+                                if (isset($_SESSION['user'])) {
+                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                    echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
+                                } else{
+                                    echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
+                                }
+                                ?>
                             </ul>
                         </li>
                     </ul>
@@ -120,6 +131,32 @@
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
+
+
+<?php
+
+                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
+                wishlist_product WP, product P 
+                WHERE U.user_id = '$user_id' and 
+                U.user_id = O.FK3_USER_ID and 
+                U.user_id = PAY.FK1_USER_ID and 
+                U.user_id = W.FK1_USER_ID and 
+                W.wishlist_id = WP.wishlist_id and
+                P.product_id = WP.product_id");
+                oci_execute($stid);
+
+                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                    // echo //order table
+                }
+
+?>
+
+
+
+
+
+
+
                     <?php
                     $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
                     $listOfDates = array(
