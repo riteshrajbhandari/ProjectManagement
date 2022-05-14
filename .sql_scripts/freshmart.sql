@@ -104,7 +104,7 @@ CREATE TABLE ORDERS(
 CREATE TABLE CART(
 	cart_id	INTEGER NOT NULL,
 	-- user_id	INTEGER,
-	amount INTEGER,
+	-- amount INTEGER,
 	fk1_order_id	INTEGER,
 	-- Specify FK as unique to maintain 1:1 relationship
 	UNIQUE(fk1_order_id),
@@ -602,6 +602,19 @@ for each row
 begin
   if :NEW.offer_id is null then 
     select offer_seq.nextval into :NEW.offer_id from sys.dual; 
+  end if; 
+end;
+/
+
+DROP SEQUENCE cart_seq;
+CREATE SEQUENCE cart_seq;
+create or replace trigger add_new_cart
+BEFORE
+insert on cart
+for each row
+begin
+  if :NEW.cart_id is null then 
+    select cart_seq.nextval into :NEW.cart_id from sys.dual; 
   end if; 
 end;
 /

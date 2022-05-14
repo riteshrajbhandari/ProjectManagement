@@ -39,7 +39,7 @@ IMG_URL,
 RATING,
 FK2_SHOP_ID,
 FK3_CATEGORY_ID)
-VALUES('Bread', 0.99, 4, 1, 'Its literally bread','Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente unde dicta deserunt ipsam voluptas atque nobis voluptatum veniam! Quam velit ex tenetur, repellendus eum impedit alias odio eaque modi perferendis ipsa eos consequatur id rerum laborum vitae, fugit amet reiciendis!', 'images\Screenshot 2022-04-09 184212.png',2.5, 1, 1);
+VALUES(UPPER('Bread'), 0.99, 4, 1, 'Its literally bread','Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente unde dicta deserunt ipsam voluptas atque nobis voluptatum veniam! Quam velit ex tenetur, repellendus eum impedit alias odio eaque modi perferendis ipsa eos consequatur id rerum laborum vitae, fugit amet reiciendis!', 'images\Screenshot 2022-04-09 184212.png',2.5, 1, 1);
 
 
 
