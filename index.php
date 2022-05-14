@@ -35,8 +35,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -53,6 +53,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
                                 session_start();
+
                                 if (isset($_SESSION['user'])) {
                                     echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
@@ -63,7 +64,7 @@
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }
@@ -83,6 +84,7 @@
     </div>
 
     <!-- CAROUSEL -->
+
     <div class="container">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">

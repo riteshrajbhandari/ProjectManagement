@@ -1,3 +1,6 @@
+<?php
+include('connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,8 +38,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if (isset($_POST['search'])) echo $_POST['search']; ?>">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -70,13 +73,46 @@
 
     <!-- SEARCH RESULTS -->
     <div class="container">
-        <div class="row">
-            <div class="col">
-                
-            </div>
-            <div class="col">
-
-            </div>
+        <div class="center">
+            <form action="./search.php" method="get">
+                <!-- search criteria -->
+            </form>
+        </div>
+        <div class="row row-cols-2 row-cols-lg-5 g-4">
+            <?php
+            if (isset($_GET['search'])) {
+                $keyword =  strtoupper($_GET['search']);
+                $stid = oci_parse(
+                    $connection,
+                    "SELECT * FROM product WHERE product_name LIKE '%$keyword%'"
+                    
+                );
+                // echo "SELECT * FROM product WHERE LIKE %'$keyword'%";
+                oci_execute($stid);
+                $product_found = false;
+                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                    $product_found = true;
+                    $pid = $row['PRODUCT_ID'];
+                    $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
+                    $unit_price = $row['UNIT_PRICE'];
+                    $img_url = $row['IMG_URL'];
+                    $rating = $rating['RATING'];
+            ?>
+                    <div class="col">
+                        <a href="./product.php/?pid=<?php echo $pid?>">
+                            <div class="card shop">
+                                <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
+                                <div class="card-body" id="shops">
+                                    <p class="card-text"><?php echo $product_name ?><br></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            <?php
+                }
+                if (!$product_found) echo "<p>Product not found.</p>";
+            }
+            ?>
         </div>
     </div>
 
