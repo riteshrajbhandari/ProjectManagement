@@ -85,7 +85,7 @@ include('connection.php');
                 $stid = oci_parse(
                     $connection,
                     "SELECT * FROM product WHERE product_name LIKE '%$keyword%'"
-                    
+
                 );
                 // echo "SELECT * FROM product WHERE LIKE %'$keyword'%";
                 oci_execute($stid);
@@ -96,14 +96,19 @@ include('connection.php');
                     $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
                     $unit_price = $row['UNIT_PRICE'];
                     $img_url = $row['IMG_URL'];
-                    $rating = $rating['RATING'];
+                    $rating = $row['RATING'];
             ?>
                     <div class="col">
-                        <a href="./product.php/?pid=<?php echo $pid?>">
+                        <a href="./product.php/?pid=<?php echo $pid ?>">
                             <div class="card shop">
                                 <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
                                 <div class="card-body" id="shops">
-                                    <p class="card-text"><?php echo $product_name ?><br></p>
+                                    <span class="card-text">
+                                        <?php echo $product_name; ?>
+                                    </span>
+                                    <p class="text-end">
+                                        <?php echo $rating; ?>
+                                    </p>
                                 </div>
                             </div>
                         </a>
