@@ -121,7 +121,7 @@ CREATE TABLE CART_PRODUCT(
 	cart_id	INTEGER NOT NULL,
 	product_id	INTEGER NOT NULL,
 	product_quantity	INTEGER,
-	total_price	INTEGER,
+	total_price	FLOAT(8),
 	-- Specify the PRIMARY KEY constraint for table "CART_PRODUCT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_CART_PRODUCT PRIMARY KEY (cart_id,product_id)
@@ -529,11 +529,11 @@ BEFORE
 insert on users
 for each row
 begin
-  if :NEW.user_id is null and :NEW.user_type = 'Customer' then
+  if :NEW.user_id is null then
     select customer_seq.nextval into :NEW.user_id from sys.dual; 
 																--TODO: This is not working
 --   else if :NEW.user_id is null and :NEW.user_type = 'Trader' then
---     select trader_seq.nextval into :NEW.user_id from sys.dual; 
+    -- select trader_seq.nextval into :NEW.user_id from sys.dual; 
   end if; 
 end;
 /
@@ -615,6 +615,19 @@ for each row
 begin
   if :NEW.cart_id is null then 
     select cart_seq.nextval into :NEW.cart_id from sys.dual; 
+  end if; 
+end;
+/
+
+DROP SEQUENCE order_seq;
+CREATE SEQUENCE order_seq;
+create or replace trigger add_new_order
+BEFORE
+insert on orders
+for each row
+begin
+  if :NEW.order_id is null then 
+    select order_seq.nextval into :NEW.order_id from sys.dual; 
   end if; 
 end;
 /
