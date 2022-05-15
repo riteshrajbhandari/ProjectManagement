@@ -39,7 +39,7 @@ include('connection.php');
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                     <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if (isset($_POST['search'])) echo $_POST['search']; ?>">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if(isset($_GET['search']))echo $_GET['search'];?>">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -49,20 +49,35 @@ include('connection.php');
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, USER!
+                                <?php
+                                session_start();
+
+                                if (isset($_SESSION['user'])) {
+                                    echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
+                                } else echo 'Login/Register';
+                                ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
+                                <?php
+                                if (isset($_SESSION['user'])) {
+                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                } else {
+                                    echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
+                                }
+                                ?>
+                                <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                                <!-- <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -99,7 +114,7 @@ include('connection.php');
                     $rating = $row['RATING'];
             ?>
                     <div class="col">
-                        <a href="./product.php/?pid=<?php echo $pid ?>">
+                        <a href="./product.php?pid=<?php echo $pid ?>">
                             <div class="card shop">
                                 <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
                                 <div class="card-body" id="shops">
