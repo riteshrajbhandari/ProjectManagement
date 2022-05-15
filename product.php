@@ -15,7 +15,7 @@ include('connection.php');
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
-    
+
     <!--Custom CSS-->
     <link rel=" stylesheet" href="styles/style.css">
     <title>Your home to fresh products</title>
@@ -41,8 +41,8 @@ include('connection.php');
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -52,13 +52,14 @@ include('connection.php');
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
                                 session_start();
+
                                 if (isset($_SESSION['user'])) {
                                     echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
@@ -95,7 +96,7 @@ include('connection.php');
         oci_execute($stid);
 
         if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            $product_name = $row['PRODUCT_NAME'];
+            $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
             $price = $row['UNIT_PRICE'];
             $stock = $row['STOCK'];
             // $shop_id = $row['SHOP_ID'];
@@ -129,13 +130,50 @@ include('connection.php');
                             <div class="quantity">
                                 Quantity:
                                 <input type="number" value="1" min="1" class="quantity-field" name="quantity">
-                                <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
+
                             </div>
+                            <?php
+                            // TODO:: check if today is wednesday, thursday or friday
+                            // if it is, add today and the days after today until friday.
+                            // if not, while today doesn't reach wednesday, keep incrementing day and
+                            // when it does reach wednesday, add today and the days after today until friday
+                            $days_of_collection = array('Wed', 'Thu', 'Fri');
+                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                            $today = date("D");
+                            $chosen_day = $days[0];
+                            $counter = 0;
+
+                            $key = array_search($today, $days); //get the index of the day today with respect to the days array
+                            $todays_date = date("d-M-y");
+
+                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+                                $key++;                                     //time travel to the next day
+                                $today = $days[$key];                       //check if that day is in the list
+                                // echo $key;
+                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+                            //difference betn the next collection
+                            //day and today in number of days, inclusive
+                            ?>
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
-                                <option value="qwerty">mnbvcx</option>
-                                <option value="qwerty">mnbvcx</option>
+                                <?php
+                                for ($i = $key; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
+                                    $counter++;
+                                    //get todays date, add $key no of days to it and display it from there
+                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
+
+                                    // Add days to date and display it
+                                    echo '<option value="' . $days[$i] . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                }
+                                if ($counter < 2) { //if there is only friday left,
+                                    for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
+                                        $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
+                                        echo '<option value="' . $days[$j] . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
+                            <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
                         </form>
 
                         <?php
@@ -152,7 +190,7 @@ include('connection.php');
                             $total_price = $price * $quantity;
 
 
-                            $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product 
+                            $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
                             WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$pid'");
                             oci_execute($stid);
                             if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
@@ -255,7 +293,7 @@ include('connection.php');
 
 
                             ?>
-                            <?php /* 
+                            <?php /*
                             if (isset($_POST['checkBox'])) {
                                 if (isset($_POST['sendComment'])) {
                                     if (!empty($_POST['emailTxt'])) {
@@ -324,14 +362,14 @@ include('connection.php');
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div> -->
-                             <?php
-                                    // sererate decimal part rom whole number
-                                    // start 
-                                    echo $rating . " ";
-                                    echo $dateWritten . " ";
-                                    echo '<div class="review-title">' . $review_title . "</div>";
-                                    echo $review . "<br><br>";
-                                }
+                        <?php
+                            // sererate decimal part rom whole number
+                            // start
+                            echo $rating . " ";
+                            echo $dateWritten . " ";
+                            echo '<div class="review-title">' . $review_title . "</div>";
+                            echo $review . "<br><br>";
+                        }
 
 
 
@@ -340,35 +378,35 @@ include('connection.php');
 
 
 
-                                // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                        // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
 
-                                //     $fullname = "full name ";
-                                //     $dateWritten = " dd/mm/yyyy ";
-                                //     $noOfStars = 4;
-                                //     $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
-                                //     for ($i = 0; $i < 3; $i++) {
-                                //         echo $fullname;
-                                //         echo $dateWritten;
+                        //     $fullname = "full name ";
+                        //     $dateWritten = " dd/mm/yyyy ";
+                        //     $noOfStars = 4;
+                        //     $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
+                        //     for ($i = 0; $i < 3; $i++) {
+                        //         echo $fullname;
+                        //         echo $dateWritten;
 
-                                //         for ($j = 0; $j < $noOfStars; $j++)
-                                //             echo " Star";
-                                //         echo $review . "<br><br>";
-                                //     }
-                                //     // $$_SESSION['user'] = $row['FIRST_NAME'];
-                                // $_SESSION['user_id'] = $row['USER_ID'];
-                                // header("Location: main.php");
-                                // foreach ($row as $item) {
-                                //     echo $row[0];
-                                //     TODO: how to get just the first_name
-                                //     $_SESSION['user']=$item;
-                                //     header("Location: index.php");
-                                //     echo ($item !== null ? htmlentities($item, ENT_QUO  TES) : "&nbsp;");
-                                // }
-                                // }
+                        //         for ($j = 0; $j < $noOfStars; $j++)
+                        //             echo " Star";
+                        //         echo $review . "<br><br>";
+                        //     }
+                        //     // $$_SESSION['user'] = $row['FIRST_NAME'];
+                        // $_SESSION['user_id'] = $row['USER_ID'];
+                        // header("Location: main.php");
+                        // foreach ($row as $item) {
+                        //     echo $row[0];
+                        //     TODO: how to get just the first_name
+                        //     $_SESSION['user']=$item;
+                        //     header("Location: index.php");
+                        //     echo ($item !== null ? htmlentities($item, ENT_QUO  TES) : "&nbsp;");
+                        // }
+                        // }
 
 
-                                    ?>
+                        ?>
                     </div>
                 </div>
         <?php
