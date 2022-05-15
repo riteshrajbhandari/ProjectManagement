@@ -101,21 +101,21 @@ include('connection.php');
                                                                                                     elseif (isset($_POST['clearRegistration'])) echo ""; ?>" required>
                         </div>
 
-                            <span><?php
-                                    if (isset($_POST['submitRegistration'])) {
-                                        $password = $_POST['password'];
-                                        if (empty($password)) {
-                                            echo '<br/>Please enter password';
-                                            $error = true;
-                                        } elseif (!preg_match(('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d]).+$/'), $password)) {
-                                            echo '<br />Password must contain at least one of each:<ul>
+                        <span><?php
+                                if (isset($_POST['submitRegistration'])) {
+                                    $password = $_POST['password'];
+                                    if (empty($password)) {
+                                        echo '<br/>Please enter password';
+                                        $error = true;
+                                    } elseif (!preg_match(('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d]).+$/'), $password)) {
+                                        echo '<br />Password must contain at least one of each:<ul>
 <li>Uppercase letter</li>
 <li>Lowercase letter</li>
 <li>Number</li></ul>';
-                                            $errors = true;
-                                        }
-                                    } ?></span>
-                        
+                                        $errors = true;
+                                    }
+                                } ?></span>
+
                         <div class="form-input">
                             <span><i class="fa fa-key"></i></span>
                             <input type="password" name="repeatpassword" placeholder=" Confirm Password">
@@ -131,13 +131,13 @@ include('connection.php');
                             </span>
                         </div>
                         <?php if (isset($_POST['submitRegistration'])) {
-                                    if (!($_POST['password'] == $_POST['repeatpassword'])) {
-                                        echo '<div class="form-input p-5">
+                            if (!($_POST['password'] == $_POST['repeatpassword'])) {
+                                echo '<div class="form-input p-5">
                                         <span>The passwords don\'t match</span>
                                         </div>';
-                                        $errors = true;
-                                    }
-                                }; ?>
+                                $errors = true;
+                            }
+                        }; ?>
                         <div>
                             <div class="form-input">
                                 <label for="date_of_birth">Date of birth</label>
@@ -148,7 +148,7 @@ include('connection.php');
                                 <div class="col-6">
                                     <div class="form-input pb-2">
                                         <label for="exampleFormControlSelect1">Gender</label>
-                                        <select class="form-input" id="exampleFormControlSelect1">
+                                        <select class="form-input" id="exampleFormControlSelect1" name="gender">
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Others</option>
@@ -158,7 +158,7 @@ include('connection.php');
                                 <div class="col-6">
                                     <div class="form-input pb-2">
                                         <label for="exampleFormControlSelect1">User Type</label>
-                                        <select class="form-input" id="exampleFormControlSelect1">
+                                        <select class="form-input" id="exampleFormControlSelect1" name="user_type">
                                             <option>Customer</option>
                                             <option>Trader</option>
                                         </select>
@@ -208,11 +208,21 @@ include('connection.php');
                                 $date_today = date("d-M-y");
                                 $firstname = clean_data($_POST['firstname']);
                                 $lastname = clean_data($_POST['lastname']);
+<<<<<<< HEAD
                                
+=======
+                                $user_type = $_POST['user_type'];
+                                if ($_POST['gender'] == 'Male') {
+                                    $gender = 'M';
+                                } elseif ($_POST['gender'] == 'Female') {
+                                    $gender = 'F';
+                                } else $gender = 'O';
+                                // $phone_no = clean_data($_POST['phonenumber']);
+>>>>>>> d3811ab258a801f5d346432dfbe18d0ac13b6e80
 
                                 if (!$errors) {
                                     $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
-VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', 'Customer', '$email', 'images/deli.jpg', 'M')");
+VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', 'images/deli.jpg', '$gender')");
                                     if (oci_execute($stid)) {
                                     };
                                     

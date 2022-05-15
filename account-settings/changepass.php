@@ -56,7 +56,7 @@ session_start();
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
+                                    echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                         </a>
