@@ -82,7 +82,7 @@ include('connection.php');
                             </div>
                             <div class="form-group">
                             <i class="fas fa-phone"></i>
-                                <input class="myInput" placeholder="Phone number" type="number" id="phonenumber" name="phonenumber" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['phonenumber']; ?>" required>
+                                <input class="myInput" placeholder="Phone number" type="tel" id="phonenumber" name="phonenumber" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['phonenumber']; ?>" required>
                             </div>
                             <div class="form-group">
                                 <i class="fas fa-lock"></i>

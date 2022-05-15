@@ -1,3 +1,6 @@
+<?php
+include('connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,8 +38,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -53,6 +56,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
                                 session_start();
+
                                 if (isset($_SESSION['user'])) {
                                     echo '<br/>Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
@@ -81,6 +85,48 @@
             </div>
         </nav>
     </div>
+
+
+
+
+
+
+
+
+
+    <?php
+
+    $user_id = $_SESSION['user_id'];
+
+    $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
+    cart.cart_id = cart_product.cart_id and 
+    product.product_id = cart_product.product_id");
+    oci_execute($stid);
+
+    while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+        $product_url = $row['IMG_URL'];
+        $product_name = $row['PRODUCT_NAME'];
+        
+
+
+
+        $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+        $dateWritten = $row['REVIEW_DATE'];
+        $rating = $row['RATING'];
+        $review_title = $row['REVIEW_TITLE'];
+        $review = $row['REVIEW_TEXT'];
+        $profile_pic_url = $row['PROFILE_PIC_URL'];
+
+
+
+        echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
+        echo $fullname . "<br>";
+    }
+    ?>
+
+
+
+
     <div class="container">
         <div class="row product">
             <div class="col-lg-6">
@@ -92,7 +138,7 @@
                         <td>Subtotal</td>
                     </tr>
                     <tr>
-                        
+
                     </tr>
                 </table>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.

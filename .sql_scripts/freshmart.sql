@@ -226,7 +226,7 @@ CREATE TABLE USERS(
 	last_name	VARCHAR(20),
 	-- report_id	INTEGER,
 	date_joined	DATE,
-	username	VARCHAR(20),
+	username	VARCHAR(25),
 	password	VARCHAR(50),
 	user_type	VARCHAR(10),
 	email	VARCHAR(50),
