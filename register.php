@@ -81,7 +81,7 @@ include('connection.php');
                                         } ?></span>
                             </div>
                             <div class="form-group">
-                            <i class="fas fa-phone"></i>
+                                <i class="fas fa-phone"></i>
                                 <input class="myInput" placeholder="Phone number" type="tel" id="phonenumber" name="phonenumber" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['phonenumber']; ?>" required>
                             </div>
                             <div class="form-group">
@@ -103,6 +103,16 @@ include('connection.php');
                                                 $errors = true;
                                             }
                                         } ?></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="myInput" type="password" id="repeatpassword" name="repeatpassword" placeholder="Confirm Password">
+                                <br><span>
+                                    <?php if (isset($_POST['submitRegistration'])) {
+                                        if (!($_POST['password'] == $_POST['repeatpassword'])) {echo "The passwords don't match";
+                                        $errors = true;
+                                        }
+                                    }; ?>
+                                </span>
                             </div>
                             <div class="form-group">
                                 <label>
