@@ -1,17 +1,11 @@
 <?php
 include('connection.php');
 
+
 ?>
 <!DOCTYPE html>
 <html>
 
-<!-- <head>
-    <title>Login Form Design</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="registration_form.css">
-</head> -->
 
 <head>
     <title>Register Form</title>
@@ -202,21 +196,11 @@ include('connection.php');
                         <?php
 
 
-                        //         $query = "INSERT INTO users (username, email, password)
-                        // VALUES ('$username', '$email', '$password')";
-
-                        // echo $query;
-                        // exit();
                         if (isset($_POST['submitRegistration'])) {
                             include('sanitization.php');
-                            // $username = $_POST['username'];
-                            // $email = $_POST['email'];
-                            // $password = $_POST['password'];
+                       
                             if (!$error) {
-                                // $stid = oci_parse($connection, "INSERT INTO users (username, email, password)
-                                // VALUES ('$username', '$email', '$password')");
-                                // oci_execute($stid); // The row is committed and immediately visible to other users
-                                // header("Location: login.php");
+                            
 
                                 $username = clean_data($_POST['username']);
                                 $email = clean_data($_POST['email']);
@@ -224,14 +208,14 @@ include('connection.php');
                                 $date_today = date("d-M-y");
                                 $firstname = clean_data($_POST['firstname']);
                                 $lastname = clean_data($_POST['lastname']);
-                                // $phone_no = clean_data($_POST['phonenumber']);
+                               
 
                                 if (!$errors) {
                                     $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
 VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', 'Customer', '$email', 'images/deli.jpg', 'M')");
                                     if (oci_execute($stid)) {
                                     };
-                                    // echo "I am here";
+                                    
                                     echo 'Account created. Go to <a href="login.php">Login</a>';
                                 }
                             }
