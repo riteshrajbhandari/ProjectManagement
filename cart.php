@@ -49,7 +49,7 @@ include('connection.php');
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -86,69 +86,124 @@ include('connection.php');
         </nav>
     </div>
 
-
-
-
-
-
-
-
-
     <?php
+    if(isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
 
-    $user_id = $_SESSION['user_id'];
-
-    $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
-    cart.cart_id = cart_product.cart_id and 
-    product.product_id = cart_product.product_id");
-    oci_execute($stid);
-
-    while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-        $product_url = $row['IMG_URL'];
-        $product_name = $row['PRODUCT_NAME'];
-        
-
-
-
-        $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
-        $dateWritten = $row['REVIEW_DATE'];
-        $rating = $row['RATING'];
-        $review_title = $row['REVIEW_TITLE'];
-        $review = $row['REVIEW_TEXT'];
-        $profile_pic_url = $row['PROFILE_PIC_URL'];
-
-
-
-        echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
-        echo $fullname . "<br>";
-    }
-    ?>
-
-
-
-
-    <div class="container">
-        <div class="row product">
-            <div class="col-lg-6">
-                <table>
-                    <tr>
-                        <td>Item</td>
-                        <td>Price</td>
-                        <td>Quantity</td>
-                        <td>Subtotal</td>
-                    </tr>
-                    <tr>
-
-                    </tr>
-                </table>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.
+        $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
+        cart.cart_id = cart_product.cart_id and 
+        product.product_id = cart_product.product_id");
+        oci_execute($stid);
+        $error = true;
+        $total = 0.0;
+        ?>
+        <div class="container">
+            <div class="row product">
+                <div class="col-lg-6">
+                    <table>
+                        <tr>
+                            <td>Item</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                        <?php
+                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                            $error = false;
+                            $product_img_url = $row['IMG_URL'];
+                            $product_name = $row['PRODUCT_NAME'];
+                            $product_desc = $row['SHORT_DESCRIPTION'];
+                            $unit_price = $row['UNIT_PRICE'];
+                            $quantity = $row['PRODUCT_QUANTITY'];
+                            $sub_total = $row['TOTAL_PRICE'];
+                            $total += $sub_total;
+    
+                            $product_id = $row['PRODUCT_ID']; ?>
+                            <tr>
+                                <td><img class="img-cart" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                    <?php
+                                    echo $product_name . '<br>';
+                                    echo $product_desc; ?>
+                                </td>
+                                <td>
+                                    <?php echo $unit_price; ?>
+                                </td>
+                                <td>
+                                    <?php echo $quantity; ?>
+                                </td>
+                                <td>
+                                    <?php echo $sub_total; ?>
+                                </td>
+                                <td>
+                                    <form action="./removefromcart.php" method="post">
+                                        <input type="number" name="producttoremove" id="producttoremove" hidden value="<?php echo $product_id; ?>">
+                                        <input type="number" name="user_id" id="user_id" hidden value="<?php echo $user_id; ?>">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr><?php
+                                    // echo '<a href="delete.php?pid=">Remove</a>'
+                                } ?>
+                    </table>
+    
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.
+                </div>
+                <div class="col-lg-6">
+                    <?php
+                    if (!$error) {
+                        echo 'Total: ' . $total; ?>
+                        <form action="" method="post"><?php
+                                                        // TODO:: check if today is wednesday, thursday or friday
+                                                        // if it is, add today and the days after today until friday.
+                                                        // if not, while today doesn't reach wednesday, keep incrementing day and
+                                                        // when it does reach wednesday, add today and the days after today until friday
+                                                        $days_of_collection = array('Wed', 'Thu', 'Fri');
+                                                        $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                                                        $today = date("D");
+                                                        $chosen_day = $days[0];
+                                                        $counter = 0;
+    
+                                                        $key = array_search($today, $days); //get the index of the day today with respect to the days array
+                                                        $todays_date = date("d-M-y");
+    
+                                                        while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+                                                            $key++;                                     //time travel to the next day
+                                                            $today = $days[$key];                       //check if that day is in the list
+                                                            // echo $key;
+                                                        } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+                                                        //difference betn the next collection
+                                                        //day and today in number of days, inclusive
+                                                        ?>
+                            <select name="collection_slot" id="collection_slot" default="Collection Slot">
+                                <option value="">Choose a collection slot</option>
+                                <?php
+                                for ($i = $key; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
+                                    $counter++;
+                                    //get todays date, add $key no of days to it and display it from there
+                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
+    
+                                    // Add days to date and display it
+                                    echo '<option value="' . $days[$i] . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                }
+                                if ($counter < 2) { //if there is only friday left,
+                                    for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
+                                        $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
+                                        echo '<option value="' . $days[$j] . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </form>
+                    <?php
+                    } else echo "You don't have anything in your cart yet."; ?>
+                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
+                </div>
+    
             </div>
-            <div class="col-lg-6">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores?
-            </div>
+        </div><?php
+    }else echo '<a href="login.php">Login</a> to display your cart'?>
+    
 
-        </div>
-    </div>
     <div class="footer navcolor">
         <div class="container">
             <div class="row">

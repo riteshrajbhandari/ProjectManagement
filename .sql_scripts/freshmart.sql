@@ -230,7 +230,6 @@ CREATE TABLE USERS(
 	password	VARCHAR(50),
 	user_type	VARCHAR(10),
 	email	VARCHAR(50),
-	phone_number VARCHAR(15),
 	profile_pic_url VARCHAR(100),
 	gender VARCHAR(1),
 	-- Specify the PRIMARY KEY constraint for table "USER".
