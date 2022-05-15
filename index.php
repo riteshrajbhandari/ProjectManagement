@@ -46,7 +46,7 @@
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">

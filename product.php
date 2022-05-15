@@ -52,7 +52,7 @@ include('connection.php');
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart/CART.html"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -132,83 +132,55 @@ include('connection.php');
                                 <input type="number" value="1" min="1" class="quantity-field" name="quantity">
 
                             </div>
-                            <?php
-                            // TODO:: check if today is wednesday, thursday or friday
-                            // if it is, add today and the days after today until friday.
-                            // if not, while today doesn't reach wednesday, keep incrementing day and
-                            // when it does reach wednesday, add today and the days after today until friday
-                            $days_of_collection = array('Wed', 'Thu', 'Fri');
-                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                            $today = date("D");
-                            $chosen_day = $days[0];
-                            $counter = 0;
-
-                            $key = array_search($today, $days); //get the index of the day today with respect to the days array
-                            $todays_date = date("d-M-y");
-
-                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                $key++;                                     //time travel to the next day
-                                $today = $days[$key];                       //check if that day is in the list
-                                // echo $key;
-                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                            //difference betn the next collection
-                            //day and today in number of days, inclusive
-                            ?>
-                            <select name="collection_slot" id="collection_slot" default="Collection Slot">
-                                <option value="">Choose a collection slot</option>
-                                <?php
-                                for ($i = $key; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
-                                    $counter++;
-                                    //get todays date, add $key no of days to it and display it from there
-                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
-
-                                    // Add days to date and display it
-                                    echo '<option value="' . $days[$i] . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
-                                }
-                                if ($counter < 2) { //if there is only friday left,
-                                    for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
-                                        $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $days[$j] . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
                             <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
                         </form>
 
                         <?php
-                        if (isset($_POST['add-to-cart'])) {
+                        if(isset($_SESSION['user_id'])){
+                            if (isset($_POST['add-to-cart'])) {
 
-                            $quantity = $_POST['quantity'];
-                            $user_id = $_SESSION['user_id'];
-
-                            // $stid = oci_parse($connection, "SELECT unit_price FROM product");
-                            // oci_execute($stid);
-                            // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                            //     $unit_price = $row['UNIT_PRICE'];
-                            // }
-                            $total_price = $price * $quantity;
-
-
-                            $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
-                            WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$pid'");
-                            oci_execute($stid);
-                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                                echo "You already have this item in your <a href = './cart.php'>Cart</a>";
-                            } else {
-
-                                $stid = oci_parse($connection, "INSERT INTO cart (fk2_user_id)
-                                VALUES ('$user_id')");
+                                $quantity = $_POST['quantity'];
+                                $user_id = $_SESSION['user_id'];
+    
+                                // $stid = oci_parse($connection, "SELECT unit_price FROM product");
+                                // oci_execute($stid);
+                                // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                //     $unit_price = $row['UNIT_PRICE'];
+                                // }
+                                $total_price = $price * $quantity;
+    
+    
+                                //check if that user_id has a cart. 
+                                // if it does, go to cart_product to 
+                                // add the prouct there. 
+                                // If no cart for current user_id then 
+                                // create a cart, and then go to cart_product to add
+    
+                                $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart WHERE fk2_user_id = '$user_id'");
                                 oci_execute($stid);
-
-                                // }//TODO: STOCK LEFT TO ADD
-
-                                $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
-                            VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
-                            '$pid','$quantity','$total_price')");
+                                if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
+                                    //user doesn't have a cart yet//CREATE THE CART
+                                    $stid = oci_parse($connection, "INSERT INTO cart (fk2_user_id) VALUES ('$user_id')");
+                                    oci_execute($stid);
+                                }
+                                //they already have a cart, now insert in cart_product
+    
+                                $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
+                                WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$pid'");
                                 oci_execute($stid);
+    
+                                if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                    echo "You already have this item in your <a href = './cart.php'>Cart</a>";
+                                } else {
+    
+                                    $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
+                                VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
+                                '$pid','$quantity','$total_price')");
+                                    oci_execute($stid);
+                                }
                             }
-                        }
+                        }else echo 'Please <a href="login.php">Login</a> first.'
+                        
                         ?>
                     </div>
 
@@ -332,16 +304,13 @@ include('connection.php');
 
                         $stid = oci_parse(
                             $connection,
-                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID"
+                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID AND R.FK1_PRODUCT_ID='$pid'"
                         );
                         oci_execute($stid);
 
 
                         $number_of_reviews = 0;
                         while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false and $number_of_reviews < 5) {
-
-
-
 
                             $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
                             $dateWritten = $row['REVIEW_DATE'];
