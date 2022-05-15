@@ -208,9 +208,6 @@ include('connection.php');
                                 $date_today = date("d-M-y");
                                 $firstname = clean_data($_POST['firstname']);
                                 $lastname = clean_data($_POST['lastname']);
-<<<<<<< HEAD
-                               
-=======
                                 $user_type = $_POST['user_type'];
                                 if ($_POST['gender'] == 'Male') {
                                     $gender = 'M';
@@ -218,7 +215,6 @@ include('connection.php');
                                     $gender = 'F';
                                 } else $gender = 'O';
                                 // $phone_no = clean_data($_POST['phonenumber']);
->>>>>>> d3811ab258a801f5d346432dfbe18d0ac13b6e80
 
                                 if (!$errors) {
                                     $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
