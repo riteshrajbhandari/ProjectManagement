@@ -152,7 +152,7 @@ include('connection.php');
                     <?php
                     if (!$error) {
                         echo 'Total: ' . $total; ?>
-                        <form action="" method="post"><?php
+                        <form action="./cart.php" method="post"><?php
                                                         // TODO:: check if today is wednesday, thursday or friday
                                                         // if it is, add today and the days after today until friday.
                                                         // if not, while today doesn't reach wednesday, keep incrementing day and
@@ -183,16 +183,17 @@ include('connection.php');
                                     $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
     
                                     // Add days to date and display it
-                                    echo '<option value="' . $days[$i] . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                    echo '<option value="' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
                                 }
                                 if ($counter < 2) { //if there is only friday left,
                                     for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
                                         $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $days[$j] . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                        echo '<option value="' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
                                     }
                                 }
                                 ?>
                             </select>
+                            <input type="submit" value="Checkout" name="checkout">
                         </form>
                     <?php
                     } else echo "You don't have anything in your cart yet."; ?>
@@ -202,6 +203,26 @@ include('connection.php');
             </div>
         </div><?php
     }else echo '<a href="login.php">Login</a> to display your cart'?>
+
+
+<?php
+    if(isset($_POST['checkout'])){
+        $collection_slot = $_POST['collection_slot'];
+        echo $collection_slot;
+        //insert into order
+        $stid = oci_parse($connection, "INSERT INTO order (
+        GROSS_PRICE,
+        ORDER_DATE,
+        
+        -- ORDER_TIME, --TODO
+        CART_ID,
+        FK1_PAYMENT_ID,
+        FK2_SLOT_ID,
+        FK3_USER_ID)
+        VALUES ('$total','$todays_date', )");
+            oci_execute($stid);
+    }
+?>
     
 
     <div class="footer navcolor">
