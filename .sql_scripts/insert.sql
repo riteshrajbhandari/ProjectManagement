@@ -2,7 +2,7 @@
 -- VALUES('Ritesh', 'Rajbhandari', '05/06/2022', 'riteshrajbh', 'HelloWorld', 'Customer', 'rajbhandari.ritesh@hotmail.com', 'images/deli.jpg', 'M');
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
-VALUES('Ritesh(Trader)', 'Rajbhandari', '05/06/2022', 'trader_one', 'HelloWorld', 'Trader', 'rajbhandari.ritesh@hotmail.com', 'images/deli.jpg', 'M');
+VALUES('Ritesh(Trader)', 'Rajbhandari', '05/06/2022', 'trader_one', 'db8ac1c259eb89d4a131b253bacfca5f319d54f2', 'Trader', 'rajbhandari.ritesh@hotmail.com', 'images/deli.jpg', 'M');
 
 INSERT INTO SHOP(SHOP_NAME,
 USER_ID)VALUES
