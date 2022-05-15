@@ -19,8 +19,18 @@ include('connection.php');
             <div class="row">
                 <div class="col-md-6">
                     <div class="myLeftCtn">
-                        <form class="myForm text-center" method="POST" action="registration2.php">
+                        <form class="myForm text-center" method="POST" action="register.php">
                             <header>Create new account</header>
+                            <div class="form-group">
+                                <input class="myInput" type="text" placeholder="First Name" id="firstname" name="firstname" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['firstname'];
+                                                                                                                                    elseif (isset($_POST['clearRegistration'])) echo "";
+                                                                                                                                    ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="myInput" type="text" placeholder="Last Name" id="lastname" name="lastname" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['lastname'];
+                                                                                                                                elseif (isset($_POST['clearRegistration'])) echo "";
+                                                                                                                                ?>" required>
+                            </div>
                             <div class="form-group">
                                 <i class="fas fa-user"></i>
                                 <input class="myInput" type="text" placeholder="Username" id="username" name="username" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['username'];
@@ -29,17 +39,26 @@ include('connection.php');
 
                                 <span><?php
                                         $error = false;
+                                        $errors = false;
                                         if (isset($_POST['submitRegistration'])) {
                                             $username = $_POST['username'];
                                             if (empty($username)) {
                                                 echo '<br/>Please enter username';
-                                                $error = true;
+                                                $errors = true;
                                             } elseif (strlen($username) < 6) {
                                                 echo '<br/>Username must be at least 6 characters';
-                                                $error = true;
+                                                $errors = true;
                                             } elseif (preg_match("/^(.*[0-9])/", $username)) {
                                                 echo '<br/>Username cannot contain numbers';
-                                                $error = true;
+                                                $errors = true;
+                                            } else {
+                                                $stid = oci_parse($connection, "SELECT username FROM users WHERE username = '$username'");
+                                                oci_execute($stid);
+                                                if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                                    // print_r($row['USERNAME']);
+                                                    echo "This username is already in use. Please try a different username";
+                                                    $errors = true;
+                                                }
                                             }
                                         } ?></span>
                             </div>
@@ -57,11 +76,14 @@ include('connection.php');
                                                 $error = true;
                                             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                                 echo '<br/>Invalid email';
-                                                $error = true;
+                                                $errors = true;
                                             }
                                         } ?></span>
                             </div>
-
+                            <div class="form-group">
+                            <i class="fas fa-phone"></i>
+                                <input class="myInput" placeholder="Phone number" type="number" id="phonenumber" name="phonenumber" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['phonenumber']; ?>" required>
+                            </div>
                             <div class="form-group">
                                 <i class="fas fa-lock"></i>
                                 <input class="myInput" type="password" id="password" name="password" placeholder="Password" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['password'];
@@ -78,20 +100,19 @@ include('connection.php');
                             <li>Uppercase letter</li>
                             <li>Lowercase letter</li>
                             <li>Number</li></ul>';
-                                                $error = true;
+                                                $errors = true;
                                             }
                                         } ?></span>
                             </div>
-
                             <div class="form-group">
                                 <label>
                                     <input id="check_1" name="checkBox" type="checkbox" value="agree" <?php if (isset($_POST['submitRegistration'])) {
                                                                                                             if (isset($_POST['checkBox'])) {
                                                                                                         ?> checked=<?php echo 'true';
-                                                                                                            } else {
-                                                                                                                echo 'false';
-                                                                                                            }
-                                                                                                        } ?>required><small> I read and agree to Terms & Conditions</small></input>
+                                                                                                                } else {
+                                                                                                                    echo 'false';
+                                                                                                                }
+                                                                                                            } ?>required><small> I read and agree to Terms & Conditions</small></input>
                                     <span><?php
                                             if (isset($_POST['submitRegistration'])) {
                                                 if (!isset($_POST['checkBox'])) {
@@ -128,17 +149,18 @@ include('connection.php');
                                     $username = clean_data($_POST['username']);
                                     $email = clean_data($_POST['email']);
                                     $password = hash('sha1', clean_data($_POST['password']), false);
-
-
                                     $date_today = date("d-M-y");
+                                    $firstname = clean_data($_POST['firstname']);
+                                    $lastname = clean_data($_POST['lastname']);
+                                    $phone_no = clean_data($_POST['phonenumber']);
 
-
-                                    if (!$error) {
+                                    if (!$errors) {
                                         $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, PHONE_NUMBER)
-                VALUES('sajid', 'Miya', '$date_today', '$username', '$password', 'Customer', '$email', 'images/deli.jpg', 'M', 1234567890)");
-                                        oci_execute($stid);
-                                        echo "I am here";
-                                        header("Location: ./login.php");
+                VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', 'Customer', '$email', 'images/deli.jpg', 'M', $phone_no)");
+                                        if (oci_execute($stid)) {
+                                        };
+                                        // echo "I am here";
+                                        echo 'Account created. Go to <a href="login.php">Login</a>';
                                     }
                                 }
                             }
