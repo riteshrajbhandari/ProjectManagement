@@ -77,29 +77,29 @@ session_start();
             </div>
         </nav>
     </div>
-    <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
-            <li class="nav-item">
+    <div class="row ">
+        <ul class="nav flex-column col-3 settings-links-col text-light">
+            <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="#" id="myprofile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3 ">
                 <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
-        <div class="col settings-body">
-            <ul class="nav nav-pills d-flex settings-tabs">
+        <div class="col settings-body ">
+            <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" id="myprofile">My Profile</a>
                 </li>
@@ -146,21 +146,21 @@ session_start();
             ?>
             <div class="myprofile" id="settings-body">
                 <div class="row">
-                    <div class="col-lg-4 profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../".$profile_pic_url; ?>);'></div>
-                    <div class="col-lg-4 card-img rounded-circle edit-hover">
+                    <div class="col-lg-6 profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../".$profile_pic_url; ?>);'></div>
+                    <div class="col-lg-6 card-img rounded-circle edit-hover">
                         <a href="http://">
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
                         </a>
                     </div>
-                    <div class="col-lg-4">
-                        <h1>Full Name</h1>
-                        email@domain.com <img src="../images/pencil-square.svg" alt="">
+                    <div class="col-lg-6 py-5 ">
+                        <h1 class="pb-3">Full Name</h1>
+                        <p class="pb-3">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
+                        
+                        <p class="pb-3">Birthday: dd/mm/yyyy <img src="" alt=""></p>
+                        
+                        Gender: F/M/O <img src="" alt="">
                     </div>
-                    <div class="other_info row">
-                        <div class="col-lg-4"><br>
-                            Birthday: dd/mm/yyyy <img src="" alt=""><br>
-                            Gender: F/M/O <img src="" alt="">
-                        </div>
+                       
                     </div>
                 </div>
             </div>

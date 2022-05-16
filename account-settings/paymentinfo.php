@@ -79,22 +79,22 @@ session_start();
     </div>
     <div class="row">
         <ul class="nav flex-column col-3 settings-links-col">
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="#" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>

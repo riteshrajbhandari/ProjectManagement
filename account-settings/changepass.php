@@ -79,22 +79,22 @@ session_start();
     </div>
     <div class="row">
         <ul class="nav flex-column col-3 settings-links-col">
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="#" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -120,7 +120,9 @@ session_start();
                 </li>
             </ul>
 
-            <div class="changepass" id="settings-body">
+            <div class="row">
+                <div class="col-lg-4">
+                <div class="changepass" id="settings-body">
                 <form>
                     <div class="form-group">
                         <label for="changepass">Current Password</label>
@@ -137,6 +139,10 @@ session_start();
                     <button type="submit" class="btn btn-primary">Change Password</button>
                 </form>
             </div>
+                </div>
+            </div>
+
+            
         </div>
     </div>
     <div class="footer navcolor">
