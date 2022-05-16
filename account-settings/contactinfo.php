@@ -122,8 +122,9 @@ session_start();
 
             <div class="contactinfo" id="settings-body">
                 <h1>Contact Information</h1><br>
-                email@domain.com <img src="../images/pencil-square.svg" alt=""><br><br>
-                <div class="row">
+                <p class="pb-5">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
+                
+                <div class="row pb-5">
                     <div class="col-1">
                         Gender
                     </div>
