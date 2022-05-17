@@ -1,4 +1,4 @@
-<?php 
+<?php
 $connection = oci_connect('C7261155', 'HelloWorld123', 'localhost/XE');
 if (!$connection) {
     $m = oci_error();
@@ -8,4 +8,3 @@ if (!$connection) {
     print "Connected to Oracle!";
 }
 // oci_close($connection);
-?>
