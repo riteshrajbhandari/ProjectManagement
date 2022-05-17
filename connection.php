@@ -4,8 +4,9 @@ if (!$connection) {
     $m = oci_error();
     echo $m['message'], "\n";
     exit;
-} else {
-    print "Connected to Oracle!";
-}
+} 
+// else {
+//     print "Connected to Oracle!";
+// }
 // oci_close($connection);
 ?>
