@@ -80,20 +80,18 @@ include('connection.php');
                             <span><i class="fa fa-envelope-o"></i></span>
                             <input type="email" name="email" placeholder="Email Address" tabindex="10" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['email'];
                                                                                                                 elseif (isset($_POST['clearRegistration'])) echo ""; ?>" required>
-
-
-                            <span><?php
-                                    if (isset($_POST['submitRegistration'])) {
-                                        $email = $_POST['email'];
-                                        if (empty($email)) {
-                                            echo '<br/>Please enter email';
-                                            $error = true;
-                                        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                                            echo '<br/>Invalid email';
-                                            $errors = true;
-                                        }
-                                    } ?></span>
                         </div>
+                        <span><?php
+                                if (isset($_POST['submitRegistration'])) {
+                                    $email = $_POST['email'];
+                                    if (empty($email)) {
+                                        echo '<br/>Please enter email';
+                                        $error = true;
+                                    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                        echo '<br/>Invalid email';
+                                        $errors = true;
+                                    }
+                                } ?></span>
 
                         <div class="form-input">
                             <span><i class="fa fa-key"></i></span>
@@ -198,9 +196,9 @@ include('connection.php');
 
                         if (isset($_POST['submitRegistration'])) {
                             include('sanitization.php');
-                       
+
                             if (!$error) {
-                            
+
 
                                 $username = clean_data($_POST['username']);
                                 $email = clean_data($_POST['email']);
@@ -221,7 +219,7 @@ include('connection.php');
 VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', 'images/deli.jpg', '$gender')");
                                     if (oci_execute($stid)) {
                                     };
-                                    
+
                                     echo 'Account created. Go to <a href="login.php">Login</a>';
                                 }
                             }
