@@ -54,18 +54,18 @@ session_start();
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="../register.php">Register</a></li>';
                                 }
@@ -79,22 +79,22 @@ session_start();
     </div>
     <div class="row">
         <ul class="nav flex-column col-3 settings-links-col">
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="#" id="myorders">My Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -120,22 +120,25 @@ session_start();
                 </li>
             </ul>
 
-            <div class="myorders" id="settings-body">
+            <div class="myorders " id="settings-body">
                 <h1>My Orders</h1>
-                <table>
-                    <tr>
-                        <th>Order</th>
-                        <th>Order Placed</th>
-                        <th>Qty</th>
-                        <th>Collection Slot</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
+              
+                    <table class="table" >
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Order Placed</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Collection Slot</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
 
 
-<?php
+                        <?php
 
-                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
+                        $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
                 wishlist_product WP, product P 
                 WHERE U.user_id = '$user_id' and 
                 U.user_id = O.FK3_USER_ID and 
@@ -143,51 +146,51 @@ session_start();
                 U.user_id = W.FK1_USER_ID and 
                 W.wishlist_id = WP.wishlist_id and
                 P.product_id = WP.product_id");
-                oci_execute($stid);
+                        oci_execute($stid);
 
-                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                    // echo //order table
-                }
+                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                            // echo //order table
+                        }
 
-?>
-
-
+                        ?>
 
 
 
 
 
-                    <?php
-                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                    $listOfDates = array(
-                        "December 23, 2020",
-                        "January 24, 2022",
-                        "February 25, 2023",
-                        "March 26, 2024",
-                        "April 27, 2025",
-                    );
-                    $listOfCollSlot = array(
-                        "August 31, 2029",
-                        "October 02, 2030",
-                        "November 03, 2031",
-                        "December 04, 2032",
-                        "January 05, 2034"
-                    );
-                    $listOfQty = array(1, 6, 5, 3, 3, 4);
-                    for ($i = 0; $i < count($listOfOrders); $i++) {
-                    ?>
-                        <tr>
-                            <td><?php echo $listOfOrders[$i]; ?></td>
-                            <td><?php echo $listOfDates[$i]; ?></td>
-                            <td><?php echo $listOfQty[$i]; ?></td>
-                            <td><?php echo $listOfCollSlot[$i]; ?></td>
-                            <td>ordered</td>
-                            <td><a href="http://">Edit</a></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </table>
+
+
+                        <?php
+                        $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
+                        $listOfDates = array(
+                            "December 23, 2020",
+                            "January 24, 2022",
+                            "February 25, 2023",
+                            "March 26, 2024",
+                            "April 27, 2025",
+                        );
+                        $listOfCollSlot = array(
+                            "August 31, 2029",
+                            "October 02, 2030",
+                            "November 03, 2031",
+                            "December 04, 2032",
+                            "January 05, 2034"
+                        );
+                        $listOfQty = array(1, 6, 5, 3, 3, 4);
+                        for ($i = 0; $i < count($listOfOrders); $i++) {
+                        ?>
+                            <tr>
+                                <td><?php echo $listOfOrders[$i]; ?></td>
+                                <td><?php echo $listOfDates[$i]; ?></td>
+                                <td><?php echo $listOfQty[$i]; ?></td>
+                                <td><?php echo $listOfCollSlot[$i]; ?></td>
+                                <td>ordered</td>
+                                <td><a href="http://">Edit</a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
             </div>
         </div>
     </div>

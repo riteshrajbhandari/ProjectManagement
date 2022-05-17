@@ -1,6 +1,76 @@
 <?php
 include('connection.php');
 
+//for email verification
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+require 'vendor/autoload.php';
+
+
+
+
+function sendemail_verify($name, $email, $verify_token)
+{
+    $mail = new PHPMailer(true);
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'user@example.com';                     //SMTP username
+    $mail->Password   = 'secret';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 587;
+
+    $mail->setFrom("sajidmiya285@gmail.com", $username);
+    $mail->addAddress($email);
+
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = "Email verification from the Fresh Mart";
+
+    $email_template = "
+        <h2>You are registered with Fresh Mart</h2>
+        <h5>Verify your email address to login</h5>
+        <br><br>
+        <a href='http://localhost/ProjectManagement/register.php/verify-email.php/token=$verify_token'>Click Me</a>";
+
+    $email->Body = $email_template;
+    $mail->send();
+    echo 'Message has been sent';
+}
+
+
+if (isset($_POST["submitRegistration"])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $verify_token = md5(rand());
+
+
+    $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
+    $check_email_query_run = oci_parse($connection, $check_email_query);
+
+    if (mysqli_num_rows($check_email_query_run) > 0) {
+        $_SESSION['status'] = "Email already Exists";
+        header("Location:register.php");
+    } else {
+        $query = "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)";
+        $query_run = mysqli_query($connection, $query);
+    }
+
+    if ($query_run) {
+        sendemail_verify("$name", "$email", "$verify_token");
+        $_SESSION['status'] = "Registration Successful. Please verify email address";
+        header("Location:register.php");
+    } else {
+        $_SESSION['status'] = "Registration Failed";
+        header("Location:register.php");
+    }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -173,7 +243,8 @@ include('connection.php');
                                                                                             } else {
                                                                                                 echo 'false';
                                                                                             }
-                                                                                        } ?>required><small> I read and agree to Terms & Conditions</small></input>
+                                                                                        } ?>required><small> I read and agree to Terms & Conditions</small>
+                            </input>
                             <span><?php
                                     if (isset($_POST['submitRegistration'])) {
                                         if (!isset($_POST['checkBox'])) {

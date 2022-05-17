@@ -79,22 +79,22 @@ session_start();
     </div>
     <div class="row">
         <ul class="nav flex-column col-3 settings-links-col">
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="#" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -120,14 +120,26 @@ session_start();
                 </li>
             </ul>
             <div class="wishlist" id="settings-body">
-                <table>
+                <!-- <table>
                     <tr>
                         <th>Order</th>
                         <th>Order Placed</th>
                         <th>Qty</th>
                         <th>Availability</th>
                         <th>Action</th>
-                    </tr>
+                    </tr> -->
+
+                    <table class="table" >
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Order Placed</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Availability</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+
                     <?php
                     $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
                     $listOfDates = array(
