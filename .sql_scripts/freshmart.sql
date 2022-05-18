@@ -140,7 +140,7 @@ CREATE TABLE WISHLIST(
 -- Create a Database table to represent the "PRODUCT" entity.
 CREATE TABLE PRODUCT(
 	product_id	INTEGER NOT NULL,
-	product_name	VARCHAR(20),
+	product_name	VARCHAR(50),
 	unit_price	FLOAT(8),
 	stock	INTEGER,
 	-- shop_id	INTEGER,
@@ -175,7 +175,7 @@ CREATE TABLE SHOP(
 -- Create a Database table to represent the "CATEGORY" entity.
 CREATE TABLE CATEGORY(
 	category_id	INTEGER NOT NULL,
-	category_name	VARCHAR(8),
+	category_name	VARCHAR(50),
 	category_desc	VARCHAR(100),
 	-- Specify the PRIMARY KEY constraint for table "CATEGORY".
 	-- This indicates which attribute(s) uniquely identify each row of data.
@@ -628,6 +628,19 @@ for each row
 begin
   if :NEW.order_id is null then 
     select order_seq.nextval into :NEW.order_id from sys.dual; 
+  end if; 
+end;
+/
+
+DROP SEQUENCE category_seq;
+CREATE SEQUENCE category_seq;
+create or replace trigger add_new_category
+BEFORE
+insert on category
+for each row
+begin
+  if :NEW.category_id is null then 
+    select category_seq.nextval into :NEW.category_id from sys.dual; 
   end if; 
 end;
 /
