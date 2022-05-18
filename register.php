@@ -13,7 +13,7 @@ require 'vendor/autoload.php';
 
 
 
-function sendemail_verify($name, $email, $verify_token)
+function sendemail_verify($username, $email, $verify_token)
 {
     $mail = new PHPMailer(true);
     //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
@@ -43,33 +43,65 @@ function sendemail_verify($name, $email, $verify_token)
 }
 
 
-if (isset($_POST["submitRegistration"])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $verify_token = md5(rand());
+// if (isset($_POST["submitRegistration"])) {
+//     $username = $_POST['username'];
+//     $email = $_POST['email'];
+//     $password = $_POST['password'];
+//     $verify_token = md5(rand());
 
 
-    $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
-    $check_email_query_run = oci_parse($connection, $check_email_query);
 
-    if (mysqli_num_rows($check_email_query_run) > 0) {
-        $_SESSION['status'] = "Email already Exists";
-        header("Location:register.php");
-    } else {
-        $query = "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)";
-        $query_run = mysqli_query($connection, $query);
-    }
+//     $stid = oci_parse($connection, "SELECT email FROM users WHERE email = '$email'");
+//     oci_execute($stid);
+//     if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+//         $_SESSION['status'] = "Email already Exists";
+//         header("Location:register.php");
+//     } else {
+//         $stid = oci_parse($connection, "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)");
+//         if (oci_execute($stid)) {
 
-    if ($query_run) {
-        sendemail_verify("$name", "$email", "$verify_token");
-        $_SESSION['status'] = "Registration Successful. Please verify email address";
-        header("Location:register.php");
-    } else {
-        $_SESSION['status'] = "Registration Failed";
-        header("Location:register.php");
-    }
-}
+//         };
+//     }
+
+
+
+
+
+
+//     $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
+//     $check_email_query_run = oci_parse($connection, $check_email_query);
+//     if (mysqli_num_rows($check_email_query_run) > 0) {
+//         $_SESSION['status'] = "Email already Exists";
+//         header("Location:register.php");
+//     } else {
+
+
+
+
+
+
+
+//         $query = "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)";
+//         $query_run = mysqli_query($connection, $query);
+//     }
+
+
+
+
+
+
+
+
+
+//     if ($query_run) {
+//         sendemail_verify("$username", "$email", "$verify_token");
+//         $_SESSION['status'] = "Registration Successful. Please verify email address";
+//         header("Location:register.php");
+//     } else {
+//         $_SESSION['status'] = "Registration Failed";
+//         header("Location:register.php");
+//     }
+// }
 
 
 ?>
@@ -100,7 +132,7 @@ if (isset($_POST["submitRegistration"])) {
                     <h4 class="title text-center ">
                         Register to FreshMart
                     </h4>
-                    <form class="form-box px-2" method="POST" action="register.php">
+                    <form class="form-box px-2" method="POST" action="register.php" enctype="multipart/form-data">
                         <div class="form-input">
                             <span><i class="fa fa-user"></i></span>
                             <input type="text" name="firstname" placeholder="First Name" tabindex="10" value="<?php if (isset($_POST['submitRegistration'])) echo $_POST['firstname'];
@@ -211,6 +243,14 @@ if (isset($_POST["submitRegistration"])) {
                                 <label for="date_of_birth">Date of birth</label>
                                 <input type="date" name="date_of_birth">
                             </div>
+                            <div class="input_field">
+                                <label for="image">Upload Image: </label>
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <div id="imageUploadError"></div>
+                            </div>
+                            <?php
+                            
+                            ?>
 
                             <div class="row">
                                 <div class="col-6">
@@ -285,14 +325,115 @@ if (isset($_POST["submitRegistration"])) {
                                 } else $gender = 'O';
                                 // $phone_no = clean_data($_POST['phonenumber']);
 
+
+                                $target_dir = "images/";
+                            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                            $uploadOk = 1;
+                            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                            if($check !== false) {
+                            //   echo "File is an image - " . $check["mime"] . ".";
+                              $uploadOk = 1;
+                            } else {
+                            //   echo "File is not an image.";
+                              $uploadOk = 0;
+                              $errors = true;
+                            }
+                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                                // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                              } else {
+                                echo "Sorry, there was an error uploading your file.";
+                                $errors = true;
+                              }
+                              $image_name = 'images\\'.htmlspecialchars( basename( $_FILES["fileToUpload"]["name"]));
+
+
+
+
                                 if (!$errors) {
                                     $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
-VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', 'images/deli.jpg', '$gender')");
+VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', '$image_name', '$gender')");
                                     if (oci_execute($stid)) {
                                     };
 
-                                    echo 'Account created. Go to <a href="login.php">Login</a>';
+                                    echo 'Account created.';
+                                    //echo go click on the link in your mail 
+                                    //verification link in their email, which they will click and the 
+                                    //verification status will be updated in the users table and the 
+                                    //user will be redirected back to login
                                 }
+
+                                //in login page once the user enters data check if it is verfied 
+                                //(the boolean created earlier) if not verified, echo go click 
+                                //on the link in your email to verify your account first
+
+
+
+
+                                //     $verify_token = md5(rand());
+
+                                //     $stid = oci_parse($connection, "SELECT email FROM users WHERE email = '$email'");
+                                //     oci_execute($stid);
+                                //     if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                //         // $_SESSION['status'] = "Email already Exists";
+                                //         // header("Location:register.php");
+                                //         echo "Email already Exists";
+                                //     } else {
+                                //         $stid = oci_parse($connection, "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)");
+                                //         if (oci_execute($stid)) {
+
+                                //         };
+                                //     }
+
+
+
+
+
+
+                                //     $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
+                                //     $check_email_query_run = oci_parse($connection, $check_email_query);
+                                //     if (mysqli_num_rows($check_email_query_run) > 0) {
+                                //         $_SESSION['status'] = "Email already Exists";
+                                //         header("Location:register.php");
+                                //     } else {
+
+
+
+
+
+
+
+                                //         $query = "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)";
+                                //         $query_run = mysqli_query($connection, $query);
+                                //     }
+
+
+
+
+
+
+
+
+
+                                //     if ($query_run) {
+                                //         sendemail_verify("$username", "$email", "$verify_token");
+                                //         $_SESSION['status'] = "Registration Successful. Please verify email address";
+                                //         header("Location:register.php");
+                                //     } else {
+                                //         $_SESSION['status'] = "Registration Failed";
+                                //         header("Location:register.php");
+                                //     }
+                                // }
+
+
+
+
+
+
+
+
+
+
                             }
                         }
 
