@@ -20,7 +20,7 @@
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.php">
-                    <img  src="images/logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
+                    <img src="images/logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
                     <div id="logo">
                         <div id="fresh">
                             <h1>Fresh</h1>
@@ -42,24 +42,44 @@
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact-us.php">Contact</a>
                         </li>
 
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, USER!
+                                <?php
+                                session_start();
+
+                                if (isset($_SESSION['user'])) {
+                                    echo 'Welcome, ' . $_SESSION['user'] . '!';
+                                } else echo 'Login/Register';
+                                ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
+                                <?php
+                                if (isset($_SESSION['user'])) {
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
+                                } else {
+                                    echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
+                                }
+                                ?>
+                                <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                                <!-- <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -72,47 +92,47 @@
 
     <!--image-->
     <div class="container">
-     <img class="w-100 img-fluid " id="image" src="./images/nee.jpg"  alt="Responsive image" >
-        
-    <!-- Contact Us Section -->
-    <section class="contact-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="section-title">
-                        <h2 class="py-3">Send Us Message</h2>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5">
-                    <form action="/" class="mb-4 mb-lg-0">
-                        <div class="form-row">
-                            <div class="col-md-6 form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" /><br>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" /><br>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" /><br>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="message" placeholder="Type Message"></textarea><br>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Contact Now</button><br>
-                    </form>
-                </div>
+        <img class="w-100 img-fluid " id="image" src="./images/nee.jpg" alt="Responsive image">
 
-                <div class="col-lg-7 py-3">
-                    <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571289.733943155!2d76.08560099999998!3d29.058775699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e4a4b98404f57%3A0x75ffae70833e8448!2sShahbad%2C%20Haryana%20136135!5e0!3m2!1sen!2sin!4v1594195370933!5m2!1sen!2sin" width="100%" height="350" frameborder="0" style="border: 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <!-- Contact Us Section -->
+        <section class="contact-us">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="section-title">
+                            <h2 class="py-3">Send Us Message</h2>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <form action="/" class="mb-4 mb-lg-0">
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" /><br>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" /><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" /><br>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" placeholder="Type Message"></textarea><br>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Contact Now</button><br>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-7 py-3">
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571289.733943155!2d76.08560099999998!3d29.058775699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e4a4b98404f57%3A0x75ffae70833e8448!2sShahbad%2C%20Haryana%20136135!5e0!3m2!1sen!2sin!4v1594195370933!5m2!1sen!2sin" width="100%" height="350" frameborder="0" style="border: 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     </section>
     <!-- End Contact Us Section -->
@@ -121,14 +141,14 @@
             <div class="row">
                 <div class="col-md-3">
                     <a href="#"><img id="footer" src="./images/logo.png" alt="" srcset=""></a>
-                    
+
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="contact-us.php">Contact</a></li>
+                        <li><a href="login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>

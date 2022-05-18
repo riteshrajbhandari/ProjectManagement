@@ -46,26 +46,26 @@ session_start();
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }
@@ -129,16 +129,16 @@ session_start();
                         <th>Action</th>
                     </tr> -->
 
-                    <table class="table" >
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Order</th>
-                                <th scope="col">Order Placed</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Availability</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Order</th>
+                            <th scope="col">Order Placed</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Availability</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
 
                     <?php
                     $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
@@ -185,14 +185,17 @@ session_start();
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>

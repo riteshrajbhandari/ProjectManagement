@@ -49,7 +49,7 @@ include('connection.php');
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="./contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
@@ -126,7 +126,7 @@ include('connection.php');
                         <h1>
                             <?php echo $product_name; ?>
                         </h1><br>
-                        rating: <?php if(isset($rating)) echo $rating; ?>
+                        rating: <?php if (isset($rating)) echo $rating; ?>
                         <br>
                         Price: £<?php echo $price; ?>
                         <p>
@@ -426,14 +426,17 @@ include('connection.php');
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="./contact-us.php">Contact</a></li>
+                        <li><a href="./login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="./about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>

@@ -46,26 +46,26 @@ session_start();
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
-                        </a>
+                            </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="../register.php">Register</a></li>';
                                 }
@@ -122,27 +122,27 @@ session_start();
 
             <div class="row">
                 <div class="col-lg-4">
-                <div class="changepass" id="settings-body">
-                <form>
-                    <div class="form-group">
-                        <label for="changepass">Current Password</label>
-                        <input type="password" class="form-control" id="currentPassword" placeholder="Enter Password">
-                    </div><br>
-                    <div class="form-group">
-                        <label for="changepass">New Password</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="New Password">
-                    </div><br>
-                    <div class="form-group">
-                        <label for="changepass">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                    </div><br>
-                    <button type="submit" class="btn btn-primary">Change Password</button>
-                </form>
-            </div>
+                    <div class="changepass" id="settings-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="changepass">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter Password">
+                            </div><br>
+                            <div class="form-group">
+                                <label for="changepass">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+                            </div><br>
+                            <div class="form-group">
+                                <label for="changepass">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                            </div><br>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            
+
         </div>
     </div>
     <div class="footer navcolor">
@@ -157,14 +157,17 @@ session_start();
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>

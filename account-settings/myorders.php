@@ -46,10 +46,10 @@ session_start();
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -122,23 +122,23 @@ session_start();
 
             <div class="myorders " id="settings-body">
                 <h1>My Orders</h1>
-              
-                    <table class="table" >
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Order</th>
-                                <th scope="col">Order Placed</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Collection Slot</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Order</th>
+                            <th scope="col">Order Placed</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Collection Slot</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
 
 
-                        <?php
+                    <?php
 
-                        $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
+                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
                 wishlist_product WP, product P 
                 WHERE U.user_id = '$user_id' and 
                 U.user_id = O.FK3_USER_ID and 
@@ -146,51 +146,51 @@ session_start();
                 U.user_id = W.FK1_USER_ID and 
                 W.wishlist_id = WP.wishlist_id and
                 P.product_id = WP.product_id");
-                        oci_execute($stid);
+                    oci_execute($stid);
 
-                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                            // echo //order table
-                        }
+                    while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                        // echo //order table
+                    }
 
-                        ?>
-
-
+                    ?>
 
 
 
 
 
-                        <?php
-                        $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                        $listOfDates = array(
-                            "December 23, 2020",
-                            "January 24, 2022",
-                            "February 25, 2023",
-                            "March 26, 2024",
-                            "April 27, 2025",
-                        );
-                        $listOfCollSlot = array(
-                            "August 31, 2029",
-                            "October 02, 2030",
-                            "November 03, 2031",
-                            "December 04, 2032",
-                            "January 05, 2034"
-                        );
-                        $listOfQty = array(1, 6, 5, 3, 3, 4);
-                        for ($i = 0; $i < count($listOfOrders); $i++) {
-                        ?>
-                            <tr>
-                                <td><?php echo $listOfOrders[$i]; ?></td>
-                                <td><?php echo $listOfDates[$i]; ?></td>
-                                <td><?php echo $listOfQty[$i]; ?></td>
-                                <td><?php echo $listOfCollSlot[$i]; ?></td>
-                                <td>ordered</td>
-                                <td><a href="http://">Edit</a></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </table>
+
+
+                    <?php
+                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
+                    $listOfDates = array(
+                        "December 23, 2020",
+                        "January 24, 2022",
+                        "February 25, 2023",
+                        "March 26, 2024",
+                        "April 27, 2025",
+                    );
+                    $listOfCollSlot = array(
+                        "August 31, 2029",
+                        "October 02, 2030",
+                        "November 03, 2031",
+                        "December 04, 2032",
+                        "January 05, 2034"
+                    );
+                    $listOfQty = array(1, 6, 5, 3, 3, 4);
+                    for ($i = 0; $i < count($listOfOrders); $i++) {
+                    ?>
+                        <tr>
+                            <td><?php echo $listOfOrders[$i]; ?></td>
+                            <td><?php echo $listOfDates[$i]; ?></td>
+                            <td><?php echo $listOfQty[$i]; ?></td>
+                            <td><?php echo $listOfCollSlot[$i]; ?></td>
+                            <td>ordered</td>
+                            <td><a href="http://">Edit</a></td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </table>
             </div>
         </div>
     </div>
@@ -206,14 +206,17 @@ session_start();
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>

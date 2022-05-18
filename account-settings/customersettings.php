@@ -46,10 +46,10 @@ session_start();
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -146,7 +146,7 @@ session_start();
             ?>
             <div class="myprofile" id="settings-body">
                 <div class="row">
-                    <div class="col-lg-6 profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../".$profile_pic_url; ?>);'></div>
+                    <div class="col-lg-6 profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
                     <div class="col-lg-6 card-img rounded-circle edit-hover">
                         <a href="http://">
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
@@ -155,16 +155,16 @@ session_start();
                     <div class="col-lg-6 py-5 ">
                         <h1 class="pb-3">Full Name</h1>
                         <p class="pb-3">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
-                        
+
                         <p class="pb-3">Birthday: dd/mm/yyyy <img src="" alt=""></p>
-                        
+
                         Gender: F/M/O <img src="" alt="">
                     </div>
-                       
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="footer navcolor">
         <div class="container">
@@ -178,14 +178,17 @@ session_start();
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>

@@ -42,23 +42,43 @@
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Welcome, USER!
+                                <?php
+                                session_start();
+
+                                if (isset($_SESSION['user'])) {
+                                    echo 'Welcome, ' . $_SESSION['user'] . '!';
+                                } else echo 'Login/Register';
+                                ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
+                                <?php
+                                if (isset($_SESSION['user'])) {
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
+                                } else {
+                                    echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
+                                    echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
+                                }
+                                ?>
+                                <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                                <!-- <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -86,7 +106,7 @@
             <li class="nav-item p-3">
                 <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-           
+
         </ul>
         <div class="col settings-body">
             <ul class="nav nav-pills d-flex settings-tabs">
@@ -105,7 +125,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
                 </li>
-                
+
             </ul>
 
             <div class="myprofile " id="settings-body">
@@ -116,7 +136,7 @@
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
                         </a>
                     </div>
-                    
+
                     <div class="col-lg-4 ">
                         <h1>Full Name</h1>
                         email@domain.com <img src="../images/pencil-square.svg" alt="">
@@ -127,7 +147,7 @@
                             Gender: F/M/O <img src="" alt="">
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -145,14 +165,17 @@
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>
