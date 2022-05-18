@@ -4,6 +4,7 @@ include('../connection.php');
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,10 +50,10 @@ include('../connection.php');
                             <a class="nav-link" aria-current="" href="#">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -90,10 +91,31 @@ include('../connection.php');
     </div>
     <!-- welcome, trader! -->
     <form action="trader_index.php" method="post">
+        <div class="container mt-5 mb-5 d-flex justify-content-center ">
+            <div class="card px-1 py-4 bg-success">
+                <div class="card-body p-5">
+                    <h6 class="card-title mb-3 text-center text-white">Shop</h6>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group py-5">
+                                <input class="form-control" id="shop-name" name="shop-name" type="text" placeholder=" Shop Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center "> 
+                        <button type="submit" name="add-shop" class="btn btn-primary btn-block confirm-button ">Add Shop</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- <form action="trader_index.php" method="post">
         <label for="shop-name">Shop Name</label>
         <input type="text" name="shop-name" id="shop-name">
         <button type="submit" name="add-shop">Add Shop</button>
-    </form>
+    </form> -->
     <?php
     if (isset($_POST['add-shop'])) {
         $shop_name = $_POST['shop-name'];
@@ -137,14 +159,17 @@ include('../connection.php');
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
                         <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
+                    <a href="../about.php">
+                        <h2>About Us</h2>
+                    </a>
+
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
                 </div>
             </div>
