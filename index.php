@@ -62,8 +62,13 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
-                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
                                 } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
