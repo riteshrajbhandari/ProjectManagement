@@ -38,8 +38,17 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           </form>
           <ul class="navbar-nav w-100 navbar-links" style="flex-wrap: wrap">
-            <li class="nav-item me-2">
-              <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Browse By Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="browse-by-category.php?category=Butchers">Butchers</a></li>
+                <li><a class="dropdown-item" href="browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                <li><a class="dropdown-item" href="browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                <li><a class="dropdown-item" href="browse-by-category.php?category=Bakery">Bakery</a></li>
+                <li><a class="dropdown-item" href="browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+              </ul>
             </li>
             <li class="nav-item me-2">
               <a class="nav-link" href="./contact-us.php">Contact</a>

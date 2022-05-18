@@ -39,8 +39,17 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="./contact-us.html">Contact</a>
@@ -74,12 +83,6 @@
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }
                                 ?>
-                                <!-- <li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
-                                <!-- <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -318,7 +321,7 @@
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <a href="./about.html">
+                    <a href="./about.php">
                         <h2>About Us</h2>
                     </a>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>

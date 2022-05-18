@@ -42,8 +42,17 @@ include('connection.php');
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="#">Contact</a>
@@ -159,29 +168,29 @@ include('connection.php');
                     if (!$error) {
                         echo 'Total: £' . $total; ?>
                         <form action="./cart.php" method="post"><?php
-                            // TODO:: check if today is wednesday, thursday or friday
-                            // if it is, add today and the days after today until friday.
-                            // if not, while today doesn't reach wednesday, keep incrementing day and
-                            // when it does reach wednesday, add today and the days after today until friday
-                            $days_of_collection = array('Wed', 'Thu', 'Fri');
-                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                            $today = date("D");
-                            $chosen_day = $days[0];
-                            $counter = 0;
+                                                                // TODO:: check if today is wednesday, thursday or friday
+                                                                // if it is, add today and the days after today until friday.
+                                                                // if not, while today doesn't reach wednesday, keep incrementing day and
+                                                                // when it does reach wednesday, add today and the days after today until friday
+                                                                $days_of_collection = array('Wed', 'Thu', 'Fri');
+                                                                $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                                                                $today = date("D");
+                                                                $chosen_day = $days[0];
+                                                                $counter = 0;
 
-                            $key = array_search($today, $days); //get the index of the day today with respect to the days array
-                            // $todays_date = date("d-M-y");
-                            //TODO
-                            $todays_date = date("d-M-y", strtotime("-3 days", strtotime(date("Y-m-d"))));
+                                                                $key = array_search($today, $days); //get the index of the day today with respect to the days array
+                                                                // $todays_date = date("d-M-y");
+                                                                //TODO
+                                                                $todays_date = date("d-M-y", strtotime("-3 days", strtotime(date("Y-m-d"))));
 
-                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                $key++;                                     //time travel to the next day
-                                $today = $days[$key];                       //check if that day is in the list
-                                // echo $key;
-                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                            //difference betn the next collection
-                            //day and today in number of days, inclusive
-                            ?>
+                                                                while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+                                                                    $key++;                                     //time travel to the next day
+                                                                    $today = $days[$key];                       //check if that day is in the list
+                                                                    // echo $key;
+                                                                } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+                                                                //difference betn the next collection
+                                                                //day and today in number of days, inclusive
+                                                                ?>
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
@@ -190,12 +199,12 @@ include('connection.php');
                                     //get todays date, add $key no of days to it and display it from there
                                     $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
                                     // Add days to date and display it
-                                    echo '<option value="' . $days[$i] .' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                    echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
                                 }
                                 if ($counter < 2) { //if there is only friday left,
                                     for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
                                         $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $days[$j]. ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                        echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
                                     }
                                 }
                                 ?>
@@ -233,7 +242,7 @@ include('connection.php');
         // FK3_USER_ID)
         // VALUES ('$total','$order_date', '$cart_id','$user_id')");
         // oci_execute($stid);
-        
+
         // $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
         // VALUES('$collection_slot', '$collection_time')");
 
@@ -263,7 +272,7 @@ include('connection.php');
                 <div class="col-md-1"></div>
 
                 <div class="col-md my-auto" id="footer">
-                    <a href="./about.html">
+                    <a href="./about.php">
                         <h2>About Us</h2>
                     </a>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>

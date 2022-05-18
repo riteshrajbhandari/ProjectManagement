@@ -42,8 +42,17 @@ include('connection.php');
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="./contact-us.php">Contact</a>
@@ -94,7 +103,7 @@ include('connection.php');
     <!-- SEARCH RESULTS -->
     <div class="container">
         <div class="center">
-            <form action="./search.php?search=<?php echo $_GET['search'];?>" method="post"> 
+            <form action="./search.php?search=<?php echo $_GET['search']; ?>" method="post">
                 <!--does this need to be a form????-->
                 <div class="dropdown">
                     <select name="sort-by" id="sort-by">
@@ -113,10 +122,10 @@ include('connection.php');
             if (isset($_GET['search'])) {
                 $keyword =  strtoupper($_GET['search']);
                 $query = "SELECT * FROM product WHERE product_name LIKE '%$keyword%'";
-               
-                if(isset($_POST['sort'])&& $_POST['sort-by']!=''){
+
+                if (isset($_POST['sort']) && $_POST['sort-by'] != '') {
                     $sort_by = $_POST['sort-by'];
-                    $query = $query . " ORDER BY ". $sort_by;
+                    $query = $query . " ORDER BY " . $sort_by;
                     // echo $query;
                 }
                 $stid = oci_parse($connection, $query);
