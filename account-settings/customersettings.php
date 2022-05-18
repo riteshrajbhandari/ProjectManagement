@@ -177,9 +177,9 @@ session_start();
                 <div class="col-md-1"></div>
                 <div class="col-md my-auto justify-content-center" id="footer">
                     <ul id="footer">
-                        <li><a href="http://">Browse By Category</a></li>
-                        <li><a href="http://">Contact</a></li>
-                        <li><a href="http://">Login</a></li>
+                        <li><a href="../browse-by-category.php">Browse By Category</a></li>
+                        <li><a href="../contact-us.php">Contact</a></li>
+                        <li><a href="../login.php">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
