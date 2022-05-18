@@ -117,53 +117,19 @@ include('../connection.php');
             </ul>
 
 
-            <form action="trader_index.php" method="post">
-                <div class="container contact">
-                    <div class="row py-5">
-                        <div class="col-md-3 p-3">
-                            <div class="contact-info">
-                                <h2>Fresh Mart Trader Profile</h2>
-                                <div class="py-3">
-                                    <h4>Add new Shop</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9 ">
-                            <div class="contact-form ">
-                                <div class="form-group p-3">
-                                    <label class="control-label col-sm-2" for="">Shop Name:</label>
-                                    <div class="col-sm-10 py-3">
-                                        <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Detail">
-                                    </div>
-                                </div>
-                                <div class="form-group p-3">
-                                    <div class="col-sm-offset-2 col-sm-10 ">
-                                        <button type="submit" name="add-shop" class="btn btn-primary btn-block confirm-button ">Add Shop</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <!-- Update cmd here -->
+
+
+
+
         </div>
     </div>
 
-    <!-- Shop -->
-
-    <!-- welcome, trader! -->
-    <?php
-    if (isset($_POST['add-shop'])) {
-        $shop_name = $_POST['shop-name'];
-        $user_id = $_SESSION['user_id'];
-
-        $stid = oci_parse($connection, "INSERT INTO shop (shop_name, user_id) VALUES ('$shop_name','$user_id')");
-        oci_execute($stid);
-    }
-    ?>
 
 
 
+
+    <!-- Footer -->
 
     <div class="footer navcolor">
         <div class="container">

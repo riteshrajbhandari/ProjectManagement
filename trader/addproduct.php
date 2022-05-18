@@ -100,7 +100,7 @@ include('../connection.php');
                 <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
+                <a class="nav-link" href="./update.php" id="update">Update/delete</a>
             </li>
         </ul>
         <div class="col settings-body ">
@@ -117,43 +117,99 @@ include('../connection.php');
             </ul>
 
 
+
+
             <form action="trader_index.php" method="post">
+
                 <div class="container contact">
                     <div class="row py-5">
                         <div class="col-md-3 p-3">
                             <div class="contact-info">
-                                <h2>Fresh Mart Trader Profile</h2>
+                                <!-- <h2>Fresh Mart Trader Profile</h2> -->
                                 <div class="py-3">
-                                    <h4>Add new Shop</h4>
+                                    <h4>Product Name</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-9 ">
                             <div class="contact-form ">
                                 <div class="form-group p-3">
-                                    <label class="control-label col-sm-2" for="">Shop Name:</label>
+                                    <label class="control-label col-sm-2" for="">Product Name:</label>
                                     <div class="col-sm-10 py-3">
-                                        <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Detail">
+                                        <input type="text" class="form-control" name="product-name" id="product-name" placeholder="Enter Product Name">
                                     </div>
                                 </div>
                                 <div class="form-group p-3">
-                                    <div class="col-sm-offset-2 col-sm-10 ">
-                                        <button type="submit" name="add-shop" class="btn btn-primary btn-block confirm-button ">Add Shop</button>
+                                    <label class="control-label col-sm-2" for="">Product Price:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="number" step="0.1" class="form-control" name="product-price" id="product-price" placeholder="Enter Product Price">
                                     </div>
                                 </div>
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Product Stock:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="text" class="form-control" name="product-stock" id="product-stock" placeholder="Enter Product Stock">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Product Availability:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="text" class="form-control" name="product-availability" id="product-availability" placeholder="Enter Product availability">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Product short Description:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="text" class="form-control" name="short-description" id="short-description" placeholder="Enter Product short description">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Product Description:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="text" class="form-control" name="description" id="description" placeholder="Enter Product description">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Product Description:</label>
+                                    <div class="col-sm-10 py-3">
+                                        <input type="text" class="form-control" name="description" id="description" placeholder="Enter Product description">
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="form-group p-3">
+                                    <div class="col-sm-offset-2 col-sm-10 ">
+                                        <button type="submit" name="add-product" class="btn btn-primary btn-block confirm-button ">Add Product</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
 
-    <!-- Shop -->
+    <!-- Add product -->
 
-    <!-- welcome, trader! -->
+    <!-- <label for="shop-name">Product Name</label>
+<input type="text" name="product-name" id="product-name">
+<input type="number" step="0.1" name="product-price" id="product-price">
+<input type="text" name="product-stock" id="product-stock">
+<input type="text" name="product-availability" id="product-availability">
+<input type="text" name="short-description" id="short-description">
+<input type="text" name="description" id="description">
+<input type="text" name="description" id="description">
+
+<button type="submit" name="add-product">Add Product</button> -->
     <?php
-    if (isset($_POST['add-shop'])) {
+    if (isset($_POST['add-product'])) {
         $shop_name = $_POST['shop-name'];
         $user_id = $_SESSION['user_id'];
 
@@ -162,9 +218,7 @@ include('../connection.php');
     }
     ?>
 
-
-
-
+    <!-- Footer -->
     <div class="footer navcolor">
         <div class="container">
             <div class="row">
