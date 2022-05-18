@@ -17,6 +17,7 @@ include('../connection.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
 
+
     <!--Custom CSS-->
     <link rel=" stylesheet" href="../styles/style.css">
     <title>Your home to fresh products</title>
@@ -91,7 +92,7 @@ include('../connection.php');
     </div>
 
     <!-- sidebar -->
-    <div class="row ">
+    <div class="row " >
         <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add Shop</a>
@@ -119,11 +120,11 @@ include('../connection.php');
 
 
 
-            <form action="trader_index.php" method="post">
+            <form action="trader_index.php" method="post" >
 
-                <div class="container contact">
-                    <div class="row py-5">
-                        <div class="col-md-3 p-3">
+                <div class="container contact" >
+                    <div class="row py-5 m-3" style="border:2px solid green; border-radius:1em; background-color:white">
+                        <div class="col-md-3  p-3" id="side">
                             <div class="contact-info">
                                 <!-- <h2>Fresh Mart Trader Profile</h2> -->
                                 <div class="py-3">
@@ -183,7 +184,7 @@ include('../connection.php');
                                 <!-- Button -->
                                 <div class="form-group p-3">
                                     <div class="col-sm-offset-2 col-sm-10 ">
-                                        <button type="submit" name="add-product" class="btn btn-primary btn-block confirm-button ">Add Product</button>
+                                        <button type="submit" name="add-product" class="btn btn-primary btn-block confirm-button " >Add Product</button>
                                     </div>
                                 </div>
 
