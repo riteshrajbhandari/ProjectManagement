@@ -23,9 +23,9 @@ session_start();
 </head>
 
 <body>
-  <div class="container">
+  <div class="container py-5 my-5">
 
-    <div class="row px-3">
+    <div class="row ">
 
       <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
         <div class="img-left d-none d-md-flex">
@@ -99,7 +99,7 @@ session_start();
       $_SESSION['user'] = $row['FIRST_NAME'];
       $_SESSION['user_id'] = $row['USER_ID'];
       $_SESSION['user_type'] = $row['USER_TYPE'];
-      
+
       if ($row['USER_TYPE'] == 'Trader') {
         header("Location: ./trader/trader_index.php");
       } else

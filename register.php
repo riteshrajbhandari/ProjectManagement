@@ -121,8 +121,8 @@ function sendemail_verify($username, $email, $verify_token)
 
 
 <body>
-    <div class="container-fluid">
-        <div class="row p-0 ">
+    <div class="container">
+        <div class="row py-2 ">
             <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 ">
                 <div class="img-left-register d-none d-md-flex">
                     <img class="w-100" src="./images/logo.png" alt="">
@@ -239,17 +239,12 @@ function sendemail_verify($username, $email, $verify_token)
                             }
                         }; ?>
                         <div>
-                            <div class="form-input">
+                            <div class="form-input pb-0">
                                 <label for="date_of_birth">Date of birth</label>
                                 <input type="date" name="date_of_birth">
                             </div>
-                            <div class="input_field">
-                                <label for="image">Upload Image: </label>
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                                <div id="imageUploadError"></div>
-                            </div>
                             <?php
-                            
+
                             ?>
 
                             <div class="row">
@@ -274,6 +269,11 @@ function sendemail_verify($username, $email, $verify_token)
                                 </div>
                             </div>
 
+                            <div class="input_field pb-1">
+                                <label for="image">Upload Image: </label>
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <div id="imageUploadError"></div>
+                            </div>
 
 
 
@@ -327,25 +327,25 @@ function sendemail_verify($username, $email, $verify_token)
 
 
                                 $target_dir = "images/";
-                            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-                            $uploadOk = 1;
-                            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-                            if($check !== false) {
-                            //   echo "File is an image - " . $check["mime"] . ".";
-                              $uploadOk = 1;
-                            } else {
-                            //   echo "File is not an image.";
-                              $uploadOk = 0;
-                              $errors = true;
-                            }
-                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                                // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                              } else {
-                                echo "Sorry, there was an error uploading your file.";
-                                $errors = true;
-                              }
-                              $image_name = 'images\\'.htmlspecialchars( basename( $_FILES["fileToUpload"]["name"]));
+                                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                                $uploadOk = 1;
+                                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                                if ($check !== false) {
+                                    //   echo "File is an image - " . $check["mime"] . ".";
+                                    $uploadOk = 1;
+                                } else {
+                                    //   echo "File is not an image.";
+                                    $uploadOk = 0;
+                                    $errors = true;
+                                }
+                                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                                    // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                                } else {
+                                    echo "Sorry, there was an error uploading your file.";
+                                    $errors = true;
+                                }
+                                $image_name = 'images\\' . htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
 
 
 
