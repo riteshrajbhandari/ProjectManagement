@@ -118,8 +118,47 @@ include('../connection.php');
 
 
             <!-- Update cmd here -->
+            <table>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Unit Price</td>
+                    <td>Stock</td>
+                    <td>Availability</td>
+                    <td>Short Description</td>
+                    <td>Description</td>
+                    <td>Image URL</td>
+                    <td>Shop ID</td>
+                    <td>Category ID</td>
+                    <td>Delete</td>
+                </tr>
 
+                <?php
+                $user_id = $_SESSION['user_id'];
+                $stid = oci_parse(
+                    $connection,
+                    "SELECT p.* FROM product p, shop s, users u WHERE p.fk2_shop_id = s.shop_id and s.user_id = u.user_id and u.user_id = '$user_id'"
+                );
+                oci_execute($stid);
 
+                //MAKE A FORMMMMMMM!-!-!-!-!-!-!-!-!-!-!-!-!-!
+                //each row should be a form that when submitted, should update that specifc row having the specific product_id
+                $number_of_reviews = 0;
+                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                    echo '<tr>';
+                    echo '<td>' . $row['PRODUCT_NAME'] . '</td>';
+                    echo '<td>' . $row['UNIT_PRICE'] . '</td>';
+                    echo '<td>' . $row['STOCK'] . '</td>';
+                    echo '<td>' . $row['AVAILABLE'] . '</td>';
+                    echo '<td>' . $row['SHORT_DESCRIPTION'] . '</td>';
+                    echo '<td>' . $row['PRODUCT_DESCRIPTION'] . '</td>';
+                    echo '<td>' . $row['IMG_URL'] . '</td>';
+                    echo '<td>' . $row['FK2_SHOP_ID'] . '</td>';
+                    echo '<td>' . $row['FK3_CATEGORY_ID'] . '</td>';
+                    echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $product_id . '">Delete</a></td>';
+                    echo '</tr>';
+                }
+                ?>
+            </table>
 
 
         </div>
