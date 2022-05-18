@@ -880,3 +880,34 @@ RATING,
 FK1_PRODUCT_ID,
 FK2_USER_ID)
 VALUES('Good bread', 'This bread is very good. I buy this everyday.','05/11/2022', 4.5, 1, 101);
+
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Tej', 'Rana', '05/06/2022', 'tejj', '92ebd8ec0b6f26d2c2b1ef25b3260a9a44cf730a', 'Trader', 'tej.r12@gmail.com', 'images/baker.jpeg', 'M');
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Madan', 'Karki', '05/06/2022', 'kmadan', 'fb464ec99929d760e016f677dd8537570621835b', 'Trader', 'karkimadan@gmail.com.com', 'images/butcher.jpeg', 'M');
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Hari', 'Shrestha', '05/06/2022', 'harish', '46ebaaa2b80c7a3459b80353e085aaeed5aff2ff', 'Trader', 'shari@gmail.com', 'images/greengrocer.jpeg', 'M');
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Krishna', 'Poudel', '05/06/2022', 'krishnaa', '8e3ee9d5d3c305f9525b9cb6d284c5236c15c503', 'Trader', 'poudelk1h@gmail.com.com', 'images/fishmonger.png', 'M');
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Ramesh', 'Shah', '05/06/2022', 'sramesh', '53edd6990376d7b5f512d2b5556613ca2567f04c', 'Trader', 'shah123@gmail.com', 'images/delecaties.jpeg', 'M');
+
+INSERT INTO SHOP(SHOP_NAME, USER_ID)
+VALUES('Tej Bakery', 102);
+
+INSERT INTO SHOP(SHOP_NAME, USER_ID)
+VALUES('Madan Meat Shop', 103);
+
+INSERT INTO SHOP(SHOP_NAME, USER_ID)
+VALUES('Hari grocery', 104);
+
+INSERT INTO SHOP(SHOP_NAME, USER_ID)
+VALUES('Krishna Fish Shop', 105);
+
+INSERT INTO SHOP(SHOP_NAME, USER_ID)
+VALUES('Ramesh Delecaties', 106);
