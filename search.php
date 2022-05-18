@@ -39,7 +39,7 @@ include('connection.php');
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                     <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if(isset($_GET['search']))echo $_GET['search'];?>">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
@@ -65,8 +65,13 @@ include('connection.php');
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
-                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
                                 } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
@@ -89,8 +94,18 @@ include('connection.php');
     <!-- SEARCH RESULTS -->
     <div class="container">
         <div class="center">
-            <form action="./search.php" method="get">
-                <!-- search criteria -->
+            <form action="./search.php" method="get"><!--does this need to be a form????-->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" name="sort_by">
+                        Sort By
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Product Name</a></li>
+                        <li><a class="dropdown-item" href="#">Price Ascending</a></li>
+                        <li><a class="dropdown-item" href="#">Price Descending</a></li>
+                        <li><a class="dropdown-item" href="#">Rating</a></li>
+                    </ul>
+                </div>
             </form>
         </div>
         <div class="row row-cols-2 row-cols-lg-5 g-4">
@@ -111,7 +126,7 @@ include('connection.php');
                     $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
                     $unit_price = $row['UNIT_PRICE'];
                     $img_url = $row['IMG_URL'];
-                    $rating = $row['RATING'];
+                    // $rating = $row['RATING']; TODO :::::::::::::::
             ?>
                     <div class="col">
                         <a href="./product.php?pid=<?php echo $pid ?>">
@@ -122,7 +137,7 @@ include('connection.php');
                                         <?php echo $product_name; ?>
                                     </span>
                                     <p class="text-end">
-                                        <?php echo $rating; ?>
+                                        <!-- <?php echo $rating; ?> -->
                                     </p>
                                 </div>
                             </div>
