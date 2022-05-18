@@ -65,8 +65,13 @@ include('connection.php');
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
-                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
                                 } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
@@ -87,7 +92,7 @@ include('connection.php');
     </div>
 
     <?php
-    if(isset($_SESSION['user_id'])){
+    if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
 
         $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
@@ -96,7 +101,7 @@ include('connection.php');
         oci_execute($stid);
         $error = true;
         $total = 0.0;
-        ?>
+    ?>
         <div class="container">
             <div class="row product">
                 <div class="col-lg-6">
@@ -110,6 +115,7 @@ include('connection.php');
                         <?php
                         while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
                             $error = false;
+                            $cart_id = $row['CART_ID'];
                             $product_img_url = $row['IMG_URL'];
                             $product_name = $row['PRODUCT_NAME'];
                             $product_desc = $row['SHORT_DESCRIPTION'];
@@ -117,7 +123,7 @@ include('connection.php');
                             $quantity = $row['PRODUCT_QUANTITY'];
                             $sub_total = $row['TOTAL_PRICE'];
                             $total += $sub_total;
-    
+
                             $product_id = $row['PRODUCT_ID']; ?>
                             <tr>
                                 <td><img class="img-cart" src="<?php echo $product_img_url; ?>" alt="" srcset="">
@@ -145,35 +151,37 @@ include('connection.php');
                                     // echo '<a href="delete.php?pid=">Remove</a>'
                                 } ?>
                     </table>
-    
+
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.
                 </div>
                 <div class="col-lg-6">
                     <?php
                     if (!$error) {
-                        echo 'Total: ' . $total; ?>
+                        echo 'Total: £' . $total; ?>
                         <form action="./cart.php" method="post"><?php
-                                                        // TODO:: check if today is wednesday, thursday or friday
-                                                        // if it is, add today and the days after today until friday.
-                                                        // if not, while today doesn't reach wednesday, keep incrementing day and
-                                                        // when it does reach wednesday, add today and the days after today until friday
-                                                        $days_of_collection = array('Wed', 'Thu', 'Fri');
-                                                        $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                        $today = date("D");
-                                                        $chosen_day = $days[0];
-                                                        $counter = 0;
-    
-                                                        $key = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                        $todays_date = date("d-M-y");
-    
-                                                        while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                            $key++;                                     //time travel to the next day
-                                                            $today = $days[$key];                       //check if that day is in the list
-                                                            // echo $key;
-                                                        } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                                                        //difference betn the next collection
-                                                        //day and today in number of days, inclusive
-                                                        ?>
+                            // TODO:: check if today is wednesday, thursday or friday
+                            // if it is, add today and the days after today until friday.
+                            // if not, while today doesn't reach wednesday, keep incrementing day and
+                            // when it does reach wednesday, add today and the days after today until friday
+                            $days_of_collection = array('Wed', 'Thu', 'Fri');
+                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                            $today = date("D");
+                            $chosen_day = $days[0];
+                            $counter = 0;
+
+                            $key = array_search($today, $days); //get the index of the day today with respect to the days array
+                            // $todays_date = date("d-M-y");
+                            //TODO
+                            $todays_date = date("d-M-y", strtotime("-3 days", strtotime(date("Y-m-d"))));
+
+                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+                                $key++;                                     //time travel to the next day
+                                $today = $days[$key];                       //check if that day is in the list
+                                // echo $key;
+                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+                            //difference betn the next collection
+                            //day and today in number of days, inclusive
+                            ?>
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
@@ -181,17 +189,21 @@ include('connection.php');
                                     $counter++;
                                     //get todays date, add $key no of days to it and display it from there
                                     $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
-    
                                     // Add days to date and display it
-                                    echo '<option value="' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                    echo '<option value="' . $days[$i] .' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
                                 }
                                 if ($counter < 2) { //if there is only friday left,
                                     for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
                                         $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                        echo '<option value="' . $days[$j]. ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
                                     }
                                 }
                                 ?>
+                            </select>
+                            <select name="collection_time" id="collection_time">
+                                <option value="10:00 - 13:00">10:00 - 13:00</option>
+                                <option value="13:00 - 16:00">13:00 - 16:00</option>
+                                <option value="16:00 - 19:00">16:00 - 19:00</option>
                             </select>
                             <input type="submit" value="Checkout" name="checkout">
                         </form>
@@ -199,31 +211,38 @@ include('connection.php');
                     } else echo "You don't have anything in your cart yet."; ?>
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
                 </div>
-    
+
             </div>
         </div><?php
-    }else echo '<a href="login.php">Login</a> to display your cart'?>
+            } else echo '<a href="login.php">Login</a> to display your cart' ?>
 
 
-<?php
-    if(isset($_POST['checkout'])){
+    <?php
+    if (isset($_POST['checkout'])) {
+        include('payment.php');
         $collection_slot = $_POST['collection_slot'];
-        echo $collection_slot;
-        //insert into order
-        $stid = oci_parse($connection, "INSERT INTO order (
-        GROSS_PRICE,
-        ORDER_DATE,
+        $collection_time = $_POST['collection_time'];
+        $order_date = date("d-M-y");
+        // print_r($collection_slot);
+        // print_r($order_date);
+
+        // $stid = oci_parse($connection, "INSERT INTO orders (
+        // GROSS_PRICE,
+        // ORDER_DATE,
+        // CART_ID,
+        // FK3_USER_ID)
+        // VALUES ('$total','$order_date', '$cart_id','$user_id')");
+        // oci_execute($stid);
         
-        -- ORDER_TIME, --TODO
-        CART_ID,
-        FK1_PAYMENT_ID,
-        FK2_SLOT_ID,
-        FK3_USER_ID)
-        VALUES ('$total','$todays_date', )");
-            oci_execute($stid);
+        // $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+        // VALUES('$collection_slot', '$collection_time')");
+
+        //collection slot must be at least 24 hours after placing the order
+        //There will be a maximum of 20 orders per slot.
+
     }
-?>
-    
+    ?>
+
 
     <div class="footer navcolor">
         <div class="container">
