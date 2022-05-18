@@ -68,8 +68,13 @@ include('connection.php');
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
-                                    echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    if ($_SESSION['user_type'] == 'Trader') {
+                                        echo '<li><a class="dropdown-item" href="./trader/trader_index.php">Trader Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    } else {
+                                        echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                        echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
+                                    }
                                 } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
@@ -107,7 +112,8 @@ include('connection.php');
             $description = $row['PRODUCT_DESCRIPTION'];
             // $report_id = $row['FK4_REPORT_ID'];
             $img_url = $row['IMG_URL'];
-            $rating = $row['RATING'];
+            if (isset($row['RATING']))
+                $rating = $row['RATING']; //TODO::::::::::
             $shop_id = $row['FK2_SHOP_ID'];
 
             if (isset($_GET['pid'])) {
@@ -120,9 +126,9 @@ include('connection.php');
                         <h1>
                             <?php echo $product_name; ?>
                         </h1><br>
-                        rating: <?php echo $rating; ?>
+                        rating: <?php if(isset($rating)) echo $rating; ?>
                         <br>
-                        Price: <?php echo $price; ?>
+                        Price: £<?php echo $price; ?>
                         <p>
                             <?php echo $short_description; ?>
                         </p>
@@ -130,32 +136,31 @@ include('connection.php');
                             <div class="quantity">
                                 Quantity:
                                 <input type="number" value="1" min="1" class="quantity-field" name="quantity">
-
                             </div>
                             <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
                         </form>
 
                         <?php
-                        if(isset($_SESSION['user_id'])){
+                        if (isset($_SESSION['user_id'])) {
                             if (isset($_POST['add-to-cart'])) {
 
                                 $quantity = $_POST['quantity'];
                                 $user_id = $_SESSION['user_id'];
-    
+
                                 // $stid = oci_parse($connection, "SELECT unit_price FROM product");
                                 // oci_execute($stid);
                                 // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
                                 //     $unit_price = $row['UNIT_PRICE'];
                                 // }
                                 $total_price = $price * $quantity;
-    
-    
+
+
                                 //check if that user_id has a cart. 
                                 // if it does, go to cart_product to 
                                 // add the prouct there. 
                                 // If no cart for current user_id then 
                                 // create a cart, and then go to cart_product to add
-    
+
                                 $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart WHERE fk2_user_id = '$user_id'");
                                 oci_execute($stid);
                                 if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
@@ -164,23 +169,23 @@ include('connection.php');
                                     oci_execute($stid);
                                 }
                                 //they already have a cart, now insert in cart_product
-    
+
                                 $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
                                 WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$pid'");
                                 oci_execute($stid);
-    
+
                                 if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
                                     echo "You already have this item in your <a href = './cart.php'>Cart</a>";
                                 } else {
-    
+
                                     $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
                                 VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
                                 '$pid','$quantity','$total_price')");
                                     oci_execute($stid);
                                 }
                             }
-                        }else echo 'Please <a href="login.php">Login</a> first.'
-                        
+                        } else echo 'Please <a href="login.php">Login</a> first.'
+
                         ?>
                     </div>
 
@@ -257,7 +262,19 @@ include('connection.php');
                                     if (!$error) {
                                         $stid = oci_parse($connection, "INSERT INTO review (review_title, review_text, rating, FK1_PRODUCT_ID, FK2_USER_ID, review_date)
                 VALUES ('$review_title', '$review', '$rating', '$pid', '$user_id', '$review_date')");
-                                        oci_execute($stid); // The row is committed and immediately visible to other users
+                                        oci_execute($stid);
+
+                                        $avgrating = 0;
+                                        $stid = oci_parse($connection, "SELECT AVG(rating) FROM review");
+                                        oci_execute($stid);
+                                        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                            $avgrating = $row['AVG(RATING)'];
+                                            $stid = oci_parse($connection, "UPDATE product SET rating = '$avgrating' WHERE product_id = '$pid'");
+                                            oci_execute($stid);
+                                        }
+
+
+
                                         // header("Location: ./product.php?pid=" . $pid);
                                     }
                                 }
