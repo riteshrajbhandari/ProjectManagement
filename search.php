@@ -94,29 +94,31 @@ include('connection.php');
     <!-- SEARCH RESULTS -->
     <div class="container">
         <div class="center">
-            <form action="./search.php" method="get"><!--does this need to be a form????-->
+            <form action="./search.php?search=<?php echo $_GET['search'];?>" method="post"> 
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" name="sort_by">
-                        Sort By
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Product Name</a></li>
-                        <li><a class="dropdown-item" href="#">Price Ascending</a></li>
-                        <li><a class="dropdown-item" href="#">Price Descending</a></li>
-                        <li><a class="dropdown-item" href="#">Rating</a></li>
-                    </ul>
+                    <select name="sort-by" id="sort-by">
+                        <option value="" default>Sort By</option>
+                        <option value="product_name">Product Name</option>
+                        <option value="unit_price">Price Ascending</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                    <button type="submit" name="sort">Sort</button>
                 </div>
             </form>
         </div>
         <div class="row row-cols-2 row-cols-lg-5 g-4">
             <?php
+
             if (isset($_GET['search'])) {
                 $keyword =  strtoupper($_GET['search']);
-                $stid = oci_parse(
-                    $connection,
-                    "SELECT * FROM product WHERE product_name LIKE '%$keyword%'"
-
-                );
+                $query = "SELECT * FROM product WHERE product_name LIKE '%$keyword%'";
+               
+                if(isset($_POST['sort'])&& $_POST['sort-by']!=''){
+                    $sort_by = $_POST['sort-by'];
+                    $query = $query . " ORDER BY ". $sort_by;
+                    // echo $query;
+                }
+                $stid = oci_parse($connection, $query);
                 // echo "SELECT * FROM product WHERE LIKE %'$keyword'%";
                 oci_execute($stid);
                 $product_found = false;
@@ -150,7 +152,6 @@ include('connection.php');
             ?>
         </div>
     </div>
-
     <div class="footer navcolor">
         <div class="container">
             <div class="row">
