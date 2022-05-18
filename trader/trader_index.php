@@ -133,7 +133,7 @@ include('../connection.php');
                                 <div class="form-group p-3">
                                     <label class="control-label col-sm-2" for="">Shop Name:</label>
                                     <div class="col-sm-10 py-3">
-                                        <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Detail">
+                                        <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name">
                                     </div>
                                 </div>
                                 <div class="form-group p-3">
@@ -146,24 +146,17 @@ include('../connection.php');
                     </div>
                 </div>
             </form>
+            <?php
+            if (isset($_POST['add-shop'])) {
+                $shop_name = $_POST['shop-name'];
+                $user_id = $_SESSION['user_id'];
+
+                $stid = oci_parse($connection, "INSERT INTO shop (shop_name, user_id) VALUES ('$shop_name','$user_id')");
+                if (oci_execute($stid)) echo 'Shop added';
+            }
+            ?>
         </div>
     </div>
-
-    <!-- Shop -->
-
-    <!-- welcome, trader! -->
-    <?php
-    if (isset($_POST['add-shop'])) {
-        $shop_name = $_POST['shop-name'];
-        $user_id = $_SESSION['user_id'];
-
-        $stid = oci_parse($connection, "INSERT INTO shop (shop_name, user_id) VALUES ('$shop_name','$user_id')");
-        oci_execute($stid);
-    }
-    ?>
-
-
-
 
     <div class="footer navcolor">
         <div class="container">
