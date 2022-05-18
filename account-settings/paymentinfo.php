@@ -63,7 +63,7 @@ session_start();
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
+                                    echo '<li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
                                 } else{
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
