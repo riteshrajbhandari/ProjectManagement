@@ -101,6 +101,21 @@ include('connection.php');
     </div>
 
     <?php
+
+    // $cookie_name = 'cart';
+
+
+    // if (!isset($_COOKIE[$cookie_name])) {
+    //     echo "Cookie named '" . $cookie_name . "' is not set!";
+    // } else {
+    //     echo "Cookie '" . $cookie_name . "' is set!<br>";
+    //     echo "Value is: " . $_COOKIE[$cookie_name];
+    // }
+
+
+
+
+
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
 
@@ -178,23 +193,33 @@ include('connection.php');
                                                                 $chosen_day = $days[0];
                                                                 $counter = 0;
 
-                                                                $key = array_search($today, $days); //get the index of the day today with respect to the days array
+                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
                                                                 // $todays_date = date("d-M-y");
                                                                 //TODO
-                                                                $todays_date = date("d-M-y", strtotime("-3 days", strtotime(date("Y-m-d"))));
+                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
                                                                 while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                                    $key++;                                     //time travel to the next day
-                                                                    $today = $days[$key];                       //check if that day is in the list
+                                                                    $day_index++;                                     //time travel to the next day
+                                                                    $today = $days[$day_index];                       //check if that day is in the list
                                                                     // echo $key;
                                                                 } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
                                                                 //difference betn the next collection
                                                                 //day and today in number of days, inclusive
+
+                                                                function dateDiffInDays($date1, $date2)
+                                                                { // Calculating the difference in timestamps
+                                                                    $diff = strtotime($date2) - strtotime($date1);
+                                                                    return abs(round($diff / 86400));
+                                                                }
+                                                                $that_day = "14-May-22";
+                                                                $date_temp = date("d-M-y");
+                                                                $diff_in_date = dateDiffInDays($that_day, $date_temp);
+                                                                $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
                                                                 ?>
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
-                                for ($i = $key; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
+                                for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
                                     $counter++;
                                     //get todays date, add $key no of days to it and display it from there
                                     $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
@@ -228,27 +253,50 @@ include('connection.php');
 
     <?php
     if (isset($_POST['checkout'])) {
-        include('payment.php');
+        // include('payment.php');
+        // if(isset($paymentsuccess)){
+        //     if($paymentsuccess==true){
+
+        //     }
+        // }
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
         $order_date = date("d-M-y");
         // print_r($collection_slot);
         // print_r($order_date);
 
-        // $stid = oci_parse($connection, "INSERT INTO orders (
-        // GROSS_PRICE,
-        // ORDER_DATE,
-        // CART_ID,
-        // FK3_USER_ID)
-        // VALUES ('$total','$order_date', '$cart_id','$user_id')");
-        // oci_execute($stid);
 
-        // $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
-        // VALUES('$collection_slot', '$collection_time')");
+        $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+        VALUES('$collection_slot', '$collection_time')");
+        oci_execute($stid);
 
-        //collection slot must be at least 24 hours after placing the order
-        //There will be a maximum of 20 orders per slot.
+        $stid = oci_parse($connection, "INSERT INTO orders (
+        GROSS_PRICE,
+        ORDER_DATE,
+        CART_ID,
+        FK2_SLOT_ID,
+        FK3_USER_ID)
+        VALUES ('$total','$order_date',
+        (SELECT cart_id FROM CART WHERE FK2_USER_ID = '$user_id'), 
+        (SELECT slot_id FROM COLLECTION_SLOT WHERE COLLECTION_DAY = '$collection_slot' AND COLLECTION_TIME = '$collection_time'),
+        '$user_id')");
+        oci_execute($stid);
 
+
+
+
+        $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
+        oci_execute($stid);
+        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+            // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
+            $cart_to_be_deleted = $row['CART_ID'];
+
+            $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
+            oci_execute($stid);
+
+            $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
+            oci_execute($stid);
+        }
     }
     ?>
 
