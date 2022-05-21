@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +68,7 @@ include('connection.php');
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
+
 
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
@@ -102,6 +103,7 @@ include('connection.php');
             </div>
         </nav>
     </div>
+
     <div class="container">
         <?php
         $pid = $_GET['pid'];
@@ -127,22 +129,27 @@ include('connection.php');
 
             if (isset($_GET['pid'])) {
         ?>
-                <div class="row product">
+                <div class="row product ">
                     <div class="col-lg-6">
                         <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;">
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 ">
                         <h1>
                             <?php echo $product_name; ?>
                         </h1><br>
-                        rating: <?php if (isset($rating)) echo $rating; ?>
-                        <br>
-                        Price: £<?php echo $price; ?>
+                        <div class="pb-3">
+                            rating: <?php if (isset($rating)) echo $rating; ?>
+                            <br>
+                        </div>
+                        <div class="pb-3">
+                            Price: £<?php echo $price; ?>
+                        </div>
+
                         <p>
                             <?php echo $short_description; ?>
                         </p>
                         <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
-                            <div class="quantity">
+                            <div class="quantity pb-3">
                                 Quantity:
                                 <input type="number" value="1" min="1" class="quantity-field" name="quantity">
                             </div>
@@ -203,61 +210,74 @@ include('connection.php');
                 <!-- <div class="row product empty"></div> -->
                 <div class="row product">
                     <div class="col-lg-6">
-                        <p><?php echo $description; ?>
-                        </p>
+                        <div class="col-lg-6">
+                            <p><?php echo $description; ?>
+                            </p>
+                        </div>
+
 
 
 
                         <div class="add-review">
                             <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
-                                <fieldset>
-                                    <legend>
-                                        Create Review
-                                    </legend>
-                                    <!-- <label for="review-title">Title </label> -->
-                                    <input type="text" id="review-title" name="review-title" value="<?php if (isset($_POST['submitReview'])) echo $_POST['review-title'];
-                                                                                                    elseif (isset($_POST['clearReview'])) echo "";
-                                                                                                    ?>" placeholder="Title" />
-                                    <textarea rows="4" cols="50" name="review-body" id="review-body" placeholder="Your review"><?php if (isset($_POST['review-body'])) {
-                                                                                                                                    echo $_POST['review-body'];
-                                                                                                                                } elseif (isset($_POST['clearReview'])) echo "";
-                                                                                                                                ?></textarea><br />
+                                <div class="grid">
+                                    <div class="col-lg-6 pt-3">
 
-                                    <label for="rating">Rating: </label>
 
-                                    <input type="number" name="rating" value="<?php /* if (isset($_POST['rating'])) {
+                                        <fieldset>
+                                            <legend>
+                                                Create Review
+                                            </legend>
+                                            <!-- <label for="review-title">Title </label> -->
+                                            <div class="pb-3"><input type="text" id="review-title" name="review-title" value="<?php if (isset($_POST['submitReview'])) echo $_POST['review-title'];
+                                                                                                                                elseif (isset($_POST['clearReview'])) echo "";
+                                                                                                                                ?>" placeholder="Title" /></div>
+                                            <div class="pb-3"><textarea rows="4" cols="50" name="review-body" id="review-body" placeholder="Your review"><?php if (isset($_POST['review-body'])) {
+                                                                                                                                                                echo $_POST['review-body'];
+                                                                                                                                                            } elseif (isset($_POST['clearReview'])) echo "";
+                                                                                                                                                            ?></textarea><br /></div>
+
+                                            <div class="pb-3"><label for="rating">Rating: </label>
+
+
+                                                <input type="number" name="rating" value="<?php /* if (isset($_POST['rating'])) {
                                                                                     echo $_POST['rating'];
                                                                                 } elseif (isset($_POST['clearReview'])) echo "1";  */ ?>" min="1" max="5" step="0.5" /><br>
-                                    <span><?php
-                                            $error = false;
-                                            if (isset($_POST['submitReview'])) {
-                                                if (!isset($_SESSION['user'])) {
-                                                    $error = true;
-                                                    echo 'Please <a href="login.php">login</a> to post your review.<br>';
-                                                } else {
-                                                    // $review = $_POST['review-body'];
-                                                    if (empty($_POST['review-title'])) {
-                                                        echo '<br/>Please enter a title for the review';
-                                                        $error = true;
-                                                    }
-                                                    if (empty($_POST['review-body'])) {
-                                                        echo '<br/>Can not submit empty review';
-                                                        $error = true;
-                                                    }
-                                                    if (empty($_POST['rating'])) {
-                                                        echo '<br/>Please rate the product for the review<br>';
-                                                        $error = true;
-                                                    }
+                                            </div>
+                                            <span><?php
+                                                    $error = false;
+                                                    if (isset($_POST['submitReview'])) {
+                                                        if (!isset($_SESSION['user'])) {
+                                                            $error = true;
+                                                            echo 'Please <a href="login.php">login</a> to post your review.<br>';
+                                                        } else {
+                                                            // $review = $_POST['review-body'];
+                                                            if (empty($_POST['review-title'])) {
+                                                                echo '<br/>Please enter a title for the review';
+                                                                $error = true;
+                                                            }
+                                                            if (empty($_POST['review-body'])) {
+                                                                echo '<br/>Can not submit empty review';
+                                                                $error = true;
+                                                            }
+                                                            if (empty($_POST['rating'])) {
+                                                                echo '<br/>Please rate the product for the review<br>';
+                                                                $error = true;
+                                                            }
 
-                                                    if (isset($_POST['clearReview'])) {
-                                                        echo '';
-                                                        $error = false;
-                                                    }
-                                                }
-                                            } ?></span>
-                                    <input type="submit" value="Submit" name="submitReview" />
-                                    <input type="submit" value="Clear" name="clearReview" id="clearReview" />
-                                </fieldset>
+                                                            if (isset($_POST['clearReview'])) {
+                                                                echo '';
+                                                                $error = false;
+                                                            }
+                                                        }
+                                                    } ?></span>
+                                            <div class="pb-3"><input type="submit" value="Submit" name="submitReview" />
+                                                <input type="submit" value="Clear" name="clearReview" id="clearReview" />
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                </div>
                             </form>
                             <?php
                             if (!$error) {
