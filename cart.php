@@ -96,7 +96,7 @@ include('connection.php');
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> 
         </nav>
     </div>
 
@@ -116,16 +116,19 @@ include('connection.php');
 
 
 
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['user_id'])) 
+    {
         $user_id = $_SESSION['user_id'];
 
         $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
+            cart.cart_id = cart_product.cart_id and 
         cart.cart_id = cart_product.cart_id and 
-        product.product_id = cart_product.product_id");
+            cart.cart_id = cart_product.cart_id and 
+            product.product_id = cart_product.product_id");
         oci_execute($stid);
         $error = true;
         $total = 0.0;
-    ?>
+        ?>
         <div class="container">
             <div class="row product">
                 <div class="col-lg-6">
@@ -196,7 +199,6 @@ include('connection.php');
                             echo 'Total: £' . $total; ?>
                             <hr>
 
-<<<<<<< HEAD
                             <div class="grid">
                                 <form action="./cart.php" method="post">
                                     <div class="col-12-lg p-5">
@@ -263,65 +265,11 @@ include('connection.php');
                         <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
                     </div>
 
-=======
-                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                                // $todays_date = date("d-M-y");
-                                                                //TODO
-                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
-
-                                                                while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                                    $day_index++;                                     //time travel to the next day
-                                                                    $today = $days[$day_index];                       //check if that day is in the list
-                                                                    // echo $key;
-                                                                } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                                                                //difference betn the next collection
-                                                                //day and today in number of days, inclusive
-
-                                                                function dateDiffInDays($date1, $date2)
-                                                                { // Calculating the difference in timestamps
-                                                                    $diff = strtotime($date2) - strtotime($date1);
-                                                                    return abs(round($diff / 86400));
-                                                                }
-                                                                $that_day = "14-May-22";
-                                                                $date_temp = date("d-M-y");
-                                                                $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                                $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
-                                                                ?>
-                            <select name="collection_slot" id="collection_slot" default="Collection Slot">
-                                <option value="">Choose a collection slot</option>
-                                <?php
-                                for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
-                                    $counter++;
-                                    //get todays date, add $key no of days to it and display it from there
-                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
-                                    // Add days to date and display it
-                                    echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
-                                }
-                                if ($counter < 2) { //if there is only friday left,
-                                    for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
-                                        $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
-                            <select name="collection_time" id="collection_time">
-                                <option value="10:00 - 13:00">10:00 - 13:00</option>
-                                <option value="13:00 - 16:00">13:00 - 16:00</option>
-                                <option value="16:00 - 19:00">16:00 - 19:00</option>
-                            </select>
-                            <input type="submit" value="Checkout" name="checkout">
-                        </form>
-                    <?php
-                    } else echo "You don't have anything in your cart yet."; ?>
-                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
->>>>>>> b600653e931f054f0386afc1c69173d6a39a523f
                 </div>
             </div><?php
-                } else echo '<a href="login.php">Login</a> to display your cart' ?>
+    } else echo '<a href="login.php">Login</a> to display your cart' ?>
 
 
-<<<<<<< HEAD
         <?php
         if (isset($_POST['checkout'])) {
             include('payment.php');
@@ -347,91 +295,6 @@ include('connection.php');
 
         }
         ?>
-=======
-    <?php
-    if (isset($_POST['checkout'])) {
-        // include('payment.php');
-        // if(isset($paymentsuccess)){
-        //     if($paymentsuccess==true){
-
-        //     }
-        // }
-        $collection_slot = $_POST['collection_slot'];
-        $collection_time = $_POST['collection_time'];
-        $order_date = date("d-M-y");
-        // print_r($collection_slot);
-        // print_r($order_date);
-
-
-        $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
-        VALUES('$collection_slot', '$collection_time')");
-        oci_execute($stid);
-
-        $stid = oci_parse($connection, "INSERT INTO orders (
-        GROSS_PRICE,
-        ORDER_DATE,
-        CART_ID,
-        FK2_SLOT_ID,
-        FK3_USER_ID)
-        VALUES ('$total','$order_date',
-        (SELECT cart_id FROM CART WHERE FK2_USER_ID = '$user_id'), 
-        (SELECT slot_id FROM COLLECTION_SLOT WHERE COLLECTION_DAY = '$collection_slot' AND COLLECTION_TIME = '$collection_time'),
-        '$user_id')");
-        oci_execute($stid);
-
-
-
-
-        $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
-        oci_execute($stid);
-        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
-            $cart_to_be_deleted = $row['CART_ID'];
-
-            $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
-            oci_execute($stid);
-
-            $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
-            oci_execute($stid);
-        }
-    }
-    ?>
-
-
-    <div class="footer navcolor">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="#top">
-                        <img id="footer" src="images\logo.png" alt="" srcset="">
-                    </a>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md my-auto justify-content-center" id="footer">
-                    <ul id="footer">
-                        <li><a href="browse-by-category.php">Browse By Category</a></li>
-                        <li><a href="contact-us.php">Contact</a></li>
-                        <li><a href="login.php">Login</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-1"></div>
-
-                <div class="col-md my-auto" id="footer">
-                    <a href="./about.php">
-                        <h2>About Us</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <div class="row" id="footer-icons">
-                    <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
-                </div>
-            </div>
->>>>>>> b600653e931f054f0386afc1c69173d6a39a523f
         </div>
 
         <div class="footer navcolor">
