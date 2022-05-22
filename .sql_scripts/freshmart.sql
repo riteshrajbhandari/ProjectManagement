@@ -90,7 +90,7 @@ CREATE TABLE ORDERS(
 	-- slot_id	INTEGER,
 	order_time DATE,
 	cart_id	INTEGER,
-	fk1_payment_id	INTEGER NOT NULL,
+	fk1_payment_id	INTEGER,
 	-- Specify FK as unique to maintain 1:1 relationship
 	UNIQUE(fk1_payment_id),
 	fk2_slot_id	INTEGER NOT NULL,
@@ -200,7 +200,7 @@ CREATE TABLE OFFER(
 CREATE TABLE COLLECTION_SLOT(
 	slot_id	INTEGER NOT NULL,
 	collection_day	VARCHAR(20),
-	collection_time	DATE,
+	collection_time	VARCHAR(20),
 	-- Specify the PRIMARY KEY constraint for table "COLLECTION_SLOT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_COLLECTION_SLOT PRIMARY KEY (slot_id)
@@ -632,17 +632,18 @@ begin
 end;
 /
 
-DROP SEQUENCE category_seq;
-CREATE SEQUENCE category_seq;
-create or replace trigger add_new_category
+DROP SEQUENCE slot_seq;
+CREATE SEQUENCE slot_seq;
+create or replace trigger add_new_slot
 BEFORE
-insert on category
+insert on collection_slot
 for each row
 begin
-  if :NEW.category_id is null then 
-    select category_seq.nextval into :NEW.category_id from sys.dual; 
+  if :NEW.slot_id is null then 
+    select slot_seq.nextval into :NEW.slot_id from sys.dual; 
   end if; 
 end;
 /
 commit;
 /
+--select u.user_id, u.first_name, u.last_name, s.shop_id, s.shop_name, p.product_id, p.product_name, c.category_id, c.category_name from shop s, product p, users u, category c where u.user_id = s.user_id and s.shop_id = p.FK2_SHOP_ID and c.category_id = p.fk3_category_id

@@ -904,26 +904,6 @@ VALUES('Krishna Fish Shop', 105);
 INSERT INTO SHOP(SHOP_NAME, USER_ID)
 VALUES('Ramesh Delecaties', 106);
 
-INSERT INTO PRODUCT(PRODUCT_NAME,
- UNIT_PRICE,
-  STOCK, 
-  AVAILABLE, 
-  SHORT_DESCRIPTION, 
-  PRODUCT_DESCRIPTION, 
-  IMG_URL, 
-  FK2_SHOP_ID, 
-  FK3_CATEGORY_ID)
-VALUES(UPPER('Chuck'),
- 9,
- 10,
- 1,
- 'Its part of beef',
- 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente unde dicta deserunt ipsam voluptas atque nobis voluptatum veniam! Quam velit ex tenetur, 
- repellendus eum impedit alias odio eaque modi perferendis ipsa eos consequatur id rerum laborum vitae, fugit amet reiciendis!',
- 'images\chuck.jpeg',
- 2,
- 2);
-
 
 INSERT INTO PRODUCT(PRODUCT_NAME,
  UNIT_PRICE,
@@ -1462,7 +1442,7 @@ VALUES(UPPER('Potatoes'),
  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente unde dicta deserunt ipsam voluptas atque nobis voluptatum veniam! Quam velit ex tenetur, 
  repellendus eum impedit alias odio eaque modi perferendis ipsa eos consequatur id rerum laborum vitae, fugit amet reiciendis!',
  'images\potatoes.jpeg',
- 3,
+ 4,
  3);
 
 INSERT INTO PRODUCT(PRODUCT_NAME,
@@ -1482,7 +1462,7 @@ VALUES(UPPER('Tomatoes'),
  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente unde dicta deserunt ipsam voluptas atque nobis voluptatum veniam! Quam velit ex tenetur, 
  repellendus eum impedit alias odio eaque modi perferendis ipsa eos consequatur id rerum laborum vitae, fugit amet reiciendis!',
  'images\tomatoes.jpeg',
- 3,
+ 4,
  3);
 
 INSERT INTO PRODUCT(PRODUCT_NAME,
@@ -1760,4 +1740,7 @@ REVIEW_DATE,
 RATING,
 FK1_PRODUCT_ID,
 FK2_USER_ID)
-VALUES('very very good', 'I love cheese cakeeeeeeeeeee','05/11/2022', 4.5, 14, 101);
+VALUES('very very good', 'I looovveeeee browniessss','05/11/2022', 4.5, 14, 101);
+
+INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
+VALUES('Ritesh', 'Rajbhandari', '05/06/2022', 'customer', 'db8ac1c259eb89d4a131b253bacfca5f319d54f2', 'Customer', 'rajbhandari.ritesh@hotmail.com', 'images/deli.jpg', 'M');
