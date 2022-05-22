@@ -202,7 +202,7 @@ include('connection.php');
 
                                                                 while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
                                                                     $day_index++;
-                                                                                                     //time travel to the next day
+                                                                    //time travel to the next day
                                                                     $today = $days[$day_index];                       //check if that day is in the list
                                                                     // echo $key;
                                                                 } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
@@ -242,10 +242,15 @@ include('connection.php');
                                 <option value="13:00 - 16:00">13:00 - 16:00</option>
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
                             </select>
-                            <input type="submit" value="Checkout" name="checkout">
+                            <!-- Checkout Button -->
+                            <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
+                                <!-- <input type="submit"  value="Checkout" name="checkout"> -->
+
+
+                            </div>
                         </form>
                     <?php
-                    // echo $day_index;
+                        // echo $day_index;
                     } else echo "You don't have anything in your cart yet."; ?>
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
                 </div>
@@ -358,10 +363,15 @@ include('connection.php');
         <br>
     </div>
 
+    <!-- paypal  -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ARn5KJn-eilW0fIlwqhdKuX16-oxpJd-twg42O2y6JSm9C8UiE5sZSN6OZdeVgoFQboofs2BYzpg-rcD"></script>
+
+    <script src="./index.js"></script>
+
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--Custom JS-->
     <script src="scripts/javascript.js"></script>
-ov4+1p" crossorigin="anonymous"></script>
-        <!--Custom JS-->
-        <script src="scripts/javascript.js"></script>
+    ov4+1p" crossorigin="anonymous"></script>
+    <!--Custom JS-->
+    <script src="scripts/javascript.js"></script>
