@@ -364,14 +364,38 @@ include('connection.php');
     </div>
 
     <!-- paypal  -->
-    <script src="https://www.paypal.com/sdk/js?client-id=ARn5KJn-eilW0fIlwqhdKuX16-oxpJd-twg42O2y6JSm9C8UiE5sZSN6OZdeVgoFQboofs2BYzpg-rcD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AaNtGY8TocSYYuuJVpWFdXZ6tBxYh9rKu4Vals3L1V8LfF0qzyQFz-hWin5KOpeQG4hlbQbs-LmfvjCa"></script>
 
-    <script src="./index.js"></script>
+    <!-- <script src="./index.js"></script> -->
+<script>
+    paypal.Buttons({
 
+style: {
+    color: 'blue',
+    shape:'pill'
+},
+createOrder:function (data, actions) {
+    return actions.order.create({
+        purchase_units: [{
+            amount: {
+                value:'<?php  echo $total;?>' 
+            }
+        }]
+    });
+},
+onApprove: function (data, actions) {
+    return actions.order.capture().then(function (details) {
+        console.log(details)
+        // window.location.replace(url:"")
+    })
+}
+
+}).render('#paypal-payment-button');
+</script>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--Custom JS-->
     <script src="scripts/javascript.js"></script>
-    ov4+1p" crossorigin="anonymous"></script>
+    <!-- ov4+1p" crossorigin="anonymous"></script> -->
     <!--Custom JS-->
     <script src="scripts/javascript.js"></script>
