@@ -92,7 +92,7 @@ include('../connection.php');
 
     <!-- sidebar -->
     <div class="row ">
-        <ul class="nav flex-column col-3 settings-links-col text-light">
+        <!-- <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
                 <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
@@ -102,17 +102,17 @@ include('../connection.php');
             <li class="nav-item py-3">
                 <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
             </li>
-        </ul>
-        <div class="col settings-body pb-3">
+        </ul> -->
+        <div class="col pb-3">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
+                    <a class="nav-link" href="./trader_index.php" id="myprofile">Add/Delete Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
+                    <a class="nav-link active" aria-current="page" href="#" id="contactinfo">Update/delete</a>
                 </li>
             </ul>
 
@@ -127,7 +127,7 @@ include('../connection.php');
                         <td>Availability</td>
                         <td>Short Description</td>
                         <td>Description</td>
-                        <td>Image URL</td>
+                        <!-- <td>Image URL</td> -->
                         <td>Shop ID</td>
                         <td>Category ID</td>
                         <td>Delete</td>
@@ -163,10 +163,11 @@ include('../connection.php');
                     echo '<td><input type="text" name="available" id="product_name" value="'.$row['AVAILABLE'].'"></td>';
                     echo '<td><input type="text" name="short_desc" id="product_name" value="'.$row['SHORT_DESCRIPTION'].'"></td>';
                     echo '<td><input type="text" name="description" id="product_name" value="'.$row['PRODUCT_DESCRIPTION'].'"></td>';
+                    echo '<td><input type="text" name="product_name" id="product_name" value="'.$row['FK2_SHOP_ID'].'"></td>';
+                    echo '<td><input type="text" name="product_name" id="product_name" value="'.$row['FK3_CATEGORY_ID'].'"></td>';
+                    echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $row['PRODUCT_ID'] . '">Delete</a></td>';
+                    echo '</tr>';
                     // echo '<input type="text" name="product_name" id="product_name" value="'.$row['IMG_URL'].'">';
-                    echo '<input type="text" name="product_name" id="product_name" value="'.$row['FK2_SHOP_ID'].'"></td>';
-                    echo '<input type="text" name="product_name" id="product_name" value="'.$row['FK3_CATEGORY_ID'].'"></td>';
-                    echo '<tr>';
                     // echo '<td>' . $row['PRODUCT_NAME'] . '</td>';
                     // echo '<td>' . $row['UNIT_PRICE'] . '</td>';
                     // echo '<td>' . $row['STOCK'] . '</td>';
@@ -176,8 +177,6 @@ include('../connection.php');
                     // echo '<td>' . $row['IMG_URL'] . '</td>';
                     // echo '<td>' . $row['FK2_SHOP_ID'] . '</td>';
                     // echo '<td>' . $row['FK3_CATEGORY_ID'] . '</td>';
-                    echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $row['PRODUCT_ID'] . '">Delete</a></td>';
-                    echo '</tr>';
                 }
                 ?></form>
             </table>

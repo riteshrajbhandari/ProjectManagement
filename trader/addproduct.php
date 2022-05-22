@@ -95,10 +95,10 @@ include('../connection.php');
     <div class="row ">
         <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
+                <a class="nav-link" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
+                <a class="nav-link active" aria-current="page" href="./addproduct.php" id="myorders">Add Product</a>
             </li>
             <li class="nav-item py-3">
                 <a class="nav-link" href="./update.php" id="update">Update/delete</a>
