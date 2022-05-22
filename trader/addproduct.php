@@ -95,7 +95,7 @@ include('../connection.php');
     <div class="row ">
         <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add Shop</a>
+                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
                 <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -107,7 +107,7 @@ include('../connection.php');
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add Shop</a>
+                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -280,8 +280,14 @@ include('../connection.php');
                     echo 'you must choose a category';
                     $error = true;
                 }
-                if (!$error) {
-                    $stid = oci_parse($connection, "INSERT INTO product (
+                $stid = oci_parse($connection, "SELECT product_name from product where product_name like '%$product_name%'");
+                oci_execute($stid);
+                if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                    echo "You cannot name your product that. A similar product already exists.";
+                    $error = true;
+                } else {
+                    if (!$error) {
+                        $stid = oci_parse($connection, "INSERT INTO product (
                     PRODUCT_NAME,
                     UNIT_PRICE,
                     STOCK,
@@ -291,7 +297,8 @@ include('../connection.php');
                     IMG_URL,
                     FK2_SHOP_ID,
                     FK3_CATEGORY_ID) VALUES ('$product_name','$price','$stock','$availability','$short_desc','$description','$image_name','$shop_id','$category_id')");
-                    if(oci_execute($stid))echo 'Product added!';
+                        if (oci_execute($stid)) echo 'Product added!';
+                    }
                 }
             }
             ?>

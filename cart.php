@@ -190,7 +190,9 @@ include('connection.php');
                                                                 $days_of_collection = array('Wed', 'Thu', 'Fri');
                                                                 $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
                                                                 $today = date("D");
-                                                                $chosen_day = $days[0];
+                                                                // $today = 'Sat';
+                                                                // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
+                                                                // $chosen_day = $days[0];
                                                                 $counter = 0;
 
                                                                 $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
@@ -199,7 +201,8 @@ include('connection.php');
                                                                 // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
                                                                 while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                                    $day_index++;                                     //time travel to the next day
+                                                                    $day_index++;
+                                                                                                     //time travel to the next day
                                                                     $today = $days[$day_index];                       //check if that day is in the list
                                                                     // echo $key;
                                                                 } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
@@ -242,6 +245,7 @@ include('connection.php');
                             <input type="submit" value="Checkout" name="checkout">
                         </form>
                     <?php
+                    // echo $day_index;
                     } else echo "You don't have anything in your cart yet."; ?>
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
                 </div>
@@ -258,46 +262,62 @@ include('connection.php');
         //     if($paymentsuccess==true){
 
         //     }
-        // }
+        // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
         $order_date = date("d-M-y");
         // print_r($collection_slot);
         // print_r($order_date);
-
-
-        $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
-        VALUES('$collection_slot', '$collection_time')");
+        $errors = false;
+        $stid = oci_parse($connection, "SELECT COUNT(order_id) FROM orders, collection_slot CS WHERE ORDERS.FK2_SLOT_ID = CS.SLOT_ID AND CS.COLLECTION_DAY = '$collection_slot'");
         oci_execute($stid);
 
-        $stid = oci_parse($connection, "INSERT INTO orders (
-        GROSS_PRICE,
-        ORDER_DATE,
-        CART_ID,
-        FK2_SLOT_ID,
-        FK3_USER_ID)
-        VALUES ('$total','$order_date',
-        (SELECT cart_id FROM CART WHERE FK2_USER_ID = '$user_id'), 
-        (SELECT slot_id FROM COLLECTION_SLOT WHERE COLLECTION_DAY = '$collection_slot' AND COLLECTION_TIME = '$collection_time'),
-        '$user_id')");
-        oci_execute($stid);
-
-
-
-
-        $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
-        oci_execute($stid);
-        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
-            $cart_to_be_deleted = $row['CART_ID'];
-
-            $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
+        if (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+            if ($row['COUNT(ORDER_ID)'] > 20) {
+                echo "There are already more than 20 orders for that slot. Please the next one.";
+                $errors = true;
+            }
+        }
+        if (!$errors) {
+            $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+    VALUES('$collection_slot', '$collection_time')");
             oci_execute($stid);
 
-            $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
+            $stid = oci_parse($connection, "INSERT INTO orders (
+            GROSS_PRICE,
+            ORDER_DATE,
+            CART_ID,
+            FK2_SLOT_ID,
+            FK3_USER_ID)
+            VALUES ('$total','$order_date',
+                (SELECT cart_id FROM CART WHERE FK2_USER_ID = '$user_id'), 
+                (SELECT MAX(slot_id) FROM COLLECTION_SLOT cs, orders, users WHERE COLLECTION_DAY = '$collection_slot' 
+                    AND COLLECTION_TIME = '$collection_time' 
+                    and cs.slot_id = orders.FK2_SLOT_ID
+                    and orders.FK3_USER_ID = users.user_id
+                    and users.user_id = '$user_id'),
+            '$user_id')");
             oci_execute($stid);
+
+
+
+
+            $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
+            oci_execute($stid);
+            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
+                $cart_to_be_deleted = $row['CART_ID'];
+
+                $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
+                oci_execute($stid);
+
+                $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
+                oci_execute($stid);
+            }
         }
     }
+
     ?>
 
 

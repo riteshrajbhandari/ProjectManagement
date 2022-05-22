@@ -94,7 +94,7 @@ include('../connection.php');
     <div class="row ">
         <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add Shop</a>
+                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
                 <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -106,7 +106,7 @@ include('../connection.php');
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add Shop</a>
+                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -142,22 +142,38 @@ include('../connection.php');
 
                 //MAKE A FORMMMMMMM!-!-!-!-!-!-!-!-!-!-!-!-!-!
                 //each row should be a form that when submitted, should update that specifc row having the specific product_id
+                ?>
+                <form action="update.php">
+                    <!-- <input type="text" name="product_name" id="product_name" value=""> -->
+                
+                <?php
                 $number_of_reviews = 0;
                 while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+
                     echo '<tr>';
-                    echo '<td>' . $row['PRODUCT_NAME'] . '</td>';
-                    echo '<td>' . $row['UNIT_PRICE'] . '</td>';
-                    echo '<td>' . $row['STOCK'] . '</td>';
-                    echo '<td>' . $row['AVAILABLE'] . '</td>';
-                    echo '<td>' . $row['SHORT_DESCRIPTION'] . '</td>';
-                    echo '<td>' . $row['PRODUCT_DESCRIPTION'] . '</td>';
-                    echo '<td>' . $row['IMG_URL'] . '</td>';
-                    echo '<td>' . $row['FK2_SHOP_ID'] . '</td>';
-                    echo '<td>' . $row['FK3_CATEGORY_ID'] . '</td>';
-                    echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $product_id . '">Delete</a></td>';
+                    echo '<td><input type="text" name="product_name" id="product_name" value="'.$row['PRODUCT_NAME'].'"></td>';
+                    echo '<td><input type="number" step="0.5" name="unit_price" id="product_name" value="'.$row['UNIT_PRICE'].'"></td>';
+                    echo '<td><input type="text" name="stock" id="product_name" value="'.$row['STOCK'].'"></td>';
+                    echo '<td><input type="text" name="available" id="product_name" value="'.$row['AVAILABLE'].'"></td>';
+                    echo '<td><input type="text" name="short_desc" id="product_name" value="'.$row['SHORT_DESCRIPTION'].'"></td>';
+                    echo '<td><input type="text" name="description" id="product_name" value="'.$row['PRODUCT_DESCRIPTION'].'"></td>';
+                    // echo '<input type="text" name="product_name" id="product_name" value="'.$row['IMG_URL'].'">';
+                    echo '<input type="text" name="product_name" id="product_name" value="'.$row['FK2_SHOP_ID'].'"></td>';
+                    echo '<input type="text" name="product_name" id="product_name" value="'.$row['FK3_CATEGORY_ID'].'"></td>';
+                    echo '<tr>';
+                    // echo '<td>' . $row['PRODUCT_NAME'] . '</td>';
+                    // echo '<td>' . $row['UNIT_PRICE'] . '</td>';
+                    // echo '<td>' . $row['STOCK'] . '</td>';
+                    // echo '<td>' . $row['AVAILABLE'] . '</td>';
+                    // echo '<td>' . $row['SHORT_DESCRIPTION'] . '</td>';
+                    // echo '<td>' . $row['PRODUCT_DESCRIPTION'] . '</td>';
+                    // echo '<td>' . $row['IMG_URL'] . '</td>';
+                    // echo '<td>' . $row['FK2_SHOP_ID'] . '</td>';
+                    // echo '<td>' . $row['FK3_CATEGORY_ID'] . '</td>';
+                    echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $row['PRODUCT_ID'] . '">Delete</a></td>';
                     echo '</tr>';
                 }
-                ?>
+                ?></form>
             </table>
 
 

@@ -94,7 +94,7 @@ include('../connection.php');
     <div class="row ">
         <ul class="nav flex-column col-3 settings-links-col text-light">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add Shop</a>
+                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
                 <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -106,7 +106,7 @@ include('../connection.php');
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add Shop</a>
+                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
@@ -144,6 +144,41 @@ include('../connection.php');
                             </div>
                         </div>
                     </div>
+                    <div class="row py-5">
+                        <div class="col-md-3 p-3">
+                            <div class="contact-info">
+                                <div class="py-3">
+                                    <h4>Delete Shop</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 ">
+                            <div class="contact-form ">
+                                <div class="form-group p-3">
+                                    <label class="control-label col-sm-2" for="">Shop Name:</label>
+                                    <div class="col-sm-10 py-3">
+                                    <select class="form-control" name="shop-id" id="shop-id">
+                                            <option value="">Select the shop to delete</option>
+                                            <?php
+                                            $user_id = $_SESSION['user_id'];
+                                            $stid = oci_parse($connection, "SELECT shop_id, shop_name FROM shop WHERE user_id = '$user_id'");
+                                            oci_execute($stid);
+
+                                            while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                                echo '<option value="' . $row['SHOP_ID'] . '">' . $row['SHOP_NAME'] . '</option>';
+                                            } ?>
+                                        </select>
+                                        <!-- <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name"> -->
+                                    </div>
+                                </div>
+                                <div class="form-group p-3">
+                                    <div class="col-sm-offset-2 col-sm-10 ">
+                                        <button type="submit" name="delete-shop" class="btn btn-primary btn-block confirm-button ">Delete Shop</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
             <?php
@@ -153,6 +188,11 @@ include('../connection.php');
 
                 $stid = oci_parse($connection, "INSERT INTO shop (shop_name, user_id) VALUES ('$shop_name','$user_id')");
                 if (oci_execute($stid)) echo 'Shop added';
+            }
+            if(isset($_POST['delete-shop'])){
+                $shop_id = $_POST['shop_id'];
+                $user_id = $_SESSION['user_id'];
+                
             }
             ?>
         </div>

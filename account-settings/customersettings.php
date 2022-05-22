@@ -138,7 +138,6 @@ session_start();
                     $profile_pic_url = $row['PROFILE_PIC_URL'];
                     $email = $row['PROFILE_PIC_URL'];
                     $gender = $row['GENDER'];
-                    $phone_no = $row['PHONE_NUMBER'];
                     $password = $row['PASSWORD'];
                     //TODO: ENCRYPT PASSWORD
                 }

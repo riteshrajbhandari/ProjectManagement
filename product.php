@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +68,7 @@ include('connection.php');
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
+                                // session_start();
 
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
@@ -124,6 +125,11 @@ include('connection.php');
             if (isset($row['RATING']))
                 $rating = $row['RATING']; //TODO::::::::::
             $shop_id = $row['FK2_SHOP_ID'];
+            $stid = oci_parse($connection, "SELECT shop_name FROM shop WHERE shop_id = '$shop_id'");
+            oci_execute($stid);
+            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                $shop_name = $row['SHOP_NAME'];
+            }
 
             if (isset($_GET['pid'])) {
         ?>
@@ -140,6 +146,9 @@ include('connection.php');
                         Price: £<?php echo $price; ?>
                         <p>
                             <?php echo $short_description; ?>
+                        </p>
+                        <p>
+                            Sold by: <?php echo $shop_name; ?>
                         </p>
                         <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
                             <div class="quantity">
@@ -330,7 +339,7 @@ include('connection.php');
 
                         $stid = oci_parse(
                             $connection,
-                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID AND R.FK1_PRODUCT_ID='$pid'"
+                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL, user_id FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID AND R.FK1_PRODUCT_ID='$pid'"
                         );
                         oci_execute($stid);
 
@@ -344,7 +353,8 @@ include('connection.php');
                             $review_title = $row['REVIEW_TITLE'];
                             $review = $row['REVIEW_TEXT'];
                             $profile_pic_url = $row['PROFILE_PIC_URL'];
-
+                            $user_id = $row['USER_ID'];
+                            $review_id = $row['REVIEW_ID'];
 
 
                             echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
@@ -357,11 +367,22 @@ include('connection.php');
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div> -->
-                        <?php
+                            <?php
                             // sererate decimal part rom whole number
                             // start
                             echo $rating . " ";
                             echo $dateWritten . " ";
+                            ?>
+                            <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
+                                <input type="submit" value="delete_review" name="delete">
+                            </form>
+                        <?php
+                            if (isset($_POST['delete'])){
+                                $stidd = oci_parse($connection, "DELETE FROM review WHERE review_id = '$review_id'");
+                                oci_execute($stidd);
+                                $_POST['delete'] = null;
+                            }
+
                             echo '<div class="review-title">' . $review_title . "</div>";
                             echo $review . "<br><br>";
                         }
