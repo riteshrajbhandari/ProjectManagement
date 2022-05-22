@@ -109,14 +109,14 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="images\Untitled.png" class="d-block w-100" alt="...">
+                    <img src="http://peninsula.co.za/wp-content/uploads/2016/05/groceries_12801.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="images\Untitled.png" class="d-block w-100" alt="...">
+                    <img src="https://cdn.shopify.com/s/files/1/1121/0016/files/meat-department_2000x.jpg?v=1562848239" class="d-block w-100" alt="...">
                     <div class="carousel-caption">
                         <h5>Third slide label</h5>
                         <p>Some representative placeholder content for the third slide.</p>

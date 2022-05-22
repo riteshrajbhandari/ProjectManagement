@@ -100,8 +100,10 @@
         </nav>
     </div>
 
+    <!--  -->
+
     <div class="container">
-        <div class="center">
+        <div class="center py-5">
             <form action="./browse-by-category.php?category=<?php echo $_GET['category']; ?>" method="post">
                 <div class="dropdown">
                     <select name="sort-by" id="sort-by">
@@ -110,11 +112,14 @@
                         <option value="unit_price">Price Ascending</option>
                         <option value="rating">Rating</option>
                     </select>
+
+
                     <button type="submit" name="sort">Sort</button>
+
                 </div>
             </form>
         </div>
-        <div class="row row-cols-2 row-cols-lg-5 g-4">
+        <div class="row row-cols-2 row-cols-lg-5 g-4 pb-5 lead">
             <?php
 
             if (isset($_GET['category'])) {
@@ -162,6 +167,8 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    
     <div class="footer navcolor">
         <div class="container">
             <div class="row">

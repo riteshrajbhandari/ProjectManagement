@@ -120,8 +120,10 @@ include('connection.php');
         $user_id = $_SESSION['user_id'];
 
         $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
+            cart.cart_id = cart_product.cart_id and 
         cart.cart_id = cart_product.cart_id and 
-        product.product_id = cart_product.product_id");
+            cart.cart_id = cart_product.cart_id and 
+            product.product_id = cart_product.product_id");
         oci_execute($stid);
         $error = true;
         $total = 0.0;
@@ -129,13 +131,24 @@ include('connection.php');
         <div class="container">
             <div class="row product">
                 <div class="col-lg-6">
-                    <table>
+                    <!-- <table>
                         <tr>
                             <td>Item</td>
                             <td>Price</td>
                             <td>Quantity</td>
                             <td>Subtotal</td>
-                        </tr>
+                        </tr> -->
+
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Item</td>
+                                <td>Price</td>
+                                <td>Quantity</td>
+                                <td>Subtotal</td>
+                            </tr>
+                        </thead>
+
                         <?php
                         while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
                             $error = false;
@@ -176,9 +189,10 @@ include('connection.php');
                                 } ?>
                     </table>
 
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.
+
                 </div>
                 <div class="col-lg-6">
+<<<<<<< HEAD
                     <?php
                     if (!$error) {
                         echo 'Total: £' . $total; ?>
@@ -194,11 +208,27 @@ include('connection.php');
                                                                 // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
                                                                 // $chosen_day = $days[0];
                                                                 $counter = 0;
+=======
+                    <div class="mb-3 p-3 text-center text-danger lead" style="border: 2px solid black; border-radius:2em; background-color:#eee;">
+                        <?php
+                        if (!$error) {
+                            echo 'Total: £' . $total; ?>
+                            <hr>
+>>>>>>> dc6d068017d6aa63030d9c91aa2b75b21274e1a6
 
-                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                                // $todays_date = date("d-M-y");
-                                                                //TODO
-                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
+                            <div class="grid">
+                                <form action="./cart.php" method="post">
+                                    <div class="col-12-lg p-5">
+                                        <?php
+                                        // TODO:: check if today is wednesday, thursday or friday
+                                        // if it is, add today and the days after today until friday.
+                                        // if not, while today doesn't reach wednesday, keep incrementing day and
+                                        // when it does reach wednesday, add today and the days after today until friday
+                                        $days_of_collection = array('Wed', 'Thu', 'Fri');
+                                        $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                                        $today = date("D");
+                                        $chosen_day = $days[0];
+                                        $counter = 0;
 
                                                                 while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
                                                                     $day_index++;
@@ -249,18 +279,20 @@ include('connection.php');
                     } else echo "You don't have anything in your cart yet."; ?>
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
                 </div>
-
-            </div>
-        </div><?php
-            } else echo '<a href="login.php">Login</a> to display your cart' ?>
+            </div><?php
+                } else echo '<a href="login.php">Login</a> to display your cart' ?>
 
 
-    <?php
-    if (isset($_POST['checkout'])) {
-        // include('payment.php');
-        // if(isset($paymentsuccess)){
-        //     if($paymentsuccess==true){
+        <?php
+        if (isset($_POST['checkout'])) {
+            include('payment.php');
+            $collection_slot = $_POST['collection_slot'];
+            $collection_time = $_POST['collection_time'];
+            $order_date = date("d-M-y");
+            // print_r($collection_slot);
+            // print_r($order_date);
 
+<<<<<<< HEAD
         //     }
         // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
 
@@ -354,14 +386,71 @@ include('connection.php');
                     <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
                 </div>
             </div>
-        </div>
-        <br>
-    </div>
+=======
+            // $stid = oci_parse($connection, "INSERT INTO orders (
+            // GROSS_PRICE,
+            // ORDER_DATE,
+            // CART_ID,
+            // FK3_USER_ID)
+            // VALUES ('$total','$order_date', '$cart_id','$user_id')");
+            // oci_execute($stid);
 
-    <!--Bootstrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!--Custom JS-->
-    <script src="scripts/javascript.js"></script>
+            // $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+            // VALUES('$collection_slot', '$collection_time')");
+
+            //collection slot must be at least 24 hours after placing the order
+            //There will be a maximum of 20 orders per slot.
+
+        }
+        ?>
+>>>>>>> dc6d068017d6aa63030d9c91aa2b75b21274e1a6
+        </div>
+
+        <div class="footer navcolor">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#top">
+                            <img id="footer" src="images\logo.png" alt="" srcset="">
+                        </a>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md my-auto justify-content-center" id="footer">
+                        <ul id="footer">
+                            <li><a href="browse-by-category.php">Browse By Category</a></li>
+                            <li><a href="contact-us.php">Contact</a></li>
+                            <li><a href="login.php">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md my-auto" id="footer">
+                        <a href="./about.php">
+                            <h2>About Us</h2>
+                        </a>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="row" id="footer-icons">
+                        <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <!-- paypal  -->
+        <script src="https://www.paypal.com/sdk/js?client-id=ARn5KJn-eilW0fIlwqhdKuX16-oxpJd-twg42O2y6JSm9C8UiE5sZSN6OZdeVgoFQboofs2BYzpg-rcD"></script>
+
+        <script src="./index.js"></script>
+        <!--Bootstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!--Custom JS-->
+        <script src="scripts/javascript.js"></script>
 </body>
 
 </html>

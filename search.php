@@ -105,7 +105,7 @@ include('connection.php');
         <div class="center">
             <form action="./search.php?search=<?php echo $_GET['search']; ?>" method="post">
                 <!--does this need to be a form????-->
-                <div class="dropdown">
+                <div class="dropdown py-3">
                     <select name="sort-by" id="sort-by">
                         <option value="" default>Sort By</option>
                         <option value="product_name">Product Name</option>
