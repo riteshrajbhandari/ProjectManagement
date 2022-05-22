@@ -103,7 +103,7 @@ include('../connection.php');
                 <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
             </li>
         </ul>
-        <div class="col settings-body ">
+        <div class="col settings-body pb-3">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add Shop</a>
@@ -117,20 +117,26 @@ include('../connection.php');
             </ul>
 
 
-            <!-- Update cmd here -->
-            <table>
-                <tr>
-                    <td>Product Name</td>
-                    <td>Unit Price</td>
-                    <td>Stock</td>
-                    <td>Availability</td>
-                    <td>Short Description</td>
-                    <td>Description</td>
-                    <td>Image URL</td>
-                    <td>Shop ID</td>
-                    <td>Category ID</td>
-                    <td>Delete</td>
-                </tr>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>Product Name</td>
+                        <td>Unit Price</td>
+                        <td>Stock</td>
+                        <td>Availability</td>
+                        <td>Short Description</td>
+                        <td>Description</td>
+                        <td>Image URL</td>
+                        <td>Shop ID</td>
+                        <td>Category ID</td>
+                        <td>Delete</td>
+                    </tr>
+                </thead>
+
+
+                <!-- Update cmd here -->
+
 
                 <?php
                 $user_id = $_SESSION['user_id'];

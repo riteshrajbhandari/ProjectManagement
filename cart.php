@@ -96,7 +96,7 @@ include('connection.php');
                         </li>
                     </ul>
                 </div>
-            </div> 
+            </div>
         </nav>
     </div>
 
@@ -116,8 +116,7 @@ include('connection.php');
 
 
 
-    if (isset($_SESSION['user_id'])) 
-    {
+    if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
 
         $stid = oci_parse($connection, "SELECT * FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
@@ -128,7 +127,7 @@ include('connection.php');
         oci_execute($stid);
         $error = true;
         $total = 0.0;
-        ?>
+    ?>
         <div class="container">
             <div class="row product">
                 <div class="col-lg-6">
@@ -252,8 +251,12 @@ include('connection.php');
                                             <option value="16:00 - 19:00">16:00 - 19:00</option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-12 pb-5 cart-submit" >
-                                        <input type="submit" value="Checkout" name="checkout">
+
+                                    <!-- Checkout Button -->
+                                    <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
+                                        <!-- <input type="submit"  value="Checkout" name="checkout"> -->
+
+
                                     </div>
 
 
@@ -267,7 +270,7 @@ include('connection.php');
 
                 </div>
             </div><?php
-    } else echo '<a href="login.php">Login</a> to display your cart' ?>
+                } else echo '<a href="login.php">Login</a> to display your cart' ?>
 
 
         <?php
@@ -334,6 +337,10 @@ include('connection.php');
             <br>
         </div>
 
+        <!-- paypal  -->
+        <script src="https://www.paypal.com/sdk/js?client-id=ARn5KJn-eilW0fIlwqhdKuX16-oxpJd-twg42O2y6JSm9C8UiE5sZSN6OZdeVgoFQboofs2BYzpg-rcD"></script>
+
+        <script src="./index.js"></script>
         <!--Bootstrap JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <!--Custom JS-->
