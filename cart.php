@@ -183,7 +183,7 @@ include('connection.php');
                     if (!$error) {
                         echo 'Total: £' . $total; ?>
                         <form action="./cart.php" method="post"><?php
-                                                                // TODO:: check if today is wednesday, thursday or friday
+                                                                // check if today is wednesday, thursday or friday
                                                                 // if it is, add today and the days after today until friday.
                                                                 // if not, while today doesn't reach wednesday, keep incrementing day and
                                                                 // when it does reach wednesday, add today and the days after today until friday
@@ -197,7 +197,7 @@ include('connection.php');
 
                                                                 $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
                                                                 // $todays_date = date("d-M-y");
-                                                                //TODO
+                                                                
                                                                 // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
                                                                 while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
@@ -243,7 +243,7 @@ include('connection.php');
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
                             </select>
                             <!-- Checkout Button -->
-                            <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
+                            <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-button">
                                 <!-- <input type="submit"  value="Checkout" name="checkout"> -->
 
 
@@ -261,14 +261,14 @@ include('connection.php');
 
 
     <?php
-    if (isset($_POST['checkout'])) {
-        // include('payment.php');
-        // if(isset($paymentsuccess)){
-        //     if($paymentsuccess==true){
 
-        //     }
-        // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+    // include('payment.php');
+    // if(isset($paymentsuccess)){
+    //     if($paymentsuccess==true){
 
+    //     }
+    // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+    if (isset($_POST['paypal-button'])) {
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
         $order_date = date("d-M-y");
@@ -284,6 +284,9 @@ include('connection.php');
                 $errors = true;
             }
         }
+    }
+
+    if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
     VALUES('$collection_slot', '$collection_time')");
@@ -367,31 +370,32 @@ include('connection.php');
     <script src="https://www.paypal.com/sdk/js?client-id=AaNtGY8TocSYYuuJVpWFdXZ6tBxYh9rKu4Vals3L1V8LfF0qzyQFz-hWin5KOpeQG4hlbQbs-LmfvjCa"></script>
 
     <!-- <script src="./index.js"></script> -->
-<script>
-    paypal.Buttons({
+    <script>
+        paypal.Buttons({
 
-style: {
-    color: 'blue',
-    shape:'pill'
-},
-createOrder:function (data, actions) {
-    return actions.order.create({
-        purchase_units: [{
-            amount: {
-                value:'<?php  echo $total;?>' 
+            style: {
+                color: 'blue',
+                shape: 'pill',
+                layout: 'horizontal'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '<?php echo $total; ?>'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    console.log(details)
+                    // window.location.replace(url:"")
+                })
             }
-        }]
-    });
-},
-onApprove: function (data, actions) {
-    return actions.order.capture().then(function (details) {
-        console.log(details)
-        // window.location.replace(url:"")
-    })
-}
 
-}).render('#paypal-payment-button');
-</script>
+        }).render('#paypal-payment-button');
+    </script>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--Custom JS-->

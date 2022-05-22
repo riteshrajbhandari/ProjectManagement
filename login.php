@@ -104,13 +104,6 @@ session_start();
         header("Location: ./trader/trader_index.php");
       } else
         header("Location: index.php");
-      // foreach ($row as $item) {
-      //     echo $row[0];
-      //     TODO: how to get just the first_name
-      //     $_SESSION['user']=$item;
-      //     header("Location: index.php");
-      //     echo ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;");
-      // }
     } else
       echo 'username and password combination incorrect. New user? <a href="register.php">Register now</a>';
   }
