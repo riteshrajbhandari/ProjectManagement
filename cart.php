@@ -18,7 +18,8 @@ include('connection.php');
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+
+<body style="background-color: #eee;">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -127,132 +128,147 @@ include('connection.php');
         $total = 0.0;
     ?>
         <div class="container">
-            <div class="row product">
-                <div class="col-lg-6">
-                    <table>
-                        <tr>
-                            <td>Item</td>
-                            <td>Price</td>
-                            <td>Quantity</td>
-                            <td>Subtotal</td>
-                        </tr>
-                        <?php
-                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                            $error = false;
-                            $cart_id = $row['CART_ID'];
-                            $product_img_url = $row['IMG_URL'];
-                            $product_name = $row['PRODUCT_NAME'];
-                            $product_desc = $row['SHORT_DESCRIPTION'];
-                            $unit_price = $row['UNIT_PRICE'];
-                            $quantity = $row['PRODUCT_QUANTITY'];
-                            $sub_total = $row['TOTAL_PRICE'];
-                            $total += $sub_total;
 
-                            $product_id = $row['PRODUCT_ID']; ?>
+
+
+            <div class="row product m-5 " style=" border-radius: 2em; background-color:white;box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;">
+                <div class="col-lg-8 text-center">
+
+                    <table class="table ">
+                        <thead class="thead-dark">
                             <tr>
-                                <td><img class="img-cart" src="<?php echo $product_img_url; ?>" alt="" srcset="">
-                                    <?php
-                                    echo $product_name . '<br>';
-                                    echo $product_desc; ?>
-                                </td>
-                                <td>
-                                    <?php echo $unit_price; ?>
-                                </td>
-                                <td>
-                                    <?php echo $quantity; ?>
-                                </td>
-                                <td>
-                                    <?php echo $sub_total; ?>
-                                </td>
-                                <td>
-                                    <form action="./removefromcart.php" method="post">
-                                        <input type="number" name="producttoremove" id="producttoremove" hidden value="<?php echo $product_id; ?>">
-                                        <input type="number" name="user_id" id="user_id" hidden value="<?php echo $user_id; ?>">
-                                        <input type="submit" value="Delete">
-                                    </form>
-                                </td>
-                            </tr><?php
-                                    // echo '<a href="delete.php?pid=">Remove</a>'
-                                } ?>
+                                <td>Item</td>
+                                <td>Price</td>
+                                <td>Quantity</td>
+                                <td>Subtotal</td>
+                            </tr>
+                            <?php
+                            while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                $error = false;
+                                $cart_id = $row['CART_ID'];
+                                $product_img_url = $row['IMG_URL'];
+                                $product_name = $row['PRODUCT_NAME'];
+                                $product_desc = $row['SHORT_DESCRIPTION'];
+                                $unit_price = $row['UNIT_PRICE'];
+                                $quantity = $row['PRODUCT_QUANTITY'];
+                                $sub_total = $row['TOTAL_PRICE'];
+                                $total += $sub_total;
+
+                                $product_id = $row['PRODUCT_ID']; ?>
+                                <tr>
+                                    <td class="text-start"><img class="img-cart img-thumbnail w-50" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                        <?php
+                                        echo $product_name . '<br>';
+                                        echo $product_desc; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $unit_price; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $quantity; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $sub_total; ?>
+                                    </td>
+                                    <td>
+                                        <form action="./removefromcart.php" method="post">
+                                            <input type="number" name="producttoremove" id="producttoremove" hidden value="<?php echo $product_id; ?>">
+                                            <input type="number" name="user_id" id="user_id" hidden value="<?php echo $user_id; ?>">
+                                            <input type="submit" value="Delete">
+                                        </form>
+                                    </td>
+                                </tr><?php
+                                        // echo '<a href="delete.php?pid=">Remove</a>'
+                                    } ?>
+                        </thead>
                     </table>
 
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit.
+                    <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit. -->
                 </div>
-                <div class="col-lg-6">
-                    <?php
-                    if (!$error) {
-                        echo 'Total: £' . $total; ?>
-                        <form action="./cart.php" method="post"><?php
-                                                                // TODO:: check if today is wednesday, thursday or friday
-                                                                // if it is, add today and the days after today until friday.
-                                                                // if not, while today doesn't reach wednesday, keep incrementing day and
-                                                                // when it does reach wednesday, add today and the days after today until friday
-                                                                $days_of_collection = array('Wed', 'Thu', 'Fri');
-                                                                $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                                $today = date("D");
-                                                                // $today = 'Sat';
-                                                                // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
-                                                                // $chosen_day = $days[0];
-                                                                $counter = 0;
+                <div class="col-lg-4" style="background-color:rgba(211, 210, 210, 0.77) ;border-top-right-radius:2em; border-bottom-right-radius: 2em    ;">
+                
+  
+                    <div class="text-center  py-3 lead " style="font-family:bold ; font-size:2em;"><?php
+                                                if (!$error) {
+                                                    echo 'Total: £' . $total; ?>
+                            <hr>
+                    </div>
 
-                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                                // $todays_date = date("d-M-y");
-                                                                //TODO
-                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
+                    <form action="./cart.php" method="post"><?php
+                                                            // TODO:: check if today is wednesday, thursday or friday
+                                                            // if it is, add today and the days after today until friday.
+                                                            // if not, while today doesn't reach wednesday, keep incrementing day and
+                                                            // when it does reach wednesday, add today and the days after today until friday
+                                                            $days_of_collection = array('Wed', 'Thu', 'Fri');
+                                                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                                                            $today = date("D");
+                                                            // $today = 'Sat';
+                                                            // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
+                                                            // $chosen_day = $days[0];
+                                                            $counter = 0;
 
-                                                                while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                                    $day_index++;
-                                                                    //time travel to the next day
-                                                                    $today = $days[$day_index];                       //check if that day is in the list
-                                                                    // echo $key;
-                                                                } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                                                                //difference betn the next collection
-                                                                //day and today in number of days, inclusive
+                                                            $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
+                                                            // $todays_date = date("d-M-y");
+                                                            //TODO
+                                                            // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
-                                                                function dateDiffInDays($date1, $date2)
-                                                                { // Calculating the difference in timestamps
-                                                                    $diff = strtotime($date2) - strtotime($date1);
-                                                                    return abs(round($diff / 86400));
-                                                                }
-                                                                $that_day = "14-May-22";
-                                                                $date_temp = date("d-M-y");
-                                                                $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                                $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
-                                                                ?>
+                                                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+                                                                $day_index++;
+                                                                //time travel to the next day
+                                                                $today = $days[$day_index];                       //check if that day is in the list
+                                                                // echo $key;
+                                                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+                                                            //difference betn the next collection
+                                                            //day and today in number of days, inclusive
+
+                                                            function dateDiffInDays($date1, $date2)
+                                                            { // Calculating the difference in timestamps
+                                                                $diff = strtotime($date2) - strtotime($date1);
+                                                                return abs(round($diff / 86400));
+                                                            }
+                                                            $that_day = "14-May-22";
+                                                            $date_temp = date("d-M-y");
+                                                            $diff_in_date = dateDiffInDays($that_day, $date_temp);
+                                                            $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+                                                            ?>
+                        <div class="text-center py-5">
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
-                                for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
-                                    $counter++;
-                                    //get todays date, add $key no of days to it and display it from there
-                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
-                                    // Add days to date and display it
-                                    echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
-                                }
-                                if ($counter < 2) { //if there is only friday left,
-                                    for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
-                                        $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                        echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
-                                    }
-                                }
+                                                    for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
+                                                        $counter++;
+                                                        //get todays date, add $key no of days to it and display it from there
+                                                        $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
+                                                        // Add days to date and display it
+                                                        echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+                                                    }
+                                                    if ($counter < 2) { //if there is only friday left,
+                                                        for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
+                                                            $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
+                                                            echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+                                                        }
+                                                    }
                                 ?>
                             </select>
-                            <select name="collection_time" id="collection_time">
-                                <option value="10:00 - 13:00">10:00 - 13:00</option>
-                                <option value="13:00 - 16:00">13:00 - 16:00</option>
-                                <option value="16:00 - 19:00">16:00 - 19:00</option>
-                            </select>
-                            <!-- Checkout Button -->
-                            <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
-                                <!-- <input type="submit"  value="Checkout" name="checkout"> -->
+                        </div>
+
+                        <div class="text-center py-5"><select name="collection_time" id="collection_time">
+                            <option value="10:00 - 13:00">10:00 - 13:00</option>
+                            <option value="13:00 - 16:00">13:00 - 16:00</option>
+                            <option value="16:00 - 19:00">16:00 - 19:00</option>
+                        </select></div>
+                        
+                        <!-- Checkout Button -->
+                        <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
+                            <!-- <input type="submit"  value="Checkout" name="checkout"> -->
 
 
-                            </div>
-                        </form>
-                    <?php
-                        // echo $day_index;
-                    } else echo "You don't have anything in your cart yet."; ?>
-                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus fugiat vel numquam impedit nihil fuga, dolorem veniam at asperiores? -->
+                        </div>
+                    </form>
+                <?php
+                                                    // echo $day_index;
+                                                } else echo "You don't have anything in your cart yet."; ?>
+              
                 </div>
 
             </div>
@@ -326,6 +342,7 @@ include('connection.php');
     ?>
 
 
+
     <div class="footer navcolor">
         <div class="container">
             <div class="row">
@@ -367,31 +384,32 @@ include('connection.php');
     <script src="https://www.paypal.com/sdk/js?client-id=AaNtGY8TocSYYuuJVpWFdXZ6tBxYh9rKu4Vals3L1V8LfF0qzyQFz-hWin5KOpeQG4hlbQbs-LmfvjCa"></script>
 
     <!-- <script src="./index.js"></script> -->
-<script>
-    paypal.Buttons({
+    <script>
+        paypal.Buttons({
 
-style: {
-    color: 'blue',
-    shape:'pill'
-},
-createOrder:function (data, actions) {
-    return actions.order.create({
-        purchase_units: [{
-            amount: {
-                value:'<?php  echo $total;?>' 
+            style: {
+                color: 'blue',
+                shape: 'pill',
+                layout: 'horizontal'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '<?php echo $total; ?>'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    console.log(details)
+                    // window.location.replace(url:"")
+                })
             }
-        }]
-    });
-},
-onApprove: function (data, actions) {
-    return actions.order.capture().then(function (details) {
-        console.log(details)
-        // window.location.replace(url:"")
-    })
-}
 
-}).render('#paypal-payment-button');
-</script>
+        }).render('#paypal-payment-button');
+    </script>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--Custom JS-->

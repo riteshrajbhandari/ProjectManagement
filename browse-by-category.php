@@ -16,7 +16,7 @@
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -103,7 +103,7 @@
     <!--  -->
 
     <div class="container">
-        <div class="center py-5">
+        <div class="center py-5 text-center">
             <form action="./browse-by-category.php?category=<?php echo $_GET['category']; ?>" method="post">
                 <div class="dropdown">
                     <select name="sort-by" id="sort-by">
@@ -113,7 +113,7 @@
                         <option value="rating">Rating</option>
                     </select>
 
-
+                    
                     <button type="submit" name="sort">Sort</button>
 
                 </div>
@@ -146,10 +146,10 @@
             ?>
                     <div class="col">
                         <a href="./product.php?pid=<?php echo $pid ?>">
-                            <div class="card shop">
-                                <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
-                                <div class="card-body" id="shops">
-                                    <span class="card-text">
+                            <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                                <img src="<?php echo $img_url; ?>" class="card-img-top" alt="..." ">
+                                <div class="card-body" id="shops" style="background-color:cadetblue;">
+                                    <span class="card-text text-white">
                                         <?php echo $product_name; ?>
                                     </span>
                                     <p class="text-end">

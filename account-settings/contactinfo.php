@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -77,25 +77,31 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
     <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
+    <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -120,15 +126,22 @@ session_start();
                 </li>
             </ul>
 
-            <div class="contactinfo" id="settings-body">
+            <style>
+                
+            </style>
+            <div class="row">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-6" ><div class="contactinfo my-3 py-5" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
                 <h1>Contact Information</h1><br>
                 <p class="pb-5">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
                 
                 <div class="row pb-5">
-                    <div class="col-1">
+                    <div class="col-2">
                         Gender
                     </div>
-                    <div class="col-3 pb-3">
+                    <div class="col-8 pb-3">
                         <select class="form-select" aria-label="Gender">
                             <option selected>Select your gender</option>
                             <option value="male">Male</option>
@@ -140,7 +153,9 @@ session_start();
                 Phone Number: 1234567890 <img src="../images/pencil-square.svg" alt=""><br>
                 <!-- MAKE SURE TO MAKE THE INPUT FIELD NUMBER-ONLY BECAUSE 
                 PHONE NUMBER IS STORED AS VARCHAR TO ALLOW FOR LEADING ZEROES -->
+            </div></div>
             </div>
+            
         </div>
     </div>
     <div class="footer navcolor">

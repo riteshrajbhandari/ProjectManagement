@@ -27,7 +27,7 @@ session_start();
 
     <div class="row ">
 
-      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0" style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:2em">
         <div class="img-left d-none d-md-flex">
           <img class="w-100" src="./images/logo.png" alt="">
         </div>

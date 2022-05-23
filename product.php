@@ -22,7 +22,7 @@ session_start();
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -135,10 +135,13 @@ session_start();
             if (isset($_GET['pid'])) {
         ?>
                 <div class="row product ">
-                    <div class="col-lg-6">
-                        <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;">
+                    <div class="col-lg-6">  
+                        <div class="w-100 py-3" style="">
+                            <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
+                        </div>
+                        
                     </div>
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-6 py-3">
                         <h1>
                             <?php echo $product_name; ?>
                         </h1><br>
@@ -216,7 +219,7 @@ session_start();
                 </div>
 
                 <!-- <div class="row product empty"></div> -->
-                <div class="row product">
+                <div class="row product py-3">
                     <div class="col-lg-6">
                         <div class="col-lg-6">
                             <p><?php echo $description; ?>
@@ -226,9 +229,9 @@ session_start();
 
 
 
-                        <div class="add-review">
+                        <div class="add-review py-3 my-5"  style="">
                             <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
-                                <div class="grid">
+                                <div class="grid px-3" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;background-color: rgba(245, 245, 245, 0.63);">
                                     <div class="col-lg-6 pt-3">
 
 

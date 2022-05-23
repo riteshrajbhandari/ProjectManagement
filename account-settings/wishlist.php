@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -77,25 +77,31 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+            
+        }
+    </style>
     <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
+    <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="wishlist">My Wishlist</a>
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -129,7 +135,16 @@ session_start();
                         <th>Action</th>
                     </tr> -->
 
-                    <table class="table" >
+                    <style>
+                        tr:nth-child(even) {
+  background-color: #D6EEEE;
+}   
+table{
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+                    </style>
+                    <div class="text-white" style="background-color: white; ">
+                        <table class="table" >
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Order</th>
@@ -139,6 +154,8 @@ session_start();
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
+                    </div>
+                    
 
                     <?php
                     $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");

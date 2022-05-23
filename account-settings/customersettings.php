@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -38,18 +38,18 @@ session_start();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
                         <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                            <a class="nav-link" aria-current="" href="../browse-by-category.php">Browse by Category</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.html">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -77,25 +77,34 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            border-radius: 2em;
+            background-color: darkblue;
+
+        }
+        
+       
+    </style>
     <div class="row ">
-        <ul class="nav flex-column col-3 settings-links-col text-light">
+        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="#" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
-            <li class="nav-item py-3 ">
-                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
+            <li class="nav-item py-3">
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body ">
@@ -145,7 +154,8 @@ session_start();
             ?>
             <div class="myprofile" id="settings-body">
                 <div class="row">
-                    <div class="col-lg-6 profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../".$profile_pic_url; ?>);'></div>
+
+                    <div class="col-lg profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
                     <div class="col-lg-6 card-img rounded-circle edit-hover">
                         <a href="http://">
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
@@ -154,16 +164,16 @@ session_start();
                     <div class="col-lg-6 py-5 ">
                         <h1 class="pb-3">Full Name</h1>
                         <p class="pb-3">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
-                        
+
                         <p class="pb-3">Birthday: dd/mm/yyyy <img src="" alt=""></p>
-                        
+
                         Gender: F/M/O <img src="" alt="">
                     </div>
-                       
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="footer navcolor">
         <div class="container">

@@ -105,6 +105,7 @@ function sendemail_verify($username, $email, $verify_token)
 
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -123,7 +124,7 @@ function sendemail_verify($username, $email, $verify_token)
 <body>
     <div class="container">
         <div class="row py-2 ">
-            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 ">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 "style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:2em" >
                 <div class="img-left-register d-none d-md-flex">
                     <img class="w-100" src="./images/logo.png" alt="">
                 </div>
