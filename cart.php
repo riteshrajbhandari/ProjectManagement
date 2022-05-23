@@ -185,6 +185,7 @@ include('connection.php');
 
                     <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit. -->
                 </div>
+<<<<<<< HEAD
                 <div class="col-lg-4" style="background-color:rgba(211, 210, 210, 0.77) ;border-top-right-radius:2em; border-bottom-right-radius: 2em    ;">
                 
   
@@ -206,6 +207,29 @@ include('connection.php');
                                                             // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
                                                             // $chosen_day = $days[0];
                                                             $counter = 0;
+=======
+                <div class="col-lg-6">
+                    <?php
+                    if (!$error) {
+                        echo 'Total: £' . $total; ?>
+                        <form action="./cart.php" method="post"><?php
+                                                                // check if today is wednesday, thursday or friday
+                                                                // if it is, add today and the days after today until friday.
+                                                                // if not, while today doesn't reach wednesday, keep incrementing day and
+                                                                // when it does reach wednesday, add today and the days after today until friday
+                                                                $days_of_collection = array('Wed', 'Thu', 'Fri');
+                                                                $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+                                                                $today = date("D");
+                                                                // $today = 'Sat';
+                                                                // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
+                                                                // $chosen_day = $days[0];
+                                                                $counter = 0;
+
+                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
+                                                                // $todays_date = date("d-M-y");
+                                                                
+                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
+>>>>>>> 1f476bc26aa610d5cd39c7c08feabf1666b1bb16
 
                                                             $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
                                                             // $todays_date = date("d-M-y");
@@ -250,6 +274,7 @@ include('connection.php');
                                                     }
                                 ?>
                             </select>
+<<<<<<< HEAD
                         </div>
 
                         <div class="text-center py-5"><select name="collection_time" id="collection_time">
@@ -261,6 +286,16 @@ include('connection.php');
                         <!-- Checkout Button -->
                         <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
                             <!-- <input type="submit"  value="Checkout" name="checkout"> -->
+=======
+                            <select name="collection_time" id="collection_time">
+                                <option value="10:00 - 13:00">10:00 - 13:00</option>
+                                <option value="13:00 - 16:00">13:00 - 16:00</option>
+                                <option value="16:00 - 19:00">16:00 - 19:00</option>
+                            </select>
+                            <!-- Checkout Button -->
+                            <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-button">
+                                <!-- <input type="submit"  value="Checkout" name="checkout"> -->
+>>>>>>> 1f476bc26aa610d5cd39c7c08feabf1666b1bb16
 
 
                         </div>
@@ -277,14 +312,14 @@ include('connection.php');
 
 
     <?php
-    if (isset($_POST['checkout'])) {
-        // include('payment.php');
-        // if(isset($paymentsuccess)){
-        //     if($paymentsuccess==true){
 
-        //     }
-        // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+    // include('payment.php');
+    // if(isset($paymentsuccess)){
+    //     if($paymentsuccess==true){
 
+    //     }
+    // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+    if (isset($_POST['paypal-button'])) {
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
         $order_date = date("d-M-y");
@@ -300,6 +335,9 @@ include('connection.php');
                 $errors = true;
             }
         }
+    }
+
+    if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
     VALUES('$collection_slot', '$collection_time')");
