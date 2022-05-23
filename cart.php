@@ -209,23 +209,25 @@ include('connection.php');
                                                                 //difference betn the next collection
                                                                 //day and today in number of days, inclusive
 
-                                                                function dateDiffInDays($date1, $date2)
-                                                                { // Calculating the difference in timestamps
-                                                                    $diff = strtotime($date2) - strtotime($date1);
-                                                                    return abs(round($diff / 86400));
-                                                                }
-                                                                $that_day = "14-May-22";
-                                                                $date_temp = date("d-M-y");
-                                                                $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                                $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+                                                                // function dateDiffInDays($date1, $date2)
+                                                                // { // Calculating the difference in timestamps
+                                                                //     $diff = strtotime($date2) - strtotime($date1);
+                                                                //     return abs(round($diff / 86400));                   //btw this whole function is useless because 14th of May just HAPPENED to fall on a saturday. It's like trying to fix a hole in duct tape with another duct tape. Its duct tapes all the way down.
+                                                                // }
+                                                                // $that_day = "14-May-22";
+                                                                // $date_temp = date("d-M-y");
+                                                                // $diff_in_date = dateDiffInDays($that_day, $date_temp);
+                                                                $todays_date = date("d-M-y");//, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+                                                                //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE. This has to be the worst code ever written. PS. NEEDS TO BE CHECKED AFTER 20 HOURS TO SEE IF IT BREAKS
+                                                                $date_index = $day_index - array_search(date("D"), $days);
                                                                 ?>
                             <select name="collection_slot" id="collection_slot" default="Collection Slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
                                 for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
                                     $counter++;
-                                    //get todays date, add $key no of days to it and display it from there
-                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
+                                    //get todays date, add $i no of days to it and display it from there
+                                    $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $date_index++ . ' days'));//the $i counts from saturday every time . instead, you need to start counting from TODAY
                                     // Add days to date and display it
                                     echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
                                 }
@@ -285,7 +287,7 @@ include('connection.php');
             }
         }
     }
-
+                //TODO how to check for this
     if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
