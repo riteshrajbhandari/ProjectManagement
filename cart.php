@@ -185,11 +185,17 @@ include('connection.php');
 
                     <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit. -->
                 </div>
-                <div class="col-lg-6">
-                    <?php
+                <div class="col-lg-4" style="background-color:rgba(211, 210, 210, 0.77) ;border-top-right-radius:2em; border-bottom-right-radius: 2em    ;">
+
+
+<div class="text-center  py-3 lead " style="font-family:bold ; font-size:2em;"><?php
                     if (!$error) {
                         echo 'Total: £' . $total; ?>
-                        <form action="./cart.php" method="post"><?php
+ <hr>
+                    </div>
+
+<form action="./cart.php" method="post"><?php
+  
 // check if today is wednesday, thursday or friday
 // if it is, add today and the days after today until friday.
 // if not, while today doesn't reach wednesday, keep incrementing day and
@@ -204,6 +210,9 @@ $counter = 0;
 
 $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
 // $todays_date = date("d-M-y");
+ 
+
+
 
 // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
@@ -228,6 +237,7 @@ $todays_date = date("d-M-y"); //, strtotime("-" . $diff_in_date . " days", strto
 //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE. This has to be the worst code ever written. PS. NEEDS TO BE CHECKED AFTER 20 HOURS TO SEE IF IT BREAKS
 $date_index = $day_index - array_search(date("D"), $days);
 ?>
+<div class="text-center py-5">
 <select name="collection_slot" id="collection_slot" default="Collection Slot">
     <option value="">Choose a collection slot</option>
     <?php
@@ -246,11 +256,14 @@ $date_index = $day_index - array_search(date("D"), $days);
     }
     ?>
 </select>
-                            <select name="collection_time" id="collection_time">
+</div>
+
+<div class="text-center py-5"><select name="collection_time" id="collection_time">
                                 <option value="10:00 - 13:00">10:00 - 13:00</option>
                                 <option value="13:00 - 16:00">13:00 - 16:00</option>
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
-                            </select>
+                            </select></div>
+                            
                             <!-- Checkout Button -->
                             <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-button">
                                 <!-- <input type="submit"  value="Checkout" name="checkout"> -->
@@ -294,7 +307,7 @@ $date_index = $day_index - array_search(date("D"), $days);
             }
         }
     }
-                //TODO how to check for this
+    
     if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)

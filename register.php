@@ -13,95 +13,6 @@ require 'vendor/autoload.php';
 
 
 
-function sendemail_verify($username, $email, $verify_token)
-{
-    $mail = new PHPMailer(true);
-    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'user@example.com';                     //SMTP username
-    $mail->Password   = 'secret';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 587;
-
-    $mail->setFrom("sajidmiya285@gmail.com", $username);
-    $mail->addAddress($email);
-
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = "Email verification from the Fresh Mart";
-
-    $email_template = "
-        <h2>You are registered with Fresh Mart</h2>
-        <h5>Verify your email address to login</h5>
-        <br><br>
-        <a href='http://localhost/ProjectManagement/register.php/verify-email.php/token=$verify_token'>Click Me</a>";
-
-    $email->Body = $email_template;
-    $mail->send();
-    echo 'Message has been sent';
-}
-
-
-// if (isset($_POST["submitRegistration"])) {
-//     $username = $_POST['username'];
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-//     $verify_token = md5(rand());
-
-
-
-//     $stid = oci_parse($connection, "SELECT email FROM users WHERE email = '$email'");
-//     oci_execute($stid);
-//     if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-//         $_SESSION['status'] = "Email already Exists";
-//         header("Location:register.php");
-//     } else {
-//         $stid = oci_parse($connection, "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)");
-//         if (oci_execute($stid)) {
-
-//         };
-//     }
-
-
-
-
-
-
-//     $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
-//     $check_email_query_run = oci_parse($connection, $check_email_query);
-//     if (mysqli_num_rows($check_email_query_run) > 0) {
-//         $_SESSION['status'] = "Email already Exists";
-//         header("Location:register.php");
-//     } else {
-
-
-
-
-
-
-
-//         $query = "INSERT INTO users(username,email,password,verify_token)  VALUES ($username,$email,$password,$verify_token)";
-//         $query_run = mysqli_query($connection, $query);
-//     }
-
-
-
-
-
-
-
-
-
-//     if ($query_run) {
-//         sendemail_verify("$username", "$email", "$verify_token");
-//         $_SESSION['status'] = "Registration Successful. Please verify email address";
-//         header("Location:register.php");
-//     } else {
-//         $_SESSION['status'] = "Registration Failed";
-//         header("Location:register.php");
-//     }
-// }
 
 
 ?>
@@ -124,14 +35,14 @@ function sendemail_verify($username, $email, $verify_token)
 <body>
     <div class="container">
         <div class="row py-2 ">
-            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 " style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:2em">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 " style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:1em">
                 <div class="img-left-register d-none d-md-flex">
                     <img class="w-100" src="./images/logo.png" alt="">
                 </div>
 
-                <div class="card-body ">
+                <div class="card-body py-1">
                     <h4 class="title text-center ">
-                        Register to FreshMart
+                        Register to <span style="color:rgba(15, 255, 57, 1)">Fresh</span>Mart
                     </h4>
                     <form class="form-box px-2" method="POST" action="register.php" enctype="multipart/form-data">
                         <div class="form-input">
