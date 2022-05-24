@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -38,7 +38,7 @@ session_start();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
@@ -54,18 +54,18 @@ session_start();
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
-                        </a>
+                            </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="../register.php">Register</a></li>';
                                 }
@@ -77,25 +77,31 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
     <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
+        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="#" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -122,27 +128,65 @@ session_start();
 
             <div class="row">
                 <div class="col-lg-4">
-                <div class="changepass" id="settings-body">
-                <form>
-                    <div class="form-group">
-                        <label for="changepass">Current Password</label>
-                        <input type="password" class="form-control" id="currentPassword" placeholder="Enter Password">
-                    </div><br>
-                    <div class="form-group">
-                        <label for="changepass">New Password</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="New Password">
-                    </div><br>
-                    <div class="form-group">
-                        <label for="changepass">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                    </div><br>
-                    <button type="submit" class="btn btn-primary">Change Password</button>
-                </form>
-            </div>
+
+                </div>
+                <div class="col-lg-4 py-5 my-3 text-white" style="border-radius: 1px; ; background-color:rgba(188, 109, 109, 0.77) ;box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                    <div class="changepass" id="settings-body">
+                        <form action="changepass.php" method="post">
+                            <div class="form-group">
+                                <label for="changepass">Current Password</label>
+                                <input type="password" class="form-control " id="currentPassword" placeholder="Enter Password" name="currentPassword" required>
+
+                            </div><br>
+                            <div class="form-group">
+                                <label for="changepass">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="New Password" name="newPassword" required>
+                            </div><br>
+                            <div class="form-group">
+                                <label for="changepass">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                            </div><br>
+                            <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="changepasswordsubmit">Change Password</button></div>
+
+                        </form>
+                        <?php
+                        if (isset($_POST['changepasswordsubmit'])) {
+                            $user_id = $_SESSION['user_id'];
+                            // $currentpass = $_POST['currentPassword'];
+                            $currentpass = hash('sha1', $_POST['currentPassword'], false);
+
+                            $stid = oci_parse($connection, "SELECT password FROM users WHERE user_id = '$user_id'");
+                            oci_execute($stid);
+
+                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                $storedpass = $row['PASSWORD'];
+
+                                if ($storedpass == $currentpass) {
+
+                                    $newpass = $_POST['newPassword'];
+                                    $confirmpass = $_POST['confirmPassword'];
+
+                                    if ($newpass == $confirmpass) {
+                                        
+                                        $confirmpass = hash('sha1', $confirmpass, false);
+                                        
+                                        $stid = oci_parse($connection, "UPDATE users SET PASSWORD = '$confirmpass' WHERE user_id = '$user_id'");
+                                        if (oci_execute($stid)) {
+                                            echo "Your password has been changed.";
+                                        }
+                                    }else echo "Passwords do not match";
+                                } else echo "Wrong Password";
+                            }
+                        }
+                        //encrypt the entered password and then compare it with the one stored under the user_id that's logged in
+                        //if the passwords match compre the password entered twice
+                        //if those match, update the password under this user_id
+                        ?>
+                    </div>
                 </div>
             </div>
 
-            
+
         </div>
     </div>
     <div class="footer navcolor">

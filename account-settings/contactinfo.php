@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -38,7 +38,7 @@ session_start();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
@@ -54,18 +54,18 @@ session_start();
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="../register.php">Register</a></li>';
                                 }
@@ -77,25 +77,31 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
     <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
+        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -120,27 +126,68 @@ session_start();
                 </li>
             </ul>
 
-            <div class="contactinfo" id="settings-body">
-                <h1>Contact Information</h1><br>
-                <p class="pb-5">email@domain.com <img src="../images/pencil-square.svg" alt=""></p>
-                
-                <div class="row pb-5">
-                    <div class="col-1">
-                        Gender
-                    </div>
-                    <div class="col-3 pb-3">
-                        <select class="form-select" aria-label="Gender">
-                            <option selected>Select your gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
+            <style>
+
+            </style>
+            <div class="row">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="contactinfo my-3 py-5" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+                        <h1>Contact Information</h1><br>
+                        <?php if (isset($_SESSION['user'])) {
+
+                            $user_id = $_SESSION['user_id'];
+
+
+                            $stid = oci_parse($connection, "SELECT * FROM users WHERE user_id = '$user_id'");
+                            oci_execute($stid);
+
+                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                $email = $row['EMAIL'];
+                                $gender = $row['GENDER'];
+                                $dob = $row['DATE_OF_BIRTH'];
+                            }
+                        } else echo "session empty";
+                        ?>
+                        <p class="pb-5"><?php echo $email; ?><img type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="../images/pencil-square.svg" alt=""></p>
+                        
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog"> TODOooooooooooooooooooooooooooooooooooooooooooo
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row pb-5">
+                            <div class="col-2">
+                                Gender
+                            </div>
+                            <div class="col-8 pb-3">
+                                <select class="form-select" aria-label="Gender">
+                                    <option selected>Select your gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                Phone Number: 1234567890 <img src="../images/pencil-square.svg" alt=""><br>
-                <!-- MAKE SURE TO MAKE THE INPUT FIELD NUMBER-ONLY BECAUSE 
-                PHONE NUMBER IS STORED AS VARCHAR TO ALLOW FOR LEADING ZEROES -->
             </div>
+
         </div>
     </div>
     <div class="footer navcolor">
