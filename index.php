@@ -15,7 +15,7 @@
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body class="bg-light">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -101,21 +101,21 @@
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div class="carousel-item active" >
                     <img src="images\indeterminate-tomato-variety-1403423-01-bf3ec05de4754840abbd8dc26514bee77.png" class="d-block w-100" alt="...">
                     <div class="carousel-caption">
                         <h5>First slide label</h5>
                         <p>Some representative placeholder content for the first slide.</p>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" >
                     <img src="http://peninsula.co.za/wp-content/uploads/2016/05/groceries_12801.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" >
                     <img src="https://cdn.shopify.com/s/files/1/1121/0016/files/meat-department_2000x.jpg?v=1562848239" class="d-block w-100" alt="...">
                     <div class="carousel-caption">
                         <h5>Third slide label</h5>
@@ -136,12 +136,12 @@
     </div>
 
     <br><br>
-    <div class="container title">
+    <!-- <div class="container title">
         Offers
-    </div>
+    </div> -->
 
     <!-- OFFERS SLIDER -->
-    <div class="container-slider">
+    <!-- <div class="container-slider">
         <div class="row slider">
             <div class="col"></div>
             <div class="col-lg-10 scrolling-wrapper row flex-row flex-nowrap">
@@ -190,9 +190,14 @@
             <div class="col"></div>
 
         </div>
-    </div>
+    </div> -->
     <br><br>
-    <div class="container title">
+    <style>
+    .card{
+        box-shadow: rgba(0, 0, 0, 0.56) 0px 15px 20px 2px;
+    }
+</style>
+    <div class="container title lead">
         Shops
     </div><br>
 
@@ -202,46 +207,46 @@
             <div class="col">
                 <div class="card shop">
                     <img src="images\butchers-knife-17307-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops">
-                        <p class="card-text">Butchers</p>
+                    <div class="card-body" id="shops" style="background-color:cadetblue;">
+                        <p class="card-text text-white">Butchers</p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shop">
                     <img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops">
-                        <p class="card-text">Greencrocer</p>
+                    <div class="card-body" id="shops" style="background-color:cadetblue;">
+                        <p class="card-text text-white" >Greencrocer</p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shop">
                     <img src="images\fishmongers_256623856_1000.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops">
-                        <p class="card-text">Fishmonger</p>
+                    <div class="card-body" id="shops" style="background-color:cadetblue;">
+                        <p class="card-text text-white" >Fishmonger</p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shop">
                     <img src="images\Screenshot 2022-04-09 184212.png" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops">
-                        <p class="card-text">Bakery</p>
+                    <div class="card-body" id="shops" style="background-color:cadetblue;">
+                        <p class="card-text text-white" >Bakery</p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card shop">
                     <img src="images\Delicatessen-1024x688.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops">
-                        <p class="card-text">Delicatessen</p>
+                    <div class="card-body" id="shops" style="background-color:cadetblue;">
+                        <p class="card-text text-white" >Delicatessen</p>
                     </div>
                 </div>
             </div>
         </div>
     </div><br>
-    <div class="container title">
+    <div class="container title lead">
         Essentials
     </div><br>
 
@@ -250,9 +255,9 @@
         <div class="row">
             <div class="col-md-6 p-3"><a href="./product.php?pid=1">
                     <div class="card essentials essentials-large gap-3"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
-                        <div class="card-text p-3">
-                            <h2>Hello</h2>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <div class="card-text p-3" style="background-color:cadetblue;">
+                            <h2 class="text-white">Hello</h2>
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                             </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -262,9 +267,9 @@
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                             </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
+                            </svg> -->
                             <br>
-                            <h2>$00.00</h2>
+                            <h2 class="text-white">$00.00</h2>
                         </div>
                     </div>
                 </a>
@@ -273,13 +278,13 @@
                 <div class="row mb-3">
                     <div class="col-6">
                         <div class="card essentials"><img src="images\fishmongers_256623856_1000.jpg" alt="" srcset="">
-                            <div class="card-text p-2">Hello<br>$00.00</div>
+                            <div class="card-text p-2 text-white" style="background-color:cadetblue;">Hello<br>$00.00</div>
                         </div>
 
                     </div>
                     <div class="col-6">
                         <div class="card essentials"><img src="images\Screenshot 2022-04-09 184212.png" alt="" srcset="">
-                            <div class="card-text p-2">Hello<br>$00.00</div>
+                            <div class="card-text p-2 text-white" style="background-color:cadetblue;">Hello<br>$00.00</div>
                         </div>
 
                     </div>
@@ -287,13 +292,13 @@
                 <div class="row mb-3">
                     <div class="col-6">
                         <div class="card essentials"><img src="images\Delicatessen-1024x688.jpg" alt="" srcset="">
-                            <div class="card-text p-2">Hello<br>$00.00</div>
+                            <div class="card-text p-2 text-white" style="background-color:cadetblue;">Hello<br>$00.00</div>
                         </div>
 
                     </div>
                     <div class="col-6">
                         <div class="card essentials"><img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" alt="" srcset="">
-                            <div class="card-text p-2">Hello<br>$00.00</div>
+                            <div class="card-text p-2 text-white" style="background-color:cadetblue;">Hello<br>$00.00</div>
                         </div>
 
                     </div>

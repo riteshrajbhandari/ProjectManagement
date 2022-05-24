@@ -105,6 +105,7 @@ function sendemail_verify($username, $email, $verify_token)
 
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -123,7 +124,7 @@ function sendemail_verify($username, $email, $verify_token)
 <body>
     <div class="container">
         <div class="row py-2 ">
-            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 ">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 " style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:2em">
                 <div class="img-left-register d-none d-md-flex">
                     <img class="w-100" src="./images/logo.png" alt="">
                 </div>
@@ -270,7 +271,11 @@ function sendemail_verify($username, $email, $verify_token)
                             </div>
 
                             <div class="input_field pb-1">
-                                <label for="image">Upload Image: </label>
+                                <label for="image">Upload Image:<?php
+
+
+                                                                // echo date('Y-m-d', strtotime($Date. ' + 10 days'));
+                                                                ?> </label>
                                 <input type="file" name="fileToUpload" id="fileToUpload">
                                 <div id="imageUploadError"></div>
                             </div>
@@ -318,6 +323,8 @@ function sendemail_verify($username, $email, $verify_token)
                                 $firstname = clean_data($_POST['firstname']);
                                 $lastname = clean_data($_POST['lastname']);
                                 $user_type = $_POST['user_type'];
+                                // $dob = date('d-M-y', strtotime($_POST['date_of_birth']));
+                                $dob = date('Y-m-d', strtotime($_POST['date_of_birth']));
                                 if ($_POST['gender'] == 'Male') {
                                     $gender = 'M';
                                 } elseif ($_POST['gender'] == 'Female') {
@@ -347,16 +354,26 @@ function sendemail_verify($username, $email, $verify_token)
                                 }
                                 $image_name = 'images\\' . htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
 
+                                // if($dob>date('Y-m-d', strtotime())
+                                // echo date('Y-m-d', strtotime( date('Y-m-d')-'18 years'));
 
+                                // $date_today = date('Y-m-d');
+                                $allowed_date =  date('Y-m-d', strtotime($date_today . ' - 18 years'));
+                                if ($dob > $allowed_date) {
+                                    $errors = true;
+                                    echo "You need to be at least 18 years of age in order to register.";
+                                } else $dob =  date('d-M-y', strtotime($dob));
+
+                                $token = md5(uniqid(rand(), true));
 
 
                                 if (!$errors) {
-                                    $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER)
-VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', '$image_name', '$gender')");
+                                    $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, DATE_OF_BIRTH, VERIFIED, TOKEN)
+                                                                            VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', '$image_name', '$gender', '$dob','0','$token')");
                                     if (oci_execute($stid)) {
+                                        echo 'Account created. Please follow the link sent in your email to verify.'; //TODO:left to send email
                                     };
 
-                                    echo 'Account created.';
                                     //echo go click on the link in your mail 
                                     //verification link in their email, which they will click and the 
                                     //verification status will be updated in the users table and the 
@@ -366,6 +383,82 @@ VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$use
                                 //in login page once the user enters data check if it is verfied 
                                 //(the boolean created earlier) if not verified, echo go click 
                                 //on the link in your email to verify your account first
+
+
+
+
+
+                                // $token = md5(uniqid(rand(), true));
+if(!$errors){
+                                $to = $email; 
+                                $from = 'rritesh21@tbc.edu.np'; 
+                                $fromName = 'Ritesh Rajbhandari'; 
+                                 
+                                $subject = "Fresh Mart Email Verification Link"; 
+                                 
+                                $htmlContent = ' 
+                                <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <table style="border:1px solid grey;">
+        <th style="padding:1em;background-color: #e3f2fd;">Verify your email address</th>
+        <tr>
+            <td style="background-color:#ffffff;padding:1em 2em;">
+
+                Thanks for registering via your email '.$email.'! <br>Click on the button below to verify your email. <br><br>
+                <a href="http://localhost:80/ProjectManagement/verify-email.php?token='.$token.'">
+                    <button>
+                        Verify
+                    </button>
+                </a>
+                <br><br>
+                Sincerely,<br>
+                Fresh Mart
+                <hr>
+                <table>
+                    <tr>
+                        <td>
+                            Fresh Mart | 1344 Cleckhuddersfax, United Kingdom
+                            <img src="./images/logo(small).png" alt="" srcset="" style="height: 3em; padding-left:8em;">
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>';
+                                    
+                                // Set content-type header for sending HTML email 
+                                $headers = "MIME-Version: 1.0" . "\r\n"; 
+                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
+                                 
+                                // Additional headers 
+                                $headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
+                                // $headers .= 'Cc: welcome@example.com' . "\r\n"; 
+                                // $headers .= 'Bcc: welcome2@example.com' . "\r\n"; 
+                                 
+                                // Send email 
+                                if(mail($to, $subject, $htmlContent, $headers)){ 
+                                    echo 'Email has sent successfully.'; 
+                                }else{ 
+                                   echo 'Email sending failed.'; 
+                                }
+
+
+}
 
 
 

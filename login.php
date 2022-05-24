@@ -27,7 +27,7 @@ session_start();
 
     <div class="row ">
 
-      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0" style="box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; border-radius:2em">
         <div class="img-left d-none d-md-flex">
           <img class="w-100" src="./images/logo.png" alt="">
         </div>
@@ -92,18 +92,20 @@ session_start();
     // echo $password.'<br>';
     // $password = $_POST['txtpassword'];
 
-    $stid = oci_parse($connection, "SELECT user_id, username, first_name, password, USER_TYPE FROM users WHERE username = '$username' and password = '$password'");
+    $stid = oci_parse($connection, "SELECT user_id, username, first_name, password, USER_TYPE, verified FROM users WHERE username = '$username' and password = '$password'");
     oci_execute($stid);
 
     if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-      $_SESSION['user'] = $row['FIRST_NAME'];
-      $_SESSION['user_id'] = $row['USER_ID'];
-      $_SESSION['user_type'] = $row['USER_TYPE'];
+      if ($row['VERIFIED'] == 1) {
+        $_SESSION['user'] = $row['FIRST_NAME'];
+        $_SESSION['user_id'] = $row['USER_ID'];
+        $_SESSION['user_type'] = $row['USER_TYPE'];
 
-      if ($row['USER_TYPE'] == 'Trader') {
-        header("Location: ./trader/trader_index.php");
-      } else
-        header("Location: index.php");
+        if ($row['USER_TYPE'] == 'Trader') {
+          header("Location: ./trader/trader_index.php");
+        } else
+          header("Location: index.php");
+      } else echo 'please verify your email first.';
     } else
       echo 'username and password combination incorrect. New user? <a href="register.php">Register now</a>';
   }

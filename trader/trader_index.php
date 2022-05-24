@@ -22,7 +22,7 @@ include('../connection.php');
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body style="background-color:#eee">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -90,17 +90,23 @@ include('../connection.php');
         </nav>
     </div>
 
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
     <!-- sidebar -->
     <div class="row ">
-        <ul class="nav flex-column col-3 settings-links-col text-light">
+        <ul class="nav flex-column col-2 settings-links-col text-light " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
+                <a class="nav-link text-white lead" href="./addproduct.php" id="myorders">Add Product</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
+                <a class="nav-link text-white lead" href="./update.php" id="contactinfo">Update/delete</a>
             </li>
         </ul>
         <div class="col settings-body ">
@@ -116,13 +122,20 @@ include('../connection.php');
                 </li>
             </ul>
 
+            <style>
+                .add-shop {
+                    border-radius: 2em;
+                    background: white;
+                    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+                }
+            </style>
 
             <form action="trader_index.php" method="post">
                 <div class="container contact">
-                    <div class="row py-5">
-                        <div class="col-md-3 p-3">
+                    <div class="row py-5 m-3 add-shop">
+                        <div class="col-md-3 p-3 m-0 ">
                             <div class="contact-info">
-                                <h2>Fresh Mart Trader Profile</h2>
+
                                 <div class="py-3">
                                     <h4>Add new Shop</h4>
                                 </div>
@@ -133,7 +146,21 @@ include('../connection.php');
                                 <div class="form-group p-3">
                                     <label class="control-label col-sm-2" for="">Shop Name:</label>
                                     <div class="col-sm-10 py-3">
-                                        <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name">
+                                    <?php
+                                            $user_id = $_SESSION['user_id'];
+                                            $stid = oci_parse($connection, "SELECT COUNT(shop_id) FROM shop WHERE user_id = '$user_id'");
+                                            oci_execute($stid);
+
+                                            if(($row = oci_fetch_array($stid, OCI_ASSOC))){
+                                                $noofshops = $row['COUNT(SHOP_ID)'];
+                                                if($row['COUNT(SHOP_ID)']>=2){
+                                                    echo 'You reached your max limit of shops.';
+                                                    echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name" disabled>';
+                                                }else echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name">';
+                                                
+                                                ;
+                                            } ?>
+                                        <!-- <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name"> -->
                                     </div>
                                 </div>
                                 <div class="form-group p-3">
@@ -144,7 +171,15 @@ include('../connection.php');
                             </div>
                         </div>
                     </div>
-                    <div class="row py-5">
+
+                    <style>
+                        .del-shop {
+                            border-radius: 2em;
+                            background: white;
+                            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+                        }
+                    </style>
+                    <div class="row py-5 m-3 del-shop">
                         <div class="col-md-3 p-3">
                             <div class="contact-info">
                                 <div class="py-3">
@@ -157,7 +192,7 @@ include('../connection.php');
                                 <div class="form-group p-3">
                                     <label class="control-label col-sm-2" for="">Shop Name:</label>
                                     <div class="col-sm-10 py-3">
-                                    <select class="form-control" name="shop-id" id="shop-id">
+                                        <select class="form-control" name="shop-id" id="shop-id">
                                             <option value="">Select the shop to delete</option>
                                             <?php
                                             $user_id = $_SESSION['user_id'];
@@ -189,10 +224,12 @@ include('../connection.php');
                 $stid = oci_parse($connection, "INSERT INTO shop (shop_name, user_id) VALUES ('$shop_name','$user_id')");
                 if (oci_execute($stid)) echo 'Shop added';
             }
-            if(isset($_POST['delete-shop'])){
-                $shop_id = $_POST['shop_id'];
+            if (isset($_POST['delete-shop'])) {
+                $shop_id = $_POST['shop-id'];
                 $user_id = $_SESSION['user_id'];
-                
+                $stid = oci_parse($connection, "DELETE FROM shop WHERE SHOP_ID = '$shop_id'");
+                if (oci_execute($stid)) echo 'Shop deleted';
+                // header("Location: trader_index.php");
             }
             ?>
         </div>

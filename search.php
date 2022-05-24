@@ -19,6 +19,7 @@ include('connection.php');
 </head>
 
 <body>
+
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -100,68 +101,76 @@ include('connection.php');
         </nav>
     </div>
 
+
+
     <!-- SEARCH RESULTS -->
-    <div class="container">
-        <div class="center">
-            <form action="./search.php?search=<?php echo $_GET['search']; ?>" method="post">
-                <!--does this need to be a form????-->
-                <div class="dropdown py-3">
-                    <select name="sort-by" id="sort-by">
-                        <option value="" default>Sort By</option>
-                        <option value="product_name">Product Name</option>
-                        <option value="unit_price">Price Ascending</option>
-                        <option value="rating">Rating</option>
-                    </select>
-                    <button type="submit" name="sort">Sort</button>
-                </div>
-            </form>
-        </div>
-        <div class="row row-cols-2 row-cols-lg-5 g-4">
-            <?php
-
-            if (isset($_GET['search'])) {
-                $keyword =  strtoupper($_GET['search']);
-                $query = "SELECT * FROM product WHERE product_name LIKE '%$keyword%'";
-
-                if (isset($_POST['sort']) && $_POST['sort-by'] != '') {
-                    $sort_by = $_POST['sort-by'];
-                    $query = $query . " ORDER BY " . $sort_by;
-                    // echo $query;
-                }
-                $stid = oci_parse($connection, $query);
-                // echo "SELECT * FROM product WHERE LIKE %'$keyword'%";
-                oci_execute($stid);
-                $product_found = false;
-                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                    $product_found = true;
-                    $pid = $row['PRODUCT_ID'];
-                    $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
-                    $unit_price = $row['UNIT_PRICE'];
-                    $img_url = $row['IMG_URL'];
-                    // $rating = $row['RATING']; TODO :::::::::::::::
-            ?>
-                    <div class="col">
-                        <a href="./product.php?pid=<?php echo $pid ?>">
-                            <div class="card shop">
-                                <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
-                                <div class="card-body" id="shops">
-                                    <span class="card-text">
-                                        <?php echo $product_name; ?>
-                                    </span>
-                                    <p class="text-end">
-                                        <!-- <?php echo $rating; ?> -->
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
+    <section style="background-color: #eee;">
+        <div class="container py-3">
+            <div class="center">
+                <form action="./search.php?search=<?php echo $_GET['search']; ?>" method="post">
+                    <!--does this need to be a form????-->
+                    <div class="dropdown py-3 text-center ">
+                        <select name="sort-by" id="sort-by">
+                            <option value="" default>Sort By</option>
+                            <option value="product_name">Product Name</option>
+                            <option value="unit_price">Price Ascending</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                        <button type="submit" name="sort">Sort</button>
                     </div>
-            <?php
-                }
-                if (!$product_found) echo "<p>Product not found.</p>";
-            }
-            ?>
+                </form>
+            </div>
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light">
+
+
+                <div class="row row-cols-2 row-cols-lg-5 g-4">
+                    <?php
+
+                    if (isset($_GET['search'])) {
+                        $keyword =  strtoupper($_GET['search']);
+                        $query = "SELECT * FROM product WHERE product_name LIKE '%$keyword%'";
+
+                        if (isset($_POST['sort']) && $_POST['sort-by'] != '') {
+                            $sort_by = $_POST['sort-by'];
+                            $query = $query . " ORDER BY " . $sort_by;
+                            // echo $query;
+                        }
+                        $stid = oci_parse($connection, $query);
+                        // echo "SELECT * FROM product WHERE LIKE %'$keyword'%";
+                        oci_execute($stid);
+                        $product_found = false;
+                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                            $product_found = true;
+                            $pid = $row['PRODUCT_ID'];
+                            $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
+                            $unit_price = $row['UNIT_PRICE'];
+                            $img_url = $row['IMG_URL'];
+                            // $rating = $row['RATING']; TODO :::::::::::::::
+                    ?>
+                            <div class="col " >
+                                <a href="./product.php?pid=<?php echo $pid ?>">
+                                    <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                                        <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
+                                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                                            <span class="card-text text-white">
+                                                <?php echo $product_name; ?>
+                                            </span>
+                                            <p class="text-end">
+                                                <!-- <?php echo $rating; ?> -->
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                    <?php
+                        }
+                        if (!$product_found) echo "<p>Product not found.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
     <div class="footer navcolor">
         <div class="container">
             <div class="row">

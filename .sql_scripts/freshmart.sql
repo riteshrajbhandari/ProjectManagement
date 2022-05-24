@@ -232,7 +232,9 @@ CREATE TABLE USERS(
 	email	VARCHAR(50),
 	profile_pic_url VARCHAR(100),
 	gender VARCHAR(1),
-	date_of_birth DATE, --TODO
+	date_of_birth DATE,
+	verified VARCHAR(5),
+	token VARCHAR(50),
 	-- Specify the PRIMARY KEY constraint for table "USER".
 	-- This indicates which attribute(s) uniquely identify each row of data.
 	CONSTRAINT	pk_USER PRIMARY KEY (user_id)

@@ -90,6 +90,13 @@ include('../connection.php');
         </nav>
     </div>
 
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
+
     <!-- sidebar -->
     <div class="row ">
         <!-- <ul class="nav flex-column col-3 settings-links-col text-light">
@@ -104,58 +111,61 @@ include('../connection.php');
             </li>
         </ul> -->
         <div class="col pb-3">
-            <ul class="nav nav-pills d-flex settings-tabs text-light">
+            <ul class="nav nav-pills d-flex settings-tabs text-light " style="background-color:cadetblue;">
                 <li class="nav-item">
-                    <a class="nav-link" href="./trader_index.php" id="myprofile">Add/Delete Shop</a>
+                    <a class="nav-link text-white lead
+" href="./trader_index.php" id="myprofile">Add/Delete Shop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
+                    <a class="nav-link text-white lead
+" href="./addproduct.php" id="myorders">Add Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="contactinfo">Update/delete</a>
+                    <a class="nav-link text-white lead
+ active" aria-current="page" href="#" id="contactinfo">Update/delete</a>
                 </li>
             </ul>
 
 
-
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <td>Product Name</td>
-                        <td>Unit Price</td>
-                        <td>Stock</td>
-                        <td>Availability</td>
-                        <td>Short Description</td>
-                        <td>Description</td>
-                        <!-- <td>Image URL</td> -->
-                        <td>Category ID</td>
-                        <td>Delete</td>
-                    </tr>
-                </thead>
-
-
-                <!-- Update cmd here -->
+            <div class="container py-2 my-5" style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <td>Product Name</td>
+                            <td>Unit Price</td>
+                            <td>Stock</td>
+                            <td>Availability</td>
+                            <td>Short Description</td>
+                            <td>Description</td>
+                            <!-- <td>Image URL</td> -->
+                            <td>Category ID</td>
+                            <td>Delete</td>
+                        </tr>
+                    </thead>
 
 
-                <?php
-                $user_id = $_SESSION['user_id'];
-                $stid = oci_parse(
-                    $connection,
-                    "SELECT p.* FROM product p, shop s, users u WHERE p.fk2_shop_id = s.shop_id and s.user_id = u.user_id and u.user_id = '$user_id'"
-                );
-                oci_execute($stid);
+                    <!-- Update cmd here -->
 
-                //MAKE A FORMMMMMMM!-!-!-!-!-!-!-!-!-!-!-!-!-!
-                //each row should be a form that when submitted, should update that specifc row having the specific product_id
-                ?>
-                
+
+                    <?php
+                    $user_id = $_SESSION['user_id'];
+                    $stid = oci_parse(
+                        $connection,
+                        "SELECT p.* FROM product p, shop s, users u WHERE p.fk2_shop_id = s.shop_id and s.user_id = u.user_id and u.user_id = '$user_id'"
+                    );
+                    oci_execute($stid);
+
+                    //MAKE A FORMMMMMMM!-!-!-!-!-!-!-!-!-!-!-!-!-!
+                    //each row should be a form that when submitted, should update that specifc row having the specific product_id
+                    ?>
+
                     <!-- <input type="text" name="product_name" id="product_name" value=""> -->
 
                     <?php
                     $number_of_reviews = 0;
                     while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                        echo '<form action="update_process.php?pid='.$row['PRODUCT_ID'].'" method="post" id="update_product">';
-                        echo'<input type="text" hidden name="pid" value="'.$row['PRODUCT_ID'].'">';
+                        echo '<form action="update_process.php?pid=' . $row['PRODUCT_ID'] . '" method="post" id="update_product">';
+                        echo '<input type="text" hidden name="pid" value="' . $row['PRODUCT_ID'] . '">';
                         echo '<tr>';
                         echo '<td><input type="text" name="product_name" id="product_name" value="' . $row['PRODUCT_NAME'] . '"></td>';
                         echo '<td><input type="number" step="0.5" name="unit_price" id="product_name" value="' . $row['UNIT_PRICE'] . '"></td>';
@@ -167,7 +177,10 @@ include('../connection.php');
                         // echo '<td><a onclick="myFunc() => document.getElementById(\'update_product\').submit()"
                         // href="update_process.php?pid='.$row['PRODUCT_ID'].'" name="update">Update</a><td>';
                         echo '<td><a href="trader\update_process.php"><button type="submit" name="update_process">Update</button></a></td>';
-                        echo '<td><a href="linktofilethatdeletesthisrow where $product_id = ' . $row['PRODUCT_ID'] . '">Delete</a></td>';
+                        echo '</form>';
+                        echo '<form action="delete_product.php?pid=' . $row['PRODUCT_ID'] . '" method="post" id="delete_product">';
+
+                        echo '<td><a href="trader\delete_product.php"><button type="submit" name="delete_process">Delete</button></a></td>';
                         echo '</tr>';
                         // echo '<input type="text" name="product_name" id="product_name" value="'.$row['IMG_URL'].'">';
                         // echo '<td>' . $row['PRODUCT_NAME'] . '</td>';
@@ -179,14 +192,12 @@ include('../connection.php');
                         // echo '<td>' . $row['IMG_URL'] . '</td>';
                         // echo '<td>' . $row['FK2_SHOP_ID'] . '</td>';
                         // echo '<td>' . $row['FK3_CATEGORY_ID'] . '</td>';
-
-                echo '</form>';
-                        
+                        echo '</form>';
                     }
 
                     ?>
-            </table>
-
+                </table>
+            </div>
 
         </div>
     </div>

@@ -22,7 +22,7 @@ session_start();
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -136,9 +136,12 @@ session_start();
         ?>
                 <div class="row product ">
                     <div class="col-lg-6">
-                        <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px;">
+                        <div class="w-100 py-3" style="">
+                            <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
+                        </div>
+
                     </div>
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-6 py-3">
                         <h1>
                             <?php echo $product_name; ?>
                         </h1><br>
@@ -162,8 +165,8 @@ session_start();
                                 <input type="number" value="1" min="1" class="quantity-field" name="quantity">
                             </div>
                             <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
+                            <input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">
                         </form>
-
                         <?php
                         if (isset($_SESSION['user_id'])) {
                             if (isset($_POST['add-to-cart'])) {
@@ -202,10 +205,19 @@ session_start();
                                     echo "You already have this item in your <a href = './cart.php'>Cart</a>";
                                 } else {
 
-                                    $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
-                                VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
-                                '$pid','$quantity','$total_price')");
-                                    oci_execute($stid);
+
+
+                                    $stid1 = oci_parse($connection, "SELECT SUM(PRODUCT_QUANTITY) FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id')");
+                                    oci_execute($stid1);
+                                    if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                        if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
+                                    } else {                                    //THIS IS NOT WORKING  
+                                        $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
+                                            VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
+                                            '$pid','$quantity','$total_price')");
+                                        oci_execute($stid);
+                                        echo "Item added";
+                                    }
                                 }
                             }
                         } else echo 'Please <a href="login.php">Login</a> first.'
@@ -216,7 +228,7 @@ session_start();
                 </div>
 
                 <!-- <div class="row product empty"></div> -->
-                <div class="row product">
+                <div class="row product py-3">
                     <div class="col-lg-6">
                         <div class="col-lg-6">
                             <p><?php echo $description; ?>
@@ -226,9 +238,9 @@ session_start();
 
 
 
-                        <div class="add-review">
+                        <div class="add-review py-3 my-5" style="">
                             <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
-                                <div class="grid">
+                                <div class="grid px-3" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;background-color: rgba(245, 245, 245, 0.63);">
                                     <div class="col-lg-6 pt-3">
 
 
@@ -396,7 +408,7 @@ session_start();
                                 <input type="submit" value="delete_review" name="delete">
                             </form>
                         <?php
-                            if (isset($_POST['delete'])){
+                            if (isset($_POST['delete'])) {
                                 $stidd = oci_parse($connection, "DELETE FROM review WHERE review_id = '$review_id'");
                                 oci_execute($stidd);
                                 $_POST['delete'] = null;

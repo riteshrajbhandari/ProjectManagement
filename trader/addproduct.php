@@ -23,7 +23,7 @@ include('../connection.php');
     <title>Your home to fresh products</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <!-- NAVBAR -->
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
@@ -91,43 +91,55 @@ include('../connection.php');
         </nav>
     </div>
 
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+
+    </style>
     <!-- sidebar -->
     <div class="row ">
-        <ul class="nav flex-column col-3 settings-links-col text-light">
+        <ul class="nav flex-column col-2 settings-links-col" style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
+                <a class="nav-link text-white lead" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="./addproduct.php" id="myorders">Add Product</a>
+                <a class="nav-link  text-white lead active" aria-current="page" href="./addproduct.php" id="myorders">Add Product</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./update.php" id="update">Update/delete</a>
+                <a class="nav-link text-white lead" href="./update.php" id="update">Update/delete</a>
             </li>
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
+                <li class="nav-item text-white lead">
+                    <a class="nav-link " href="#" id="myprofile">Add/Delete Shop</a>
+                </li>
+                <li class="nav-item text-white lead">
+                    <a class="nav-link active" aria-current="page" href="./addproduct.php" id="myorders">Add Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./addproduct.php" id="myorders">Add Product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
+                    <a class="nav-link text-white lead" href="./update.php" id="contactinfo">Update/delete</a>
                 </li>
             </ul>
 
 
-
+<style>
+    .box{
+        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    }
+</style>
 
             <form action="addproduct.php" method="post" enctype="multipart/form-data">
                 <div class="container contact">
-                    <div class="row py-5 m-3" style="border:2px solid green; border-radius:1em; background-color:white">
+                    <div class="row py-5 m-3 box" style=" border-radius:3em; background-color:white">
                         <div class="col-md-3  p-3" id="side">
-                            <div class="contact-info">
-                                <!-- <h2>Fresh Mart Trader Profile</h2> -->
-                                <div class="py-3">
-                                    <h4>Product Name</h4>
+                            <div class="form-group p-5 m-2 " style=" border-radius:1em ;box-shadow: rgba(112, 112, 112, 0.8) 0px 2px 8px;">
+                                <label class="control-label col-sm" for="">Product Image:</label>
+                                <div class="col-sm-10 py-3">
+                                    <input type="file" name="fileToUpload" id="fileToUpload">
+                                    <div id="imageUploadError"></div>
                                 </div>
                             </div>
                         </div>
@@ -140,12 +152,14 @@ include('../connection.php');
                                             <option value="">Select your shop to add the product to</option>
                                             <?php
                                             $user_id = $_SESSION['user_id'];
+                                            $has_shop = false;
                                             $stid = oci_parse($connection, "SELECT shop_id, shop_name FROM shop WHERE user_id = '$user_id'");
                                             oci_execute($stid);
 
                                             while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                                $has_shop = true;
                                                 echo '<option value="' . $row['SHOP_ID'] . '">' . $row['SHOP_NAME'] . '</option>';
-                                            } ?>
+                                            }if(!$has_shop) echo '<option disabled>Please add a shop first</option>';?>
                                         </select>
                                     </div>
                                 </div>
@@ -161,13 +175,7 @@ include('../connection.php');
                                         <input type="number" step="0.1" class="form-control" name="product-price" id="product-price" placeholder="Enter Product Price" required>
                                     </div>
                                 </div>
-                                <div class="form-group p-3">
-                                    <label class="control-label col-sm-2" for="">Product Image:</label>
-                                    <div class="col-sm-10 py-3">
-                                        <input type="file" name="fileToUpload" id="fileToUpload">
-                                        <div id="imageUploadError"></div>
-                                    </div>
-                                </div>
+
                                 <div class="form-group p-3">
                                     <label class="control-label col-sm-2" for="">Product Stock:</label>
                                     <div class="col-sm-10 py-3">

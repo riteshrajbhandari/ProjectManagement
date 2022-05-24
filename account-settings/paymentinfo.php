@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #eee;">
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -77,25 +77,31 @@ session_start();
             </div>
         </nav>
     </div>
+    <style>
+        .nav-item .nav-link:hover {
+            background-color: darkblue;
+
+        }
+    </style>
     <div class="row">
-        <ul class="nav flex-column col-3 settings-links-col">
+    <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
-                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./myorders.php" id="myorders">My Orders</a>
+                <a class="nav-link text-white lead" href="./myorders.php" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
+                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link active" aria-current="page" href="#" id="paymentinfo">Payment Information</a>
+                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
+                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -121,7 +127,13 @@ session_start();
             </ul>
             <div class="paymentinfo" id="settings-body">
                 <div class="container">
-                    paypal
+                    <div class="row">
+
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4 p-5 my-5" style="border-radius:1em;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                        paypal
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
