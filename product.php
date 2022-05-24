@@ -124,7 +124,7 @@ session_start();
             // $report_id = $row['FK4_REPORT_ID'];
             $img_url = $row['IMG_URL'];
             if (isset($row['RATING']))
-                $rating = $row['RATING']; //TODO::::::::::
+                $rating = $row['RATING']; 
             $shop_id = $row['FK2_SHOP_ID'];
             $stid = oci_parse($connection, "SELECT shop_name FROM shop WHERE shop_id = '$shop_id'");
             oci_execute($stid);
@@ -135,11 +135,11 @@ session_start();
             if (isset($_GET['pid'])) {
         ?>
                 <div class="row product ">
-                    <div class="col-lg-6">  
+                    <div class="col-lg-6">
                         <div class="w-100 py-3" style="">
                             <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;border-radius:1em;">
                         </div>
-                        
+
                     </div>
                     <div class="col-lg-6 py-3">
                         <h1>
