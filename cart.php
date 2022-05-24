@@ -185,117 +185,86 @@ include('connection.php');
 
                     <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit. -->
                 </div>
-<<<<<<< HEAD
                 <div class="col-lg-4" style="background-color:rgba(211, 210, 210, 0.77) ;border-top-right-radius:2em; border-bottom-right-radius: 2em    ;">
-                
-  
-                    <div class="text-center  py-3 lead " style="font-family:bold ; font-size:2em;"><?php
-                                                if (!$error) {
-                                                    echo 'Total: £' . $total; ?>
-                            <hr>
-                    </div>
 
-                    <form action="./cart.php" method="post"><?php
-                                                            // TODO:: check if today is wednesday, thursday or friday
-                                                            // if it is, add today and the days after today until friday.
-                                                            // if not, while today doesn't reach wednesday, keep incrementing day and
-                                                            // when it does reach wednesday, add today and the days after today until friday
-                                                            $days_of_collection = array('Wed', 'Thu', 'Fri');
-                                                            $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                            $today = date("D");
-                                                            // $today = 'Sat';
-                                                            // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
-                                                            // $chosen_day = $days[0];
-                                                            $counter = 0;
-=======
-                <div class="col-lg-6">
-                    <?php
+
+<div class="text-center  py-3 lead " style="font-family:bold ; font-size:2em;"><?php
                     if (!$error) {
                         echo 'Total: £' . $total; ?>
-                        <form action="./cart.php" method="post"><?php
-                                                                // check if today is wednesday, thursday or friday
-                                                                // if it is, add today and the days after today until friday.
-                                                                // if not, while today doesn't reach wednesday, keep incrementing day and
-                                                                // when it does reach wednesday, add today and the days after today until friday
-                                                                $days_of_collection = array('Wed', 'Thu', 'Fri');
-                                                                $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                                $today = date("D");
-                                                                // $today = 'Sat';
-                                                                // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
-                                                                // $chosen_day = $days[0];
-                                                                $counter = 0;
+ <hr>
+                    </div>
 
-                                                                $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                                // $todays_date = date("d-M-y");
-                                                                
-                                                                // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
->>>>>>> 1f476bc26aa610d5cd39c7c08feabf1666b1bb16
+<form action="./cart.php" method="post"><?php
+   // TODO:: check if today is wednesday, thursday or friday
+// check if today is wednesday, thursday or friday
+// if it is, add today and the days after today until friday.
+// if not, while today doesn't reach wednesday, keep incrementing day and
+// when it does reach wednesday, add today and the days after today until friday
+$days_of_collection = array('Wed', 'Thu', 'Fri');
+$days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+$today = date("D");
+// $today = 'Sat';
+// $today = date("D", strtotime("-2 days", strtotime(date("D"))));
+// $chosen_day = $days[0];
+$counter = 0;
 
-                                                            $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
-                                                            // $todays_date = date("d-M-y");
-                                                            //TODO
-                                                            // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
+$day_index = array_search($today, $days); //get the index of the day today with respect to the days array
+// $todays_date = date("d-M-y");
+ //TODO
 
-                                                            while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
-                                                                $day_index++;
-                                                                //time travel to the next day
-                                                                $today = $days[$day_index];                       //check if that day is in the list
-                                                                // echo $key;
-                                                            } //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
-                                                            //difference betn the next collection
-                                                            //day and today in number of days, inclusive
+// $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
-                                                            function dateDiffInDays($date1, $date2)
-                                                            { // Calculating the difference in timestamps
-                                                                $diff = strtotime($date2) - strtotime($date1);
-                                                                return abs(round($diff / 86400));
-                                                            }
-                                                            $that_day = "14-May-22";
-                                                            $date_temp = date("d-M-y");
-                                                            $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                            $todays_date = date("d-M-y", strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
-                                                            ?>
-                        <div class="text-center py-5">
-                            <select name="collection_slot" id="collection_slot" default="Collection Slot">
-                                <option value="">Choose a collection slot</option>
-                                <?php
-                                                    for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
-                                                        $counter++;
-                                                        //get todays date, add $key no of days to it and display it from there
-                                                        $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $i . ' days'));
-                                                        // Add days to date and display it
-                                                        echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
-                                                    }
-                                                    if ($counter < 2) { //if there is only friday left,
-                                                        for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
-                                                            $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
-                                                            echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
-                                                        }
-                                                    }
-                                ?>
-                            </select>
-<<<<<<< HEAD
-                        </div>
+while (!in_array($today, $days_of_collection)) { //while a given day is not within collection slot days,
+    $day_index++;
+    //time travel to the next day
+    $today = $days[$day_index];                       //check if that day is in the list
+    // echo $key;
+} //because of this, the $key is the            //the moment it finds it in the list, exit the while loop
+//difference betn the next collection
+//day and today in number of days, inclusive
 
-                        <div class="text-center py-5"><select name="collection_time" id="collection_time">
-                            <option value="10:00 - 13:00">10:00 - 13:00</option>
-                            <option value="13:00 - 16:00">13:00 - 16:00</option>
-                            <option value="16:00 - 19:00">16:00 - 19:00</option>
-                        </select></div>
-                        
-                        <!-- Checkout Button -->
-                        <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit">
-                            <!-- <input type="submit"  value="Checkout" name="checkout"> -->
-=======
-                            <select name="collection_time" id="collection_time">
+// function dateDiffInDays($date1, $date2)
+// { // Calculating the difference in timestamps
+//     $diff = strtotime($date2) - strtotime($date1);
+//     return abs(round($diff / 86400));                   //btw this whole function is useless because 14th of May just HAPPENED to fall on a saturday. It's like trying to fix a hole in duct tape with another duct tape. Its duct tapes all the way down.
+// }
+// $that_day = "14-May-22";
+// $date_temp = date("d-M-y");
+// $diff_in_date = dateDiffInDays($that_day, $date_temp);
+$todays_date = date("d-M-y"); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+//$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE. This has to be the worst code ever written. PS. NEEDS TO BE CHECKED AFTER 20 HOURS TO SEE IF IT BREAKS
+$date_index = $day_index - array_search(date("D"), $days);
+?>
+<div class="text-center py-5">
+<select name="collection_slot" id="collection_slot" default="Collection Slot">
+    <option value="">Choose a collection slot</option>
+    <?php
+    for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
+        $counter++;
+        //get todays date, add $i no of days to it and display it from there
+        $next_available_date = date('d-M-y', strtotime($todays_date . ' + ' . $date_index++ . ' days')); //the $i counts from saturday every time . instead, you need to start counting from TODAY
+        // Add days to date and display it
+        echo '<option value="' . $days[$i] . ' ' . $next_available_date . '">' . $days[$i] . ' ' . $next_available_date . '</option>';
+    }
+    if ($counter < 2) { //if there is only friday left,
+        for ($j = 4; $j < 6; $j++) { //show also the next week's wednesday & thursday
+            $new_next_available_date = date('d-M-y', strtotime($next_available_date . ' + ' . ($j + 1) . ' days'));
+            echo '<option value="' . $days[$j] . ' ' . $new_next_available_date . '">' . $days[$j] . ' ' . $new_next_available_date . '</option>';
+        }
+    }
+    ?>
+</select>
+</div>
+
+<div class="text-center py-5"><select name="collection_time" id="collection_time">
                                 <option value="10:00 - 13:00">10:00 - 13:00</option>
                                 <option value="13:00 - 16:00">13:00 - 16:00</option>
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
-                            </select>
+                            </select></div>
+                            
                             <!-- Checkout Button -->
                             <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-button">
                                 <!-- <input type="submit"  value="Checkout" name="checkout"> -->
->>>>>>> 1f476bc26aa610d5cd39c7c08feabf1666b1bb16
 
 
                         </div>
@@ -318,7 +287,7 @@ include('connection.php');
     //     if($paymentsuccess==true){
 
     //     }
-    // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!!
+    // }!#!#!#!#!#!#!#!#!##!!#!#!###!##!#!#!!!!!!!!!! //TOOO after paypal
     if (isset($_POST['paypal-button'])) {
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
@@ -336,7 +305,7 @@ include('connection.php');
             }
         }
     }
-
+                //TODO how to check for this
     if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
