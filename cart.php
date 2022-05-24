@@ -195,7 +195,7 @@ include('connection.php');
                     </div>
 
 <form action="./cart.php" method="post"><?php
-   // TODO:: check if today is wednesday, thursday or friday
+  
 // check if today is wednesday, thursday or friday
 // if it is, add today and the days after today until friday.
 // if not, while today doesn't reach wednesday, keep incrementing day and
@@ -210,7 +210,9 @@ $counter = 0;
 
 $day_index = array_search($today, $days); //get the index of the day today with respect to the days array
 // $todays_date = date("d-M-y");
- //TODO
+ 
+
+
 
 // $todays_date = date("d-M-y", strtotime("-6 days", strtotime(date("Y-m-d"))));
 
@@ -305,7 +307,7 @@ $date_index = $day_index - array_search(date("D"), $days);
             }
         }
     }
-                //TODO how to check for this
+    
     if (isset($_POST['paypal-success'])) {
         if (!$errors) {
             $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)

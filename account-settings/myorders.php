@@ -19,7 +19,7 @@ session_start();
     <title>Document</title>
 </head>
 
-<body style="background-color:#eee">
+<body>
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
@@ -38,7 +38,7 @@ session_start();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
+                <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
@@ -77,31 +77,25 @@ session_start();
             </div>
         </nav>
     </div>
-    <style>
-        .nav-item .nav-link:hover {
-            background-color: darkblue;
-
-        }
-    </style>
     <div class="row">
-        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
+        <ul class="nav flex-column col-3 settings-links-col">
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
+                <a class="nav-link" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="#" id="myorders">My Orders</a>
+                <a class="nav-link active" aria-current="page" href="#" id="myorders">My Orders</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./contactinfo.php" id="contactinfo">Contact Information</a>
+                <a class="nav-link" href="./contactinfo.php" id="contactinfo">Contact Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
+                <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
+                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
+                <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
         <div class="col settings-body">
@@ -126,36 +120,25 @@ session_start();
                 </li>
             </ul>
 
-            <style>
-                tr:nth-child(even) {
-                    background-color: #D6EEEE;
-
-                }
-                table{
-                    background: white;
-                    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-                }
-
-            </style>
             <div class="myorders " id="settings-body">
                 <h1>My Orders</h1>
+              
+                    <table class="table" >
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Order Placed</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Collection Slot</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
 
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Order</th>
-                            <th scope="col">Order Placed</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Collection Slot</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
 
+                        <?php
 
-                    <?php
-
-                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
+                        $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
                 wishlist_product WP, product P 
                 WHERE U.user_id = '$user_id' and 
                 U.user_id = O.FK3_USER_ID and 
@@ -163,51 +146,51 @@ session_start();
                 U.user_id = W.FK1_USER_ID and 
                 W.wishlist_id = WP.wishlist_id and
                 P.product_id = WP.product_id");
-                    oci_execute($stid);
+                        oci_execute($stid);
 
-                    while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                        // echo //order table
-                    }
+                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                            // echo //order table
+                        }
 
-                    ?>
-
-
+                        ?>
 
 
 
 
 
-                    <?php
-                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                    $listOfDates = array(
-                        "December 23, 2020",
-                        "January 24, 2022",
-                        "February 25, 2023",
-                        "March 26, 2024",
-                        "April 27, 2025",
-                    );
-                    $listOfCollSlot = array(
-                        "August 31, 2029",
-                        "October 02, 2030",
-                        "November 03, 2031",
-                        "December 04, 2032",
-                        "January 05, 2034"
-                    );
-                    $listOfQty = array(1, 6, 5, 3, 3, 4);
-                    for ($i = 0; $i < count($listOfOrders); $i++) {
-                    ?>
-                        <tr>
-                            <td><?php echo $listOfOrders[$i]; ?></td>
-                            <td><?php echo $listOfDates[$i]; ?></td>
-                            <td><?php echo $listOfQty[$i]; ?></td>
-                            <td><?php echo $listOfCollSlot[$i]; ?></td>
-                            <td>ordered</td>
-                            <td><a href="http://">Edit</a></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </table>
+
+
+                        <?php
+                        $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
+                        $listOfDates = array(
+                            "December 23, 2020",
+                            "January 24, 2022",
+                            "February 25, 2023",
+                            "March 26, 2024",
+                            "April 27, 2025",
+                        );
+                        $listOfCollSlot = array(
+                            "August 31, 2029",
+                            "October 02, 2030",
+                            "November 03, 2031",
+                            "December 04, 2032",
+                            "January 05, 2034"
+                        );
+                        $listOfQty = array(1, 6, 5, 3, 3, 4);
+                        for ($i = 0; $i < count($listOfOrders); $i++) {
+                        ?>
+                            <tr>
+                                <td><?php echo $listOfOrders[$i]; ?></td>
+                                <td><?php echo $listOfDates[$i]; ?></td>
+                                <td><?php echo $listOfQty[$i]; ?></td>
+                                <td><?php echo $listOfCollSlot[$i]; ?></td>
+                                <td>ordered</td>
+                                <td><a href="http://">Edit</a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
             </div>
         </div>
     </div>
