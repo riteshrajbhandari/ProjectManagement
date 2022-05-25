@@ -143,7 +143,7 @@ table{
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
                     </style>
-                    <div class="text-white" style="background-color: white; ">
+                    <div class="text-white my-5 " style="background-color: white; ">
                         <table class="table" >
                         <thead class="thead-dark">
                             <tr>

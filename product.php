@@ -104,7 +104,7 @@ session_start();
         </nav>
     </div>
 
-    <div class="container">
+    <div class="container shadow py-2 bg-white my-2 rounded " style="box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;">
         <?php
         $pid = $_GET['pid'];
 
@@ -124,7 +124,7 @@ session_start();
             // $report_id = $row['FK4_REPORT_ID'];
             $img_url = $row['IMG_URL'];
             if (isset($row['RATING']))
-                $rating = $row['RATING']; 
+                $rating = $row['RATING'];
             $shop_id = $row['FK2_SHOP_ID'];
             $stid = oci_parse($connection, "SELECT shop_name FROM shop WHERE shop_id = '$shop_id'");
             oci_execute($stid);
@@ -137,36 +137,41 @@ session_start();
                 <div class="row product ">
                     <div class="col-lg-6">
                         <div class="w-100 py-3" style="">
-                            <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;border-radius:1em;">
+                            <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;border: radius 0.5em;">
                         </div>
 
                     </div>
-                    <div class="col-lg-6 py-3">
-                        <h1>
-                            <?php echo $product_name; ?>
-                        </h1><br>
-                        <div class="pb-3">
-                            rating: <?php if (isset($rating)) echo $rating; ?>
-                            <br>
-                        </div>
-                        <div class="pb-3">
-                            Price: £<?php echo $price; ?>
+                    <div class="col-lg-6 py-2 mt-2 shadow-sm  bg-white rounded">
+                        <div class="">
+                            <h1>
+                                <?php echo $product_name; ?>
+                            </h1>
                         </div>
 
-                        <p>
-                            <?php echo $short_description; ?>
-                        </p>
-                        <p>
-                            Sold by: <?php echo $shop_name; ?>
-                        </p>
-                        <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
-                            <div class="quantity pb-3">
-                                Quantity:
-                                <input type="number" value="1" min="1" class="quantity-field" name="quantity">
+                        <div class="shadow-sm px-3  rounded" style="background-color: #eee;">
+                            <div class="py-3">
+                                rating: <?php if (isset($rating)) echo $rating; ?>
+                                <br>
                             </div>
-                            <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
-                            <input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">
-                        </form>
+                            <div class="pb-3">
+                                Price: £<?php echo $price; ?>
+                            </div>
+
+                            <p>
+                                <?php echo $short_description; ?>
+                            </p>
+                            <p>
+                                Sold by: <?php echo $shop_name; ?>
+                            </p>
+                            <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
+                                <div class="quantity pb-3">
+                                    Quantity:
+                                    <input type="number" value="1" min="1" class="quantity-field" name="quantity">
+                                </div>
+                                <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
+                                <input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">
+                            </form><br>
+                        </div>
                         <?php
                         if (isset($_SESSION['user_id'])) {
                             if (isset($_POST['add-to-cart'])) {
@@ -238,10 +243,10 @@ session_start();
 
 
 
-                        <div class="add-review py-3 my-5" style="">
+                        <div class="col-8 add-review py-3 my-5" style="">
                             <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
-                                <div class="grid px-3" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;background-color: rgba(245, 245, 245, 0.63);">
-                                    <div class="col-lg-6 pt-3">
+                                <div class="grid mt-5 px-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; background-color:#eee;">
+                                    <div class="col-lg pt-3">
 
 
                                         <fieldset>
@@ -364,33 +369,37 @@ session_start();
 
                     </div>
                     <div class="col-lg-6 reviews">
-                        <hr>
-                        <!-- TODO: ADD DELETE & EDIT BUTTON BESIDE COMMENT WHEN THE CORRECT USER IS LOGGED IN -->
-                        <?php
+                        
+                        <div class="border p-2 my-3 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" >
+                            <div class="py-2 ">
+                                <?php
 
-                        $stid = oci_parse(
-                            $connection,
-                            "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL, user_id FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID AND R.FK1_PRODUCT_ID='$pid'"
-                        );
-                        oci_execute($stid);
-
-
-                        $number_of_reviews = 0;
-                        while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false and $number_of_reviews < 5) {
-
-                            $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
-                            $dateWritten = $row['REVIEW_DATE'];
-                            $rating = $row['RATING'];
-                            $review_title = $row['REVIEW_TITLE'];
-                            $review = $row['REVIEW_TEXT'];
-                            $profile_pic_url = $row['PROFILE_PIC_URL'];
-                            $user_id = $row['USER_ID'];
-                            $review_id = $row['REVIEW_ID'];
+                                $stid = oci_parse(
+                                    $connection,
+                                    "SELECT R.*, U.FIRST_NAME, U.LAST_NAME, U.PROFILE_PIC_URL, user_id FROM review R, users U WHERE R.FK2_USER_ID = U.USER_ID AND R.FK1_PRODUCT_ID='$pid'"
+                                );
+                                oci_execute($stid);
 
 
-                            echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
-                            echo $fullname . "<br>";
-                        ?>
+                                $number_of_reviews = 0;
+                                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false and $number_of_reviews < 5) {
+
+                                    $fullname = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+                                    $dateWritten = $row['REVIEW_DATE'];
+                                    $rating = $row['RATING'];
+                                    $review_title = $row['REVIEW_TITLE'];
+                                    $review = $row['REVIEW_TEXT'];
+                                    $profile_pic_url = $row['PROFILE_PIC_URL'];
+                                    $user_id = $row['USER_ID'];
+                                    $review_id = $row['REVIEW_ID'];
+
+
+                                    echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
+                                    echo $fullname . "<br>"."<hr>";
+                                ?>
+                            </div>
+                            <!-- TODO: ADD DELETE & EDIT BUTTON BESIDE COMMENT WHEN THE CORRECT USER IS LOGGED IN -->
+
                             <!-- <div class="stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -398,65 +407,69 @@ session_start();
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div> -->
+
                             <?php
-                            // sererate decimal part rom whole number
-                            // start
-                            echo $rating . " ";
-                            echo $dateWritten . " ";
+                                    // sererate decimal part rom whole number
+                                    // start
+                                    echo "Rating: ".$rating . " "."<br>";
+                                    echo "Date: ".$dateWritten . " ";
                             ?>
-                            <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
-                                <input type="submit" value="delete_review" name="delete">
-                            </form>
+
                         <?php
-                            if (isset($_POST['delete'])) {
-                                $stidd = oci_parse($connection, "DELETE FROM review WHERE review_id = '$review_id'");
-                                oci_execute($stidd);
-                                $_POST['delete'] = null;
-                            }
+                                    if (isset($_POST['delete'])) {
+                                        $stidd = oci_parse($connection, "DELETE FROM review WHERE review_id = '$review_id'");
+                                        oci_execute($stidd);
+                                        $_POST['delete'] = null;
+                                    }
 
-                            echo '<div class="review-title">' . $review_title . "</div>";
-                            echo $review . "<br><br>";
-                        }
-
-
+                                    echo '<div class="review-title">' . $review_title . "</div>";
+                                    echo $review . "<br><br>";
+                                }
 
 
 
 
 
 
-                        // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
 
-                        //     $fullname = "full name ";
-                        //     $dateWritten = " dd/mm/yyyy ";
-                        //     $noOfStars = 4;
-                        //     $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
-                        //     for ($i = 0; $i < 3; $i++) {
-                        //         echo $fullname;
-                        //         echo $dateWritten;
+                                // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
-                        //         for ($j = 0; $j < $noOfStars; $j++)
-                        //             echo " Star";
-                        //         echo $review . "<br><br>";
-                        //     }
-                        //     // $$_SESSION['user'] = $row['FIRST_NAME'];
-                        // $_SESSION['user_id'] = $row['USER_ID'];
-                        // header("Location: main.php");
-                        // foreach ($row as $item) {
-                        //     echo $row[0];
-                        //     TODO: how to get just the first_name
-                        //     $_SESSION['user']=$item;
-                        //     header("Location: index.php");
-                        //     echo ($item !== null ? htmlentities($item, ENT_QUO  TES) : "&nbsp;");
-                        // }
-                        // }
+
+                                //     $fullname = "full name ";
+                                //     $dateWritten = " dd/mm/yyyy ";
+                                //     $noOfStars = 4;
+                                //     $review = "<br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ea adipisci ducimus! Ullam, placeat. Voluptatum aperiam ab possimus ducimus a!";
+                                //     for ($i = 0; $i < 3; $i++) {
+                                //         echo $fullname;
+                                //         echo $dateWritten;
+
+                                //         for ($j = 0; $j < $noOfStars; $j++)
+                                //             echo " Star";
+                                //         echo $review . "<br><br>";
+                                //     }
+                                //     // $$_SESSION['user'] = $row['FIRST_NAME'];
+                                // $_SESSION['user_id'] = $row['USER_ID'];
+                                // header("Location: main.php");
+                                // foreach ($row as $item) {
+                                //     echo $row[0];
+                                //     TODO: how to get just the first_name
+                                //     $_SESSION['user']=$item;
+                                //     header("Location: index.php");
+                                //     echo ($item !== null ? htmlentities($item, ENT_QUO  TES) : "&nbsp;");
+                                // }
+                                // }
 
 
                         ?>
+                        <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
+                            <input type="submit" value="delete_review" name="delete">
+                        </form>
+                        </div>
                     </div>
                 </div>
-        <?php
+    </div>
+<?php
             }
         } else echo 'product does not exist';
 
@@ -465,55 +478,55 @@ session_start();
         //     echo $row['DESCRIPTION']->read(11) . "<br>\n"; // this will output first 11 bytes from DESCRIPTION
         // }
 
-        ?>
+?>
 
 
 
-        <?php
+<?php
 
-        ?>
+?>
 
 
-    </div>
-    <div class="footer navcolor">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="./index.php">
-                        <img id="footer" src="images\logo.png" alt="" srcset="">
-                    </a>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md my-auto justify-content-center" id="footer">
-                    <ul id="footer">
-                        <li><a href="browse-by-category.php">Browse By Category</a></li>
-                        <li><a href="contact-us.php">Contact</a></li>
-                        <li><a href="login.php">Login</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-1"></div>
-
-                <div class="col-md my-auto" id="footer">
-                    <h2>About Us</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
-                </div>
+</div>
+<div class="footer navcolor">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="./index.php">
+                    <img id="footer" src="images\logo.png" alt="" srcset="">
+                </a>
             </div>
-            <div class="row d-flex justify-content-center">
-                <div class="row" id="footer-icons">
-                    <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
-                </div>
+            <div class="col-md-1"></div>
+            <div class="col-md my-auto justify-content-center" id="footer">
+                <ul id="footer">
+                    <li><a href="browse-by-category.php">Browse By Category</a></li>
+                    <li><a href="contact-us.php">Contact</a></li>
+                    <li><a href="login.php">Login</a></li>
+                </ul>
+            </div>
+            <div class="col-md-1"></div>
+
+            <div class="col-md my-auto" id="footer">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
             </div>
         </div>
-        <br>
+        <div class="row d-flex justify-content-center">
+            <div class="row" id="footer-icons">
+                <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
+                <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
+                <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
+                <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
+            </div>
+        </div>
     </div>
+    <br>
+</div>
 
-    <!--Bootstrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!--Custom JS-->
-    <script src="./scripts/javascript.js"></script>
+<!--Bootstrap JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!--Custom JS-->
+<script src="./scripts/javascript.js"></script>
 </body>
 
 </html>

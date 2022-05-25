@@ -152,7 +152,8 @@ session_start();
                 }
             } else echo "session empty";
             ?>
-            <div class="myprofile" id="settings-body">
+            
+            <div class="myprofile " id="settings-body" style="">
                 <div class="row">
 
                     <div class="col-lg profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
@@ -161,7 +162,7 @@ session_start();
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
                         </a>
                     </div>
-                    <div class="col-lg-6 py-5 ">
+                    <div class="col-lg-6 py-3 " style="">
                         <h1 class="pb-3"><?php echo $fullname;?></h1>
                         <p class="pb-3"><?php echo $email;?><img src="../images/pencil-square.svg" alt=""></p>
 

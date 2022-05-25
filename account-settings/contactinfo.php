@@ -134,7 +134,7 @@ session_start();
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="contactinfo my-3 py-5" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+                    <div class="contactinfo my-5 py-5 rounded" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
                         <h1>Contact Information</h1><br>
                         <?php if (isset($_SESSION['user'])) {
 
@@ -151,7 +151,7 @@ session_start();
                             }
                         } else echo "session empty";
                         ?>
-                        <p class="pb-5"><?php echo $email; ?><img type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="../images/pencil-square.svg" alt=""></p>
+                        <p class="py-3   px-3"><?php echo $email; ?><img type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="../images/pencil-square.svg" alt=""></p>
                         
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog"> TODOooooooooooooooooooooooooooooooooooooooooooo
@@ -171,11 +171,11 @@ session_start();
                             </div>
                         </div>
                         
-                        <div class="row pb-5">
-                            <div class="col-2">
+                        <div class="row pb-5 ">
+                            <div class="col-2 ">
                                 Gender
                             </div>
-                            <div class="col-8 pb-3">
+                            <div class="col-8 pb-3 ">
                                 <select class="form-select" aria-label="Gender">
                                     <option selected>Select your gender</option>
                                     <option value="male">Male</option>
