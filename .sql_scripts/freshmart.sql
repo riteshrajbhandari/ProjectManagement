@@ -59,7 +59,6 @@ CREATE TABLE PAYMENT(
 	returned_amt	FLOAT(8),
 	payment_date	DATE,
 	-- order_id	INTEGER,
-	txn_id VARCHAR(50),
 	fk1_user_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "PAYMENT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
@@ -89,11 +88,9 @@ CREATE TABLE ORDERS(
 	order_date	DATE,
 	discount_amt	FLOAT(8),
 	-- slot_id	INTEGER,
-	order_time DATE,
+	-- order_time DATE,
 	cart_id	INTEGER,
 	fk1_payment_id	INTEGER,
-	-- Specify FK as unique to maintain 1:1 relationship
-	UNIQUE(fk1_payment_id),
 	fk2_slot_id	INTEGER NOT NULL,
 	fk3_user_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDERS".
@@ -255,6 +252,7 @@ CREATE TABLE WISHLIST_PRODUCT(
 CREATE TABLE ORDER_PRODUCT(
 	order_id	INTEGER NOT NULL,
 	product_id	INTEGER NOT NULL,
+	product_quantity INTEGER,
 	-- fk1_product_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "ORDER_PRODUCT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
