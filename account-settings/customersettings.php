@@ -83,8 +83,6 @@ session_start();
             background-color: darkblue;
 
         }
-        
-       
     </style>
     <div class="row ">
         <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
@@ -152,23 +150,26 @@ session_start();
                 }
             } else echo "session empty";
             ?>
-            
+
             <div class="myprofile " id="settings-body" style="">
                 <div class="row">
 
                     <div class="col-lg profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
-                    <div class="col-lg-6 card-img rounded-circle edit-hover">
-                        <a href="http://">
-                            <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
-                        </a>
-                    </div>
+                    <!-- <div class="col-lg-6 card-img rounded-circle edit-hover">
+        <a href="http://">
+            <img src="../images/pencil.svg" alt="" class="profile-pic-edit">
+        </a>
+    </div> -->
                     <div class="col-lg-6 py-3 " style="">
-                        <h1 class="pb-3"><?php echo $fullname;?></h1>
-                        <p class="pb-3"><?php echo $email;?><img src="../images/pencil-square.svg" alt=""></p>
+                        <h1 class="pb-3"><?php echo $fullname; ?></h1>
+                        <p class="pb-3"><?php echo $email; ?></p>
 
                         <p class="pb-3">Birthday: <?php echo date('d-M-Y', strtotime($dob)); ?><img src="" alt=""></p>
 
-                        Gender: <?php echo $gender; ?> <img src="" alt="">
+                        Gender: <?php if ($gender == 'M') echo 'Male';
+                                if ($gender == 'F') echo 'Female';
+                                if ($gender == 'O') echo 'Other';
+                                ?> <img src="" alt="">
                     </div>
 
                 </div>
