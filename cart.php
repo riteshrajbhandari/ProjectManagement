@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include('paypal_integration/config.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -269,15 +269,7 @@ include('paypal_integration/config.php');
                     </form>
                     <form action="cart.php" method="post" id="cart">
 
-                        <!-- Identify your business so that you can collect the payments. -->
-                        <!-- <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>"> -->
-                        <!-- Specify a Buy Now button. -->
-                        <!-- <input type="hidden" name="cmd" value="_xclick">
-                        <input type="hidden" name="amount" value="<?php echo $total; ?>">
-                        <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
-
-                        <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
-                        <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>"> -->
+                        
 
                         <!-- <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"> -->
                         <!-- Checkout Button -->
@@ -556,7 +548,7 @@ include('paypal_integration/config.php');
                     //    const detailobj = details.status;
                     //    document.getElementById("paypal-ko-details").innerHTML=details.status; 
                     // const detailobj = details;
-                    window.location.replace("http://localhost/ProjectManagement/checkpaypal.php?payment=" + details.status);
+                    window.location.replace("http://localhost/Fresh%20project/ProjectManagement/checkpaypal.php?payment=" + details.status);
                 })
             },
             onCancel: function(data) {

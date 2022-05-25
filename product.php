@@ -179,6 +179,7 @@ session_start();
                                 $quantity = $_POST['quantity'];
                                 $user_id = $_SESSION['user_id'];
 
+
                                 // $stid = oci_parse($connection, "SELECT unit_price FROM product");
                                 // oci_execute($stid);
                                 // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
@@ -221,6 +222,7 @@ session_start();
                                             VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
                                             '$pid','$quantity','$total_price')");
                                         oci_execute($stid);
+
                                         echo "Item added";
                                     }
                                 }
@@ -369,8 +371,8 @@ session_start();
 
                     </div>
                     <div class="col-lg-6 reviews">
-                        
-                        <div class="border p-2 my-3 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" >
+
+                        <div class="border p-2 my-3 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                             <div class="py-2 ">
                                 <?php
 
@@ -395,7 +397,7 @@ session_start();
 
 
                                     echo '<img src="' . $profile_pic_url . '" alt="profile_pic" class="review-profile-pic">';
-                                    echo $fullname . "<br>"."<hr>";
+                                    echo $fullname . "<br>" . "<hr>";
                                 ?>
                             </div>
                             <!-- TODO: ADD DELETE & EDIT BUTTON BESIDE COMMENT WHEN THE CORRECT USER IS LOGGED IN -->
@@ -411,8 +413,8 @@ session_start();
                             <?php
                                     // sererate decimal part rom whole number
                                     // start
-                                    echo "Rating: ".$rating . " "."<br>";
-                                    echo "Date: ".$dateWritten . " ";
+                                    echo "Rating: " . $rating . " " . "<br>";
+                                    echo "Date: " . $dateWritten . " ";
                             ?>
 
                         <?php
