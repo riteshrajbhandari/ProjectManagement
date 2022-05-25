@@ -151,39 +151,54 @@ session_start();
                             }
                         } else echo "session empty";
                         ?>
-                        <p class="py-3   px-3"><?php echo $email; ?><img type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="../images/pencil-square.svg" alt=""></p>
-                        
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog"> TODOooooooooooooooooooooooooooooooooooooooooooo
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Understood</button>
-                                    </div>
+                        <form action="contactinfo.php" method="post">
+                            <div class="row pb-5">
+                                <div class="col-2 ">
+                                    Email
+                                </div>
+                                <div class="col-8 pb-3">
+                                    <input type="text" name="email" id="email" value="<?php echo $email; ?>">
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="row pb-5 ">
-                            <div class="col-2 ">
-                                Gender
+                            <div class="row pb-5 ">
+                                <div class="col-2 ">
+                                    Gender
+                                </div>
+                                <div class="col-8 pb-3 ">
+                                    <select class="form-select" aria-label="Gender" name="gender">
+                                        <?php
+                                        if ($gender == 'M') { ?>
+                                            <option>Select your gender</option>
+                                            <option value="M" selected>Male</option>
+                                            <option value="F">Female</option>
+                                            <option value="O">Other</option>
+                                        <?php } elseif ($gender == 'F') {
+                                        ?>
+                                            <option>Select your gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F" selected>Female</option>
+                                            <option value="O">Other</option>
+                                        <?php } else { ?>
+                                            <option>Select your gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                            <option value="O" selected>Other</option>
+                                        <?php } ?>
+
+                                    </select>
+                                </div>
+                                <button type="submit" name="update-contact">Update</button>
                             </div>
-                            <div class="col-8 pb-3 ">
-                                <select class="form-select" aria-label="Gender">
-                                    <option selected>Select your gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
+                        </form>
+                        <?php
+                        if (isset($_POST['update-contact'])) {
+                            $newemail = $_POST['email'];
+                            $newgender = $_POST['gender'];
+
+                            $stid1 = oci_parse($connection, "UPDATE users SET email='$newemail', gender='$newgender' WHERE user_id = '$user_id'");
+                            if (oci_execute($stid1)) echo 'Record updated';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

@@ -195,7 +195,7 @@ include('paypal_integration/config.php');
                             <hr>
                     </div>
 
-                    <form action="cart.php" method="post" id="cart">
+                    <form action="insertorders.php" method="post" id="insertorders">
                         <?php
                                                                                                         // check if today is wednesday, thursday or friday
                                                                                                         // if it is, add today and the days after today until friday.
@@ -229,17 +229,17 @@ include('paypal_integration/config.php');
                                                                                                         // function dateDiffInDays($date1, $date2)
                                                                                                         // { // Calculating the difference in timestamps
                                                                                                         //     $diff = strtotime($date2) - strtotime($date1);
-                                                                                                        //     return abs(round($diff / 86400));                   //btw this whole function is useless because 14th of May just HAPPENED to fall on a saturday. It's like trying to fix a hole in duct tape with another duct tape. Its duct tapes all the way down.
+                                                                                                        //     return abs(round($diff / 86400));                   //btw this whole function is useless because 14th of May just HAPPENED to fall on a saturday.
                                                                                                         // }
                                                                                                         // $that_day = "14-May-22";
                                                                                                         // $date_temp = date("d-M-y");
                                                                                                         // $diff_in_date = dateDiffInDays($that_day, $date_temp);
                                                                                                         $todays_date = date("d-M-y"); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
-                                                                                                        //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE. This has to be the worst code ever written. PS. NEEDS TO BE CHECKED AFTER 20 HOURS TO SEE IF IT BREAKS
+                                                                                                        //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE.
                                                                                                         $date_index = $day_index - array_search(date("D"), $days);
                         ?>
                         <div class="text-center py-5">
-                            <select name="collection_slot" id="collection_slot" default="Collection Slot">
+                            <select name="collection_slot" id="collection_slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
                                                                                                         for ($i = $day_index; $i < 7; $i++) {   //loops from that day onward till friday to view available collection days
@@ -264,18 +264,20 @@ include('paypal_integration/config.php');
                                 <option value="13:00 - 16:00">13:00 - 16:00</option>
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
                             </select></div>
+                        <input type="submit" value="For now, this has to be clicked for the collection slot to be sent in POST">
                         <!-- <input type="number" step="0.1" name="total" id="total" value="<?php echo $total; ?>" hidden> -->
-
+                    </form>
+                    <form action="cart.php" method="post" id="cart">
 
                         <!-- Identify your business so that you can collect the payments. -->
-                        <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
+                        <!-- <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>"> -->
                         <!-- Specify a Buy Now button. -->
-                        <input type="hidden" name="cmd" value="_xclick">
+                        <!-- <input type="hidden" name="cmd" value="_xclick">
                         <input type="hidden" name="amount" value="<?php echo $total; ?>">
                         <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
 
                         <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
-                        <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
+                        <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>"> -->
 
                         <!-- <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"> -->
                         <!-- Checkout Button -->
@@ -305,17 +307,23 @@ include('paypal_integration/config.php');
 
 
 
-
     if (isset($_POST['paymentconfirm'])) {
+
+
     ?>
         <script>
-            document.getElementById("cart").submit();
+            document.getElementById("insertorders").submit();
         </script>
     <?php
+
         $collection_slot = $_POST['collection_slot'];
         $collection_time = $_POST['collection_time'];
         $order_date = date("d-M-y");
         $errors = false;
+        $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+    VALUES('$collection_slot', '$collection_time')");
+        oci_execute($stid);
+
 
         $stid = oci_parse($connection, "SELECT COUNT(order_id) FROM orders, collection_slot CS WHERE ORDERS.FK2_SLOT_ID = CS.SLOT_ID AND CS.COLLECTION_DAY = '$collection_slot'");
         oci_execute($stid);
@@ -363,6 +371,7 @@ include('paypal_integration/config.php');
         }
 
         if ($_POST['paymentconfirm'] == 'COMPLETED') {
+
             //sql here
             // echo 'value will be inserted into sql';
             $stid = oci_parse($connection, "UPDATE PAYMENT SET PAYED_AMT = $total WHERE FK1_USER_ID = '$user_id'");
@@ -551,7 +560,7 @@ include('paypal_integration/config.php');
                 })
             },
             onCancel: function(data) {
-                window.location.replace("http://localhost/ProjectManagement/paypal_integration/Oncancel.php")
+                window.location.replace("http://localhost/ProjectManagement/cart.php")
             }
         }).render('#paypal-payment-button');
     </script>
