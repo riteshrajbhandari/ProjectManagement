@@ -144,6 +144,7 @@ include('connection.php');
                                 <td>Subtotal</td>
                             </tr>
                             <?php
+                            $list_of_pid_quantity = "";
                             while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
                                 $error = false;
                                 $cart_id = $row['CART_ID'];
@@ -154,6 +155,9 @@ include('connection.php');
                                 $quantity = $row['PRODUCT_QUANTITY'];
                                 $sub_total = $row['TOTAL_PRICE'];
                                 $total += $sub_total;
+                                $list_of_pid_quantity .= $row['PRODUCT_ID'] . '-' . $quantity . '~';
+                                // print_r($list_of_pid_quantity);
+                                // echo '<br>';
 
                                 $product_id = $row['PRODUCT_ID']; ?>
                                 <tr>
@@ -195,7 +199,7 @@ include('connection.php');
                             <hr>
                     </div>
 
-                    <form action="insertorders.php" method="post" id="insertorders">
+                    <form action="insertorders.php?list_of_pid_quantity=<?php echo $list_of_pid_quantity; ?>" method="post" id="insertorders">
                         <?php
                                                                                                         // check if today is wednesday, thursday or friday
                                                                                                         // if it is, add today and the days after today until friday.
@@ -264,22 +268,23 @@ include('connection.php');
                                 <option value="13:00 - 16:00">13:00 - 16:00</option>
                                 <option value="16:00 - 19:00">16:00 - 19:00</option>
                             </select></div>
+                        <!-- input -->
+                        <input type="number" step="0.1" name="total" id="total" value="<?php echo $total; ?>" hidden>
                         <input type="submit" value="For now, this has to be clicked for the collection slot to be sent in POST">
-                        <!-- <input type="number" step="0.1" name="total" id="total" value="<?php echo $total; ?>" hidden> -->
                     </form>
-                    <form action="cart.php" method="post" id="cart">
-
-                        
-
-                        <!-- <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"> -->
-                        <!-- Checkout Button -->
-                        <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-payment-button">
-
-                            <!-- <input type="submit" value="Checkout" name="checkout"> -->
+                    <!-- <form action="cart.php" method="post" id="cart"> -->
 
 
-                        </div>
-                    </form>
+
+                    <!-- <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"> -->
+                    <!-- Checkout Button -->
+                    <!-- <div id="paypal-payment-button" class="col-lg-12 pb-5 cart-submit" name="paypal-payment-button"> -->
+
+                    <!-- <input type="submit" value="Checkout" name="checkout"> -->
+
+
+                    <!-- </div> -->
+                    <!-- </form> -->
                 <?php
                                                                                                         // echo $day_index;
                                                                                                     } else echo "You don't have anything in your cart yet."; ?>
@@ -300,75 +305,22 @@ include('connection.php');
 
 
     if (isset($_POST['paymentconfirm'])) {
-
-
-    ?>
-        <script>
-            document.getElementById("insertorders").submit();
-        </script>
-    <?php
-
-        $collection_slot = $_POST['collection_slot'];
-        $collection_time = $_POST['collection_time'];
-        $order_date = date("d-M-y");
-        $errors = false;
-        $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
-    VALUES('$collection_slot', '$collection_time')");
-        oci_execute($stid);
-
-
-        $stid = oci_parse($connection, "SELECT COUNT(order_id) FROM orders, collection_slot CS WHERE ORDERS.FK2_SLOT_ID = CS.SLOT_ID AND CS.COLLECTION_DAY = '$collection_slot'");
-        oci_execute($stid);
-
-        if (($row = oci_fetch_array($stid, OCI_ASSOC))) {
-            if ($row['COUNT(ORDER_ID)'] > 20) {
-                echo "There are already more than 20 orders for that slot. Please try the next one.";
-                $errors = true;
-                exit();
-            }
-        }
-
-        if (!$errors) {
-
-
-            $stid = oci_parse($connection, "INSERT INTO collection_slot(COLLECTION_DAY, COLLECTION_TIME)
-    VALUES('$collection_slot', '$collection_time')");
-            oci_execute($stid);
-
-            $stid = oci_parse($connection, "INSERT INTO orders (
-            GROSS_PRICE,
-            ORDER_DATE,
-            CART_ID,
-            FK2_SLOT_ID,
-            FK3_USER_ID)
-            VALUES ('$total','$order_date',
-                (SELECT cart_id FROM CART WHERE FK2_USER_ID = '$user_id'), 
-                (SELECT MAX(slot_id) FROM COLLECTION_SLOT cs, orders, users WHERE COLLECTION_DAY = '$collection_slot' 
-                    AND COLLECTION_TIME = '$collection_time' 
-                    and cs.slot_id = orders.FK2_SLOT_ID
-                    and orders.FK3_USER_ID = users.user_id
-                    and users.user_id = '$user_id'),
-            '$user_id')");
-            oci_execute($stid);
-
-            $stid = oci_parse($connection, "INSERT INTO PAYMENT(
-            PAYMENT_METHOD,
-            NET_PRICE,
-            PAYED_AMT,
-            RETURNED_AMT,
-            -- PAYMENT_DATE,
-            FK1_USER_ID) VALUES ('paypal','$total', 0, 0,'$user_id')");
-            oci_execute($stid);
-            $_SESSION['cart_id'] = $cart_id;
-        }
-
         if ($_POST['paymentconfirm'] == 'COMPLETED') {
-
+            // echo "HEREEEE";
             //sql here
             // echo 'value will be inserted into sql';
-            $stid = oci_parse($connection, "UPDATE PAYMENT SET PAYED_AMT = $total WHERE FK1_USER_ID = '$user_id'");
+            $stid = oci_parse($connection, "UPDATE PAYMENT SET PAYED_AMT = $total 
+            WHERE FK1_USER_ID = '$user_id' AND PAYMENT_ID = (SELECT MAX(PAYMENT_ID) FROM PAYMENT)");
             oci_execute($stid);
             // after payment = true, clear collection slot and cart
+            // echo 'hereeee';
+            
+            $stid = oci_parse($connection, "UPDATE ORDERS SET FK1_PAYMENT_ID = 
+            (SELECT MAX(PAYMENT_ID) FROM PAYMENT WHERE FK1_USER_ID = '$user_id')");
+            oci_execute($stid);
+            echo 'HEREEEEE!!!!!!';
+            exit();
+            //do the order_product shit here
 
             $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
             oci_execute($stid);

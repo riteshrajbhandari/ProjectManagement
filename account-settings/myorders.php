@@ -131,11 +131,11 @@ session_start();
                     background-color: #D6EEEE;
 
                 }
-                table{
+
+                table {
                     background: white;
                     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
                 }
-
             </style>
             <div class="myorders " id="settings-body">
                 <h1>My Orders</h1>
@@ -143,10 +143,9 @@ session_start();
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Order</th>
-                            <th scope="col">Order Placed</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Collection Slot</th>
+                            <th scope="col">Payment Date</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Slot ID</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -154,58 +153,27 @@ session_start();
 
 
                     <?php
-
-                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
-                wishlist_product WP, product P 
-                WHERE U.user_id = '$user_id' and 
-                U.user_id = O.FK3_USER_ID and 
-                U.user_id = PAY.FK1_USER_ID and 
-                U.user_id = W.FK1_USER_ID and 
-                W.wishlist_id = WP.wishlist_id and
-                P.product_id = WP.product_id");
+                    $user_id = $_SESSION['user'];
+                    $stid = oci_parse($connection, "SELECT U.user_id, ORDER_DATE, 
+                    gross_price, payment_date, slot_id FROM users U, 
+                    orders o, collection_slot cs, payment p
+                    WHERE U.USER_ID = 107 and o.FK3_USER_ID = u.user_id 
+                    and p.payment_id = o.FK1_PAYMENT_ID
+                ");
                     oci_execute($stid);
-
+                    $dataexists = false;
                     while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                        // echo //order table
-                    }
-
-                    ?>
-
-
-
-
-
-
-
-                    <?php
-                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                    $listOfDates = array(
-                        "December 23, 2020",
-                        "January 24, 2022",
-                        "February 25, 2023",
-                        "March 26, 2024",
-                        "April 27, 2025",
-                    );
-                    $listOfCollSlot = array(
-                        "August 31, 2029",
-                        "October 02, 2030",
-                        "November 03, 2031",
-                        "December 04, 2032",
-                        "January 05, 2034"
-                    );
-                    $listOfQty = array(1, 6, 5, 3, 3, 4);
-                    for ($i = 0; $i < count($listOfOrders); $i++) {
-                    ?>
+                        $dataexists = true; ?>
                         <tr>
-                            <td><?php echo $listOfOrders[$i]; ?></td>
-                            <td><?php echo $listOfDates[$i]; ?></td>
-                            <td><?php echo $listOfQty[$i]; ?></td>
-                            <td><?php echo $listOfCollSlot[$i]; ?></td>
+                            <td><?php echo $row['ORDER_DATE']; ?></td>
+                            <td><?php echo $row['GROSS_PRICE']; ?></td>
+                            <td><?php echo $row['SLOT_ID']; ?></td>
                             <td>ordered</td>
                             <td><a href="http://">Edit</a></td>
                         </tr>
                     <?php
                     }
+                    if (!$dataexists) echo "You don't have any orders yet.";
                     ?>
                 </table>
             </div>
