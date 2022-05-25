@@ -59,6 +59,7 @@ CREATE TABLE PAYMENT(
 	returned_amt	FLOAT(8),
 	payment_date	DATE,
 	-- order_id	INTEGER,
+	txn_id VARCHAR(50),
 	fk1_user_id	INTEGER NOT NULL,
 	-- Specify the PRIMARY KEY constraint for table "PAYMENT".
 	-- This indicates which attribute(s) uniquely identify each row of data.
@@ -643,6 +644,19 @@ for each row
 begin
   if :NEW.slot_id is null then 
     select slot_seq.nextval into :NEW.slot_id from sys.dual; 
+  end if; 
+end;
+/
+
+DROP SEQUENCE payment_seq;
+CREATE SEQUENCE payment_seq;
+create or replace trigger add_new_payment
+BEFORE
+insert on payment
+for each row
+begin
+  if :NEW.payment_id is null then 
+    select payment_seq.nextval into :NEW.payment_id from sys.dual; 
   end if; 
 end;
 /
