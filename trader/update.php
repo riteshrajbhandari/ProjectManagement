@@ -163,13 +163,13 @@ include('../connection.php');
                         echo '<form action="update_process.php?pid=' . $row['PRODUCT_ID'] . '" method="post" id="update_product">';
                         echo '<input type="text" hidden name="pid" value="' . $row['PRODUCT_ID'] . '">';
                         echo '<tr>';
-                        echo '<td><input type="text" name="product_name" id="product_name" value="' . $row['PRODUCT_NAME'] . '"></td>';
+                        echo '<td><input type="text" name="product_name" id="product_name" value="' . $row['PRODUCT_NAME'] . '" ></td>';
                         echo '<td><input type="number"  step="0.5" name="unit_price" id="product_name" value="' . $row['UNIT_PRICE'] . '" ></td>';
-                        echo '<td><input type="text" name="stock" id="stock" value="' . $row['STOCK'] . '"></td>';
-                        echo '<td><input type="text" name="available" id="available" value="' . $row['AVAILABLE'] . '"></td>';
+                        echo '<td><input type="text" name="stock" id="stock" value="' . $row['STOCK'] . '" size="5"></td>';
+                        echo '<td><input type="text" name="available" id="available" value="' . $row['AVAILABLE'] . '" size="5"></td>';
                         echo '<td><input type="text" name="short_desc" id="short_desc" value="' . $row['SHORT_DESCRIPTION'] . '"></td>';
                         echo '<td><input type="text" name="description" id="description" value="' . $row['PRODUCT_DESCRIPTION'] . '"></td>';
-                        echo '<td><input type="text" name="category_id" id="category_id" value="' . $row['FK3_CATEGORY_ID'] . '"></td>';
+                        echo '<td><input type="text" name="category_id" id="category_id" value="' . $row['FK3_CATEGORY_ID'] . '" size="5"></td>';
                         // echo '<td><a onclick="myFunc() => document.getElementById(\'update_product\').submit()"
                         // href="update_process.php?pid='.$row['PRODUCT_ID'].'" name="update">Update</a><td>';
                         echo '<td><a href="trader\update_process.php"><button type="submit" name="update_process">Update</button></a></td>';
