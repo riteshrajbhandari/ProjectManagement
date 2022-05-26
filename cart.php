@@ -155,7 +155,7 @@ include('connection.php');
                                 $quantity = $row['PRODUCT_QUANTITY'];
                                 $sub_total = $row['TOTAL_PRICE'];
                                 $total += $sub_total;
-                                $list_of_pid_quantity .= $row['PRODUCT_ID'] . '-' . $quantity . '~';
+                                $list_of_pid_quantity .= $row['PRODUCT_ID'] . '-' . $quantity . '-';
                                 // print_r($list_of_pid_quantity);
                                 // echo '<br>';
 
@@ -207,7 +207,7 @@ include('connection.php');
                                                                                                         // when it does reach wednesday, add today and the days after today until friday
                                                                                                         $days_of_collection = array('Wed', 'Thu', 'Fri');
                                                                                                         $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                                                                        $today = date("D");
+                                                                                                        $today = date("D", strtotime(date("D"). ' + 1 days'));
                                                                                                         // $today = 'Sat';
                                                                                                         // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
                                                                                                         // $chosen_day = $days[0];
@@ -238,11 +238,12 @@ include('connection.php');
                                                                                                         // $that_day = "14-May-22";
                                                                                                         // $date_temp = date("d-M-y");
                                                                                                         // $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                                                                        $todays_date = date("d-M-y"); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+                                                                                                        $todays_date = date("d-M-y", strtotime(date("d-M-y"). ' + 1 days')); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
                                                                                                         //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE.
-                                                                                                        $date_index = $day_index - array_search(date("D"), $days);
+                                                                                                        $date_index = $day_index - array_search(date("D", strtotime(date("D"). ' + 1 days')), $days);
                         ?>
                         <div class="text-center py-5">
+                            <?php if(isset($_SESSION['error_msg'])) {echo $_SESSION['error_msg']; $_SESSION['error_msg'] = null; } ?>
                             <select name="collection_slot" id="collection_slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
@@ -270,7 +271,7 @@ include('connection.php');
                             </select></div>
                         <!-- input -->
                         <input type="number" step="0.1" name="total" id="total" value="<?php echo $total; ?>" hidden>
-                        <input type="submit" value="For now, this has to be clicked for the collection slot to be sent in POST">
+                        <input type="submit" value="Proceed to Checkout">
                     </form>
                     <!-- <form action="cart.php" method="post" id="cart"> -->
 
@@ -304,38 +305,37 @@ include('connection.php');
 
 
 
-    if (isset($_POST['paymentconfirm'])) {
-        if ($_POST['paymentconfirm'] == 'COMPLETED') {
-            // echo "HEREEEE";
-            //sql here
-            // echo 'value will be inserted into sql';
-            $stid = oci_parse($connection, "UPDATE PAYMENT SET PAYED_AMT = $total 
-            WHERE FK1_USER_ID = '$user_id' AND PAYMENT_ID = (SELECT MAX(PAYMENT_ID) FROM PAYMENT)");
-            oci_execute($stid);
-            // after payment = true, clear collection slot and cart
-            // echo 'hereeee';
+    // if (isset($_POST['paymentconfirm'])) {
+    //     if ($_POST['paymentconfirm'] == 'COMPLETED') {
+    //         // echo "HEREEEE";
+    //         //sql here
+    //         // echo 'value will be inserted into sql';
+    //         $stid = oci_parse($connection, "UPDATE PAYMENT SET PAYED_AMT = $total 
+    //         WHERE FK1_USER_ID = '$user_id' AND PAYMENT_ID = (SELECT MAX(PAYMENT_ID) FROM PAYMENT)");
+    //         oci_execute($stid);
+    //         // after payment = true, clear collection slot and cart
+    //         // echo 'hereeee';
             
-            $stid = oci_parse($connection, "UPDATE ORDERS SET FK1_PAYMENT_ID = 
-            (SELECT MAX(PAYMENT_ID) FROM PAYMENT WHERE FK1_USER_ID = '$user_id')");
-            oci_execute($stid);
-            echo 'HEREEEEE!!!!!!';
-            exit();
-            //do the order_product shit here
+    //         $stid = oci_parse($connection, "UPDATE ORDERS SET FK1_PAYMENT_ID = 
+    //         (SELECT MAX(PAYMENT_ID) FROM PAYMENT WHERE FK1_USER_ID = '$user_id')");
+    //         oci_execute($stid);
+    //         // echo 'HEREEEEE!!!!!!';
+            
 
-            $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
-            oci_execute($stid);
-            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
-                $cart_to_be_deleted = $row['CART_ID'];
+    //         $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
+    //         oci_execute($stid);
+    //         if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+    //             // $product_name = ucwords(strtolower($row['PRODUCT_NAME']));
+    //             $cart_to_be_deleted = $row['CART_ID'];
 
-                $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
-                oci_execute($stid);
+    //             $stid = oci_parse($connection, "DELETE FROM cart_product WHERE cart_id = '$cart_to_be_deleted'");
+    //             oci_execute($stid);
 
-                $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
-                oci_execute($stid);
-            }
-        }
-    }
+    //             $stid = oci_parse($connection, "DELETE FROM cart WHERE cart_id = '$cart_to_be_deleted'");
+    //             oci_execute($stid);
+    //         }
+    //     }
+    // }
 
     // include('payment.php');
     // if(isset($paymentsuccess)){

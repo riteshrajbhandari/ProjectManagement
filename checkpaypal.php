@@ -9,17 +9,22 @@ $list_of_pid_quantity = $_GET['list_of_pid_quantity'];
 $order_date = date("d-M-y");
 $errors = false;
 
-// print_r($list_of_pid_quantity);
-$array_of_pid_quantity = explode('~', $list_of_pid_quantity);
+// exit();
 
-$assoc_array_of_pid_quantity = [];
-
-foreach ($array_of_pid_quantity as $value) {
-    $temp = explode('-', $value);
-    array_push($assoc_array_of_pid_quantity, $temp);
-}
-
-
+// foreach ($array_of_pid_quantity as $value) {
+//     $temp = explode('-', $value);
+//     array_push($assoc_array_of_pid_quantity, $temp);
+// }
+// print_r($assoc_array_of_pid_quantity);
+// exit();
+// foreach ($assoc_array_of_pid_quantity as $key => $value) {
+//     foreach ($value as $pid => $quantity) {
+//         echo "Pid=" . $quantity['0'] . ", Quantity=" . $quantity['1'];
+//         // print_r($value);
+//         echo "<br>";
+//     }
+// }
+// exit();
 // print_r($assoc_array_of_pid_quantity);
 
 // echo $collection_slot;
@@ -54,6 +59,18 @@ $stid = oci_parse($connection, "INSERT INTO orders (
 if (!oci_execute($stid)) exit();
 
 
+$array_of_pid_quantity = explode('-', $list_of_pid_quantity);
+for ($i = 0; $i < count($array_of_pid_quantity); $i += 2) {
+    if (!$array_of_pid_quantity[$i] == '') {
+        $pid = $array_of_pid_quantity[$i];
+        $quantity = $array_of_pid_quantity[$i + 1];
+        $stid = oci_parse($connection, "INSERT INTO ORDER_PRODUCT
+        (ORDER_ID, PRODUCT_ID, PRODUCT_QUANTITY)
+        VALUES((SELECT MAX(ORDER_ID) FROM ORDERS WHERE FK3_USER_ID = $user_id), '$pid', '$quantity')");
+        oci_execute($stid);
+    }
+}
+
 $stid = oci_parse($connection, "INSERT INTO PAYMENT(
             PAYMENT_METHOD,
             NET_PRICE,
@@ -65,7 +82,7 @@ if (!oci_execute($stid)) exit();
 // $_SESSION['cart_id'] = $cart_id;
 ?>
 
-<form action="cart.php" method="post" id="myForm">
+<form action="update-delete.php?user_id=<?php echo $user_id;?>&total=<?php echo $total;?>" method="post" id="myForm">
 
     <input type="text" value="<?php echo $_GET['payment']; ?>" name="paymentconfirm" type="submit">
 </form>

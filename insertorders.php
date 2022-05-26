@@ -13,15 +13,23 @@
     include('connection.php');
     session_start();
     $user_id = $_SESSION['user_id'];
-    $collection_slot = $_POST['collection_slot'];
+    
+    if ($_POST['collection_slot'] == '' or !isset($_POST['collection_slot'])) {
+        $_SESSION['error_msg'] = 'Collection slot not selected';
+        header('Location:cart.php');
+    } 
+    else $collection_slot = $_POST['collection_slot'];
+        
     $collection_time = $_POST['collection_time'];
     $total = $_POST['total'];
     $list_of_pid_quantity = $_GET['list_of_pid_quantity'];
 
 
-    print_r($assoc_array_of_pid_quantity);
+    // print_r($list_of_pid_quantity);
+    // exit();
 
-    $stid = oci_parse($connection, "SELECT cart_id FROM cart, cart_product, product WHERE  cart.FK2_USER_ID = '$user_id' and 
+    $stid = oci_parse($connection, "SELECT cart.cart_id FROM cart, cart_product, product WHERE  
+    cart.FK2_USER_ID = '$user_id' and 
         cart.cart_id = cart_product.cart_id and 
         product.product_id = cart_product.product_id");
     oci_execute($stid);
@@ -32,7 +40,7 @@
     echo 'Collection Slot: ' . $collection_slot . '<br>';
     echo 'Collection Time: ' . $collection_time . '<br>';
     echo 'Total: £' . $total . '<br>';
-    echo 'Cart id     ' . $cart_id . '<br>';
+    // echo 'Cart id     ' . $cart_id . '<br>';
 
     // $stid = oci_parse($connection, "INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, DATE_OF_BIRTH, VERIFIED, TOKEN)
     // VALUES('$firstname', '$lastname', '$date_today', '$username', '$password', '$user_type', '$email', '$image_name', '$gender', '$dob','0','$token')");

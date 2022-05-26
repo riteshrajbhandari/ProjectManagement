@@ -98,9 +98,6 @@ session_start();
                 <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
-            </li>
-            <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -117,9 +114,6 @@ session_start();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
@@ -145,7 +139,8 @@ session_start();
                         <tr>
                             <th scope="col">Payment Date</th>
                             <th scope="col">Total Price</th>
-                            <th scope="col">Slot ID</th>
+                            <th scope="col">Collection Day</th>
+                            <th scope="col">Collection Time</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -153,12 +148,10 @@ session_start();
 
 
                     <?php
-                    $user_id = $_SESSION['user'];
-                    $stid = oci_parse($connection, "SELECT U.user_id, ORDER_DATE, 
-                    gross_price, payment_date, slot_id FROM users U, 
-                    orders o, collection_slot cs, payment p
-                    WHERE U.USER_ID = 107 and o.FK3_USER_ID = u.user_id 
-                    and p.payment_id = o.FK1_PAYMENT_ID
+                    $user_id = $_SESSION['user_id'];
+                    $stid = oci_parse($connection, "SELECT O.ORDER_DATE, O.GROSS_PRICE, P.PAYMENT_DATE, CS.COLLECTION_DAY, CS.COLLECTION_TIME
+                    FROM ORDERS O, PAYMENT P, COLLECTION_SLOT CS, USERS U WHERE U.USER_ID = '$user_id' AND
+                    O.FK3_USER_ID = U.user_id AND P.payment_id = O.FK1_PAYMENT_ID AND O.FK2_SLOT_ID = CS.SLOT_ID
                 ");
                     oci_execute($stid);
                     $dataexists = false;
@@ -167,7 +160,8 @@ session_start();
                         <tr>
                             <td><?php echo $row['ORDER_DATE']; ?></td>
                             <td><?php echo $row['GROSS_PRICE']; ?></td>
-                            <td><?php echo $row['SLOT_ID']; ?></td>
+                            <td><?php echo $row['COLLECTION_DAY']; ?></td>
+                            <td><?php echo $row['COLLECTION_TIME']; ?></td>
                             <td>ordered</td>
                             <td><a href="http://">Edit</a></td>
                         </tr>
