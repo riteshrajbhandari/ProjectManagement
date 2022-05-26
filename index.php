@@ -259,7 +259,7 @@
     <!-- ESSENTIALS GRID -->
     <div class="container">
         <div class="row">
-            <div class="col-md-6 p-3"><a href="./product.php?pid=61">
+            <div class="col-md-6 p-3"><a href="./product.php?pid=21">
                     <div class="card essentials essentials-large gap-3 "><img src="../ProjectManagement//images//cinnamon_rolls.jpeg" alt="" srcset="">
                         <div class="card-text p-3" style="background-color:cadetblue;">
                             <h2 class="text-white">
@@ -284,14 +284,14 @@
             <div class="col-md-6 p-3">
                 <div class="row mb-3">
                     <div class="col-6">
-                        <a href="./product.php?pid=72">
+                        <a href="./product.php?pid=32">
                             <div class="card essentials"><img src="./images//trout.jpeg" alt="" srcset="">
                                 <div class="card-text p-2 text-white" style="background-color:cadetblue;">Trout<br>£17</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="./product.php?pid=66">
+                        <a href="./product.php?pid=26">
                             <div class="card essentials"><img src="images/potatoes.jpeg" alt="" srcset="">
                                 <div class="card-text p-2 text-white" style="background-color:cadetblue;">
                                     Potatoes<br>£3</div>
@@ -301,7 +301,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-6">
-                        <a href="./product.php?pid=43">
+                        <a href="./product.php?pid=3">
                             <div class="card essentials"><img src="images/sirloin.jpeg" alt="" srcset="">
                                 <div class="card-text p-2 text-white" style="background-color:cadetblue;">
                                     Sirloin<br>£15</div>
@@ -309,7 +309,7 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="./product.php?pid=59">
+                        <a href="./product.php?pid=19">
                             <div class="card essentials"><img src="images/bagel.jpeg" alt="" srcset="">
                                 <div class="card-text p-2 text-white" style="background-color:cadetblue;">
                                     Bagel<br>£3</div>
