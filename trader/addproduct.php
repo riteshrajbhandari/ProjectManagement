@@ -28,7 +28,7 @@ include('../connection.php');
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.php">
+                <a class="navbar-brand" href="#">
                     <img src="..\images\logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
                     <div id="logo">
                         <div id="fresh">
@@ -43,20 +43,9 @@ include('../connection.php');
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                    </form>
+
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../contact-us.php">Contact</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../cart.php"> <img src="images/bag-heart.svg" alt="">
-                                Cart</a>
-                        </li>
+
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
@@ -96,11 +85,13 @@ include('../connection.php');
             background-color: darkblue;
 
         }
-
     </style>
     <!-- sidebar -->
     <div class="row ">
         <ul class="nav flex-column col-2 settings-links-col" style="background-color:cadetblue;">
+            <li class="nav-item py-3">
+                <a class="nav-link text-white lead" href="./shop.php" id="traderProfile">Dashboard</a>
+            </li>
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
@@ -113,6 +104,9 @@ include('../connection.php');
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
+                <li class="nav-item py-3">
+                    <a class="nav-link text-white lead" href="./shop.php" id="traderProfile">Dashboard</a>
+                </li>
                 <li class="nav-item text-white lead">
                     <a class="nav-link " href="#" id="myprofile">Add/Delete Shop</a>
                 </li>
@@ -125,11 +119,11 @@ include('../connection.php');
             </ul>
 
 
-<style>
-    .box{
-        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-    }
-</style>
+            <style>
+                .box {
+                    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+                }
+            </style>
 
             <form action="addproduct.php" method="post" enctype="multipart/form-data">
                 <div class="container contact">
@@ -159,7 +153,8 @@ include('../connection.php');
                                             while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
                                                 $has_shop = true;
                                                 echo '<option value="' . $row['SHOP_ID'] . '">' . $row['SHOP_NAME'] . '</option>';
-                                            }if(!$has_shop) echo '<option disabled>Please add a shop first</option>';?>
+                                            }
+                                            if (!$has_shop) echo '<option disabled>Please add a shop first</option>'; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -316,7 +311,7 @@ include('../connection.php');
 
 
     <!-- Footer -->
-    <div class="footer navcolor">
+    <!-- <div class="footer navcolor">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -352,7 +347,7 @@ include('../connection.php');
             </div>
         </div>
         <br>
-    </div>
+    </div> -->
 
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

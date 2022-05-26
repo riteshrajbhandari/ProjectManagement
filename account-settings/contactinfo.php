@@ -42,14 +42,23 @@ session_start();
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
@@ -127,8 +136,8 @@ session_start();
                 <div class="col-lg-2">
 
                 </div>
-                <div class="col-lg-6">
-                <div class="contactinfo my-5 py-5 rounded" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+                <div class="col-lg-4">
+                    <div class="contactinfo my-5 py-5 rounded" id="settings-body" style=" background-color:white;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
                         <h1>Contact Information</h1><br>
                         <?php if (isset($_SESSION['user'])) {
 
@@ -140,7 +149,7 @@ session_start();
 
                             if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
                                 $email = $row['EMAIL'];
-                                $gender = $row['GENDER'];
+                                // $gender = $row['GENDER'];
                                 $dob = $row['DATE_OF_BIRTH'];
                             }
                         } else echo "session empty";
@@ -151,36 +160,11 @@ session_start();
                                     Email
                                 </div>
                                 <div class="col-8 pb-3">
-                                    <input type="text" name="email" id="email" value="<?php echo $email; ?>">
+                                    <input type="email" name="email" id="email" value="<?php echo $email; ?>" style="width: 300px;">
                                 </div>
                             </div>
                             <div class="row pb-5 ">
-                                <div class="col-2 ">
-                                    Gender
-                                </div>
-                                <div class="col-8 pb-3 ">
-                                    <select class="form-select" aria-label="Gender" name="gender">
-                                        <?php
-                                        if ($gender == 'M') { ?>
-                                            <option>Select your gender</option>
-                                            <option value="M" selected>Male</option>
-                                            <option value="F">Female</option>
-                                            <option value="O">Other</option>
-                                        <?php } elseif ($gender == 'F') {
-                                        ?>
-                                            <option>Select your gender</option>
-                                            <option value="M">Male</option>
-                                            <option value="F" selected>Female</option>
-                                            <option value="O">Other</option>
-                                        <?php } else { ?>
-                                            <option>Select your gender</option>
-                                            <option value="M">Male</option>
-                                            <option value="F">Female</option>
-                                            <option value="O" selected>Other</option>
-                                        <?php } ?>
 
-                                    </select>
-                                </div>
                                 <button type="submit" name="update-contact">Update</button>
                             </div>
                         </form>

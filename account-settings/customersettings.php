@@ -42,8 +42,17 @@ session_start();
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="../browse-by-category.php">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="../contact-us.html">Contact</a>
@@ -146,9 +155,9 @@ session_start();
             ?>
 
             <div class="myprofile " id="settings-body" style="">
-                <div class="row">
+                <div class="row align-item-center">
 
-                    <div class="col-lg profile-pic card-img rounded-circle" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
+                    <div class="col-lg-2 img-thumbnail rounded" style='background-image: url(<?php echo "../" . $profile_pic_url; ?>);'></div>
                     <!-- <div class="col-lg-6 card-img rounded-circle edit-hover">
                         <a href="http://">
                             <img src="../images/pencil.svg" alt="" class="profile-pic-edit">

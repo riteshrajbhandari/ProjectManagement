@@ -42,30 +42,39 @@ session_start();
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }
@@ -80,11 +89,11 @@ session_start();
     <style>
         .nav-item .nav-link:hover {
             background-color: darkblue;
-            
+
         }
     </style>
     <div class="row">
-    <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
+        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
@@ -129,16 +138,17 @@ session_start();
                         <th>Action</th>
                     </tr> -->
 
-                    <style>
-                        tr:nth-child(even) {
-  background-color: #D6EEEE;
-}   
-table{
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-}
-                    </style>
-                    <div class="text-white my-5 " style="background-color: white; ">
-                        <table class="table" >
+                <style>
+                    tr:nth-child(even) {
+                        background-color: #D6EEEE;
+                    }
+
+                    table {
+                        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+                    }
+                </style>
+                <div class="text-white my-5 " style="background-color: white; ">
+                    <table class="table">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Order</th>
@@ -148,38 +158,38 @@ table{
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                    </div>
-                    
+                </div>
 
-                    <?php
-                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                    $listOfDates = array(
-                        "December 23, 2020",
-                        "January 24, 2022",
-                        "February 25, 2023",
-                        "March 26, 2024",
-                        "April 27, 2025",
-                    );
-                    $listOfCollSlot = array(
-                        "August 31, 2029",
-                        "October 02, 2030",
-                        "November 03, 2031",
-                        "December 04, 2032",
-                        "January 05, 2034"
-                    );
-                    $listOfQty = array(1, 6, 5, 3, 3, 4);
-                    for ($i = 0; $i < count($listOfOrders); $i++) {
-                    ?>
-                        <tr>
-                            <td><?php echo $listOfOrders[$i]; ?></td>
-                            <td><?php echo $listOfDates[$i]; ?></td>
-                            <td><?php echo $listOfQty[$i]; ?></td>
-                            <td><?php echo $listOfCollSlot[$i]; ?></td>
-                            <td><a href="http://">Edit</a></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
+
+                <?php
+                $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
+                $listOfDates = array(
+                    "December 23, 2020",
+                    "January 24, 2022",
+                    "February 25, 2023",
+                    "March 26, 2024",
+                    "April 27, 2025",
+                );
+                $listOfCollSlot = array(
+                    "August 31, 2029",
+                    "October 02, 2030",
+                    "November 03, 2031",
+                    "December 04, 2032",
+                    "January 05, 2034"
+                );
+                $listOfQty = array(1, 6, 5, 3, 3, 4);
+                for ($i = 0; $i < count($listOfOrders); $i++) {
+                ?>
+                    <tr>
+                        <td><?php echo $listOfOrders[$i]; ?></td>
+                        <td><?php echo $listOfDates[$i]; ?></td>
+                        <td><?php echo $listOfQty[$i]; ?></td>
+                        <td><?php echo $listOfCollSlot[$i]; ?></td>
+                        <td><a href="http://">Edit</a></td>
+                    </tr>
+                <?php
+                }
+                ?>
                 </table>
             </div>
         </div>
