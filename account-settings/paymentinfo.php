@@ -38,34 +38,43 @@ session_start();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
+                    <form class="navbar-nav justify-content-center d-flex nav-search" action="../search.php" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     </form>
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Browse By Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Butchers">Butchers</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Greengrocer">Greengrocer</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Fishmonger">Fishmonger</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Bakery">Bakery</a></li>
+                                <li><a class="dropdown-item" href="../browse-by-category.php?category=Delicatessen">Delicatessen</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="../contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#"> <img src="../images/bag-heart.svg" alt="">
+                            <a class="nav-link" href="../cart.php"> <img src="../images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
                                 ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
+                                <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="../logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="../login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="../register.php">Register</a></li>';
                                 }
@@ -84,7 +93,7 @@ session_start();
         }
     </style>
     <div class="row">
-    <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
+        <ul class="nav flex-column col-2 settings-links-col " style="background-color:cadetblue;">
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./customersettings.php" id="myprofile">My Profile</a>
             </li>
@@ -131,7 +140,7 @@ session_start();
 
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4 p-5 my-5" style="border-radius:1em;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
-                        paypal
+                            paypal
                         </div>
                     </div>
                 </div>

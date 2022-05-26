@@ -269,7 +269,7 @@ include('connection.php');
                     </form>
                     <form action="cart.php" method="post" id="cart">
 
-                        
+
 
                         <!-- <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"> -->
                         <!-- Checkout Button -->
