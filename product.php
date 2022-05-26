@@ -166,10 +166,19 @@ session_start();
                             <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
                                 <div class="quantity pb-3">
                                     Quantity:
-                                    <input type="number" value="1" min="1" class="quantity-field" name="quantity">
+                                    <input type="number" value="1" min="1" max="20" class="quantity-field" name="quantity">
                                 </div>
-                                <input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">
-                                <input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">
+                                <?php
+                                if ($stock > 0) {
+                                    echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">';
+                                    echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">';
+                                } else {
+                                    echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart" disabled>';
+                                    echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist" disabled>';
+                                }
+                                ?>
+
+
                             </form><br>
                         </div>
 
@@ -217,11 +226,22 @@ session_start();
 
 
 
-                                    $stid1 = oci_parse($connection, "SELECT SUM(PRODUCT_QUANTITY) FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id')");
+                                    $stid1 = oci_parse($connection, "SELECT PRODUCT_QUANTITY FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id')");
                                     oci_execute($stid1);
-                                    if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                                        if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
-                                    } else {                                    //THIS IS NOT WORKING  
+
+                                    $cart_product_empty = true;
+                                    $total_no_of_product = 0;
+                                    // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                    while (($row = oci_fetch_array($stid1, OCI_ASSOC)) != false) {
+
+                                        $cart_product_empty = false;
+                                        $total_no_of_product += $row['PRODUCT_QUANTITY'];
+
+                                        // if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
+                                    }
+                                    if ($total_no_of_product >= 20) echo "You already have the max number of items in your cart.";
+
+                                    else {                                    //TODO: IS THIS WORKING? 
                                         $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
                                             VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
                                             '$pid','$quantity','$total_price')");

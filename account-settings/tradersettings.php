@@ -83,9 +83,6 @@
             <li class="nav-item p-3">
                 <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
             </li>
-            <li class="nav-item p-3">
-                <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
-            </li>
            
         </ul>
         <div class="col settings-body">
@@ -101,9 +98,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
                 </li>
                 
             </ul>

@@ -107,9 +107,6 @@ session_start();
                 <a class="nav-link text-white lead active" aria-current="page" href="#" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
-            </li>
-            <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -126,9 +123,6 @@ session_start();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" id="changepass">Change Password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>

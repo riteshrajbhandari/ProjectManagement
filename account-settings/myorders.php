@@ -107,9 +107,6 @@ session_start();
                 <a class="nav-link text-white lead active" aria-current="page" href="./changepass.php" id="changepass">Change Password</a>
             </li>
             <li class="nav-item py-3">
-                <a class="nav-link text-white lead" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
-            </li>
-            <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./wishlist.php" id="wishlist">My Wishlist</a>
             </li>
         </ul>
@@ -126,9 +123,6 @@ session_start();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./changepass.php" id="changepass">Change Password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./paymentinfo.php" id="paymentinfo">Payment Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./wishlist.php" id="wishlist">My Wishlist</a>
@@ -152,10 +146,10 @@ session_start();
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Order</th>
-                            <th scope="col">Order Placed</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Collection Slot</th>
+                            <th scope="col">Payment Date</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Collection Day</th>
+                            <th scope="col">Collection Time</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -163,58 +157,26 @@ session_start();
 
 
                     <?php
-
-                    $stid = oci_parse($connection, "SELECT * FROM users U, orders O, payment PAY, wishlist W, 
-                wishlist_product WP, product P 
-                WHERE U.user_id = '$user_id' and 
-                U.user_id = O.FK3_USER_ID and 
-                U.user_id = PAY.FK1_USER_ID and 
-                U.user_id = W.FK1_USER_ID and 
-                W.wishlist_id = WP.wishlist_id and
-                P.product_id = WP.product_id");
+                    $user_id = $_SESSION['user_id'];
+                    $stid = oci_parse($connection, "SELECT O.ORDER_DATE, O.GROSS_PRICE, P.PAYMENT_DATE, CS.COLLECTION_DAY, CS.COLLECTION_TIME
+                    FROM ORDERS O, PAYMENT P, COLLECTION_SLOT CS, USERS U WHERE U.USER_ID = '$user_id' AND
+                    O.FK3_USER_ID = U.user_id AND P.payment_id = O.FK1_PAYMENT_ID AND O.FK2_SLOT_ID = CS.SLOT_ID
+                ");
                     oci_execute($stid);
-
+                    $dataexists = false;
                     while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                        // echo //order table
-                    }
-
-                    ?>
-
-
-
-
-
-
-
-                    <?php
-                    $listOfOrders = array("lorem ipsum", "dolor sit", "amet consectetur", "adipisicing elit", "Animi, ab");
-                    $listOfDates = array(
-                        "December 23, 2020",
-                        "January 24, 2022",
-                        "February 25, 2023",
-                        "March 26, 2024",
-                        "April 27, 2025",
-                    );
-                    $listOfCollSlot = array(
-                        "August 31, 2029",
-                        "October 02, 2030",
-                        "November 03, 2031",
-                        "December 04, 2032",
-                        "January 05, 2034"
-                    );
-                    $listOfQty = array(1, 6, 5, 3, 3, 4);
-                    for ($i = 0; $i < count($listOfOrders); $i++) {
-                    ?>
+                        $dataexists = true; ?>
                         <tr>
-                            <td><?php echo $listOfOrders[$i]; ?></td>
-                            <td><?php echo $listOfDates[$i]; ?></td>
-                            <td><?php echo $listOfQty[$i]; ?></td>
-                            <td><?php echo $listOfCollSlot[$i]; ?></td>
+                            <td><?php echo $row['ORDER_DATE']; ?></td>
+                            <td><?php echo $row['GROSS_PRICE']; ?></td>
+                            <td><?php echo $row['COLLECTION_DAY']; ?></td>
+                            <td><?php echo $row['COLLECTION_TIME']; ?></td>
                             <td>ordered</td>
                             <td><a href="http://">Edit</a></td>
                         </tr>
                     <?php
                     }
+                    if (!$dataexists) echo "You don't have any orders yet.";
                     ?>
                 </table>
             </div>
