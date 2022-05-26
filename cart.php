@@ -207,7 +207,7 @@ include('connection.php');
                                                                                                         // when it does reach wednesday, add today and the days after today until friday
                                                                                                         $days_of_collection = array('Wed', 'Thu', 'Fri');
                                                                                                         $days = array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri');
-                                                                                                        $today = date("D", strtotime(date("D"). ' + 1 days'));
+                                                                                                        $today = date("D", strtotime(date("D") . ' + 1 days'));
                                                                                                         // $today = 'Sat';
                                                                                                         // $today = date("D", strtotime("-2 days", strtotime(date("D"))));
                                                                                                         // $chosen_day = $days[0];
@@ -238,12 +238,15 @@ include('connection.php');
                                                                                                         // $that_day = "14-May-22";
                                                                                                         // $date_temp = date("d-M-y");
                                                                                                         // $diff_in_date = dateDiffInDays($that_day, $date_temp);
-                                                                                                        $todays_date = date("d-M-y", strtotime(date("d-M-y"). ' + 1 days')); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
+                                                                                                        $todays_date = date("d-M-y", strtotime(date("d-M-y") . ' + 1 days')); //, strtotime("-" . $diff_in_date . " days", strtotime(date("Y-m-d"))));
                                                                                                         //$day_index doesn not work because it holds the index of DAY with respect to the array starting from saturday. So adding that index number of days to the DATE part resulted in the assumption that the current date returned by date('d-M-y') always falls on a saturday. I fixed it by subtracting the index of today from the next collection slot day index that just gives the absolute difference between today'S DATE and the next collection slot's DATE.
-                                                                                                        $date_index = $day_index - array_search(date("D", strtotime(date("D"). ' + 1 days')), $days);
+                                                                                                        $date_index = $day_index - array_search(date("D", strtotime(date("D") . ' + 1 days')), $days);
                         ?>
                         <div class="text-center py-5">
-                            <?php if(isset($_SESSION['error_msg'])) {echo $_SESSION['error_msg']; $_SESSION['error_msg'] = null; } ?>
+                            <?php if (isset($_SESSION['error_msg'])) {
+                                                                                                            echo $_SESSION['error_msg'];
+                                                                                                            $_SESSION['error_msg'] = null;
+                                                                                                        } ?>
                             <select name="collection_slot" id="collection_slot">
                                 <option value="">Choose a collection slot</option>
                                 <?php
@@ -315,12 +318,12 @@ include('connection.php');
     //         oci_execute($stid);
     //         // after payment = true, clear collection slot and cart
     //         // echo 'hereeee';
-            
+
     //         $stid = oci_parse($connection, "UPDATE ORDERS SET FK1_PAYMENT_ID = 
     //         (SELECT MAX(PAYMENT_ID) FROM PAYMENT WHERE FK1_USER_ID = '$user_id')");
     //         oci_execute($stid);
     //         // echo 'HEREEEEE!!!!!!';
-            
+
 
     //         $stid = oci_parse($connection, "SELECT cart_id FROM cart WHERE FK2_USER_ID = '$user_id'");
     //         oci_execute($stid);

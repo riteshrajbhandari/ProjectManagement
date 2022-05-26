@@ -107,8 +107,10 @@ session_start();
           header("Location: index.php");
       } else echo 'please verify your email first.';
     } else
+
       echo 'username and password combination incorrect. New user? <a href="register.php">Register now</a>';
   }
+
   ?>
 
 

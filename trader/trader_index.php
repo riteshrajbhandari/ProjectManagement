@@ -27,7 +27,7 @@ include('../connection.php');
     <div class="container-nav flex-row">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.php">
+                <a class="navbar-brand" href="#">
                     <img src="..\images\logo(small).png" alt="" width="40" class="d-inline-block align-text-bottom">
                     <div id="logo">
                         <div id="fresh">
@@ -42,20 +42,9 @@ include('../connection.php');
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                    <form class="navbar-nav justify-content-center d-flex nav-search" action="./search.php" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                    </form>
+
                     <ul class="navbar-nav w-100 navbar-links" style="flex-wrap:wrap">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" aria-current="" href="#">Browse by Category</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../contact-us.php">Contact</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../cart.php"> <img src="images/bag-heart.svg" alt="">
-                                Cart</a>
-                        </li>
+
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
@@ -100,6 +89,9 @@ include('../connection.php');
     <div class="row ">
         <ul class="nav flex-column col-2 settings-links-col text-light " style="background-color:cadetblue;">
             <li class="nav-item py-3">
+                <a class="nav-link text-white lead" href="./shop.php    " id="traderProfile">Dashboard</a>
+            </li>
+            <li class="nav-item py-3">
                 <a class="nav-link text-white lead active" aria-current="page" href="trader_index.php" id="traderProfile">Add/Delete Shop</a>
             </li>
             <li class="nav-item py-3">
@@ -111,6 +103,9 @@ include('../connection.php');
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
+                <li class="nav-item ">
+                    <a class="nav-link text-white lead" href="#" id="traderProfile">Dashboard</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" id="myprofile">Add/Delete Shop</a>
                 </li>
@@ -146,20 +141,18 @@ include('../connection.php');
                                 <div class="form-group p-3">
                                     <label class="control-label col-sm-2" for="">Shop Name:</label>
                                     <div class="col-sm-10 py-3">
-                                    <?php
-                                            $user_id = $_SESSION['user_id'];
-                                            $stid = oci_parse($connection, "SELECT COUNT(shop_id) FROM shop WHERE user_id = '$user_id'");
-                                            oci_execute($stid);
+                                        <?php
+                                        $user_id = $_SESSION['user_id'];
+                                        $stid = oci_parse($connection, "SELECT COUNT(shop_id) FROM shop WHERE user_id = '$user_id'");
+                                        oci_execute($stid);
 
-                                            if(($row = oci_fetch_array($stid, OCI_ASSOC))){
-                                                $noofshops = $row['COUNT(SHOP_ID)'];
-                                                if($row['COUNT(SHOP_ID)']>=2){
-                                                    echo 'You reached your max limit of shops.';
-                                                    echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name" disabled>';
-                                                }else echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name">';
-                                                
-                                                ;
-                                            } ?>
+                                        if (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+                                            $noofshops = $row['COUNT(SHOP_ID)'];
+                                            if ($row['COUNT(SHOP_ID)'] >= 2) {
+                                                echo 'You reached your max limit of shops.';
+                                                echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name" disabled>';
+                                            } else echo '<input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name">';;
+                                        } ?>
                                         <!-- <input type="text" class="form-control" name="shop-name" id="shop-name" placeholder="Enter Shop Name"> -->
                                     </div>
                                 </div>
@@ -235,7 +228,7 @@ include('../connection.php');
         </div>
     </div>
 
-    <div class="footer navcolor">
+    <!-- <div class="footer navcolor">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -271,7 +264,7 @@ include('../connection.php');
             </div>
         </div>
         <br>
-    </div>
+    </div> -->
 
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

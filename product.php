@@ -141,14 +141,14 @@ session_start();
                         </div>
 
                     </div>
-                    <div class="col-lg-6 py-2 mt-2 shadow-sm  bg-white rounded">
-                        <div class="">
+                    <div class="col-lg-6 p-2 mt-2   card">
+                        <div class="card-header">
                             <h1>
                                 <?php echo $product_name; ?>
                             </h1>
                         </div>
 
-                        <div class="shadow-sm px-3  rounded" style="background-color: #eee;">
+                        <div class="shadow-sm px-3  rounded card-body" style="background-color: #eee;">
                             <div class="py-3">
                                 rating: <?php if (isset($rating)) echo $rating; ?>
                                 <br>
@@ -181,6 +181,10 @@ session_start();
 
                             </form><br>
                         </div>
+
+
+
+
                         <?php
                         if (isset($_SESSION['user_id'])) {
                             if (isset($_POST['add-to-cart'])) {
@@ -243,7 +247,25 @@ session_start();
                                             '$pid','$quantity','$total_price')");
                                         oci_execute($stid);
 
-                                        echo "Item added";
+
+
+                                        $_SESSION['status'] = "Item added";
+                                        if (isset($_SESSION['status'])) {
+                        ?>
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <?php echo $_SESSION['status'];
+                                                $_SESSION['status'] = null; ?>
+
+                                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                        <?php
+                                            unset($_SESSION['status']);
+                                        }
+
+                                        //echo "Item added";
                                     }
                                 }
                             }
@@ -316,6 +338,7 @@ session_start();
                         } else echo 'Please <a href="login.php">Login</a> first.'
 
                         ?>
+
                     </div>
 
                 </div>
