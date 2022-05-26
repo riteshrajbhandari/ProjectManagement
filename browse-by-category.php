@@ -113,7 +113,7 @@
                         <option value="rating">Rating</option>
                     </select>
 
-                    
+
                     <button type="submit" name="sort">Sort</button>
 
                 </div>
@@ -148,27 +148,27 @@
                         <a href="./product.php?pid=<?php echo $pid ?>">
                             <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                                 <img src="<?php echo $img_url; ?>" class="card-img-top" alt="..." ">
-                                <div class="card-body" id="shops" style="background-color:cadetblue;">
-                                    <span class="card-text text-white">
-                                        <?php echo $product_name; ?>
-                                    </span>
-                                    <p class="text-end">
-                                        <!-- <?php echo $rating; ?> -->
-                                    </p>
-                                </div>
+                                <div class=" card-body" id="shops" style="background-color:cadetblue;">
+                                <span class="card-text text-white">
+                                    <?php echo $product_name; ?>
+                                </span>
+                                <p class="text-end" style="color:white;">
+                                    $<?php echo $unit_price; ?>
+                                </p>
                             </div>
-                        </a>
                     </div>
-            <?php
+                    </a>
+        </div>
+<?php
                 }
                 if (!$product_found) echo "<p>Product not found.</p>";
             } else echo "Faulty Link";
-            ?>
-        </div>
+?>
+    </div>
     </div>
 
     <!-- Footer -->
-    
+
     <div class="footer navcolor">
         <div class="container">
             <div class="row">

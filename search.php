@@ -155,8 +155,8 @@ include('connection.php');
                                             <span class="card-text text-white">
                                                 <?php echo $product_name; ?>
                                             </span>
-                                            <p class="text-end">
-                                                <!-- <?php echo $rating; ?> -->
+                                            <p class="text-end" style="color:white;">
+                                                $<?php echo $unit_price; ?>
                                             </p>
                                         </div>
                                     </div>
