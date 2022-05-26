@@ -99,31 +99,15 @@
   </div>
   <div></div>
 
-  <div class="heading">About Cleckhuddersfax</div>
+  <div class="heading">Welcome to Fresh Mart</div>
   <div class="container">
     <div class="row">
       <div class="col-lg" id="img">
-        <img src="images/grocery.jpg" alt="Nature" class="w-100" />
+        <img src="images/grocery.jpg   " alt="Nature" class="w-100" />
       </div>
       <div class="col">
         <p class="lead">
-          A popular suburb of Cleckhuddersfax is distinguished by the fact
-          that it continues to have a vibrant local shopping area that is
-          dominated by small independent businesses. Being part of a larger
-          city there are ample opportunities for locals to drive a short
-          distance to find a large supermarket - yet the small shops continue
-          to thrive. However, national chains have started to find space in
-          the area by setting up convenience stores and now there is a
-          proposal to develop a larger store. The traders are aware that they
-          cannot compete on opening hours without losing out on family life,
-          and that there are more locals that would shop with them if they
-          weren’t working most of the time when the shops were open. The
-          stores selling fresh goods have decided to band together and explore
-          the possibility of offering a joint e-commerce portal to their
-          shops. They have recruited someone to explore issues of food safety,
-          collection etc. and they think they may have a proposal that will
-          work. They now want to fund the development of a prototype
-          e-commerce platform.
+          Cleckhuddersfax is a popular suburb that lumps together a triangle of West Yorkshire - points comprising of Cleckheaton, Huddersfield and Halifax. It has a vibrant local shopping area and is dominated by small independent business. The locals in this city has to drive a short distance to go to supermarket. But Small businesses thrive here. Nowadays, National Chains are looking to set up convenience stores and they have proposed to develop a large store. If that happens then they will hamper the business of local traders here. So the stores have banded together and explored the possibility of offering a joint e-commerce portal to their shops. Hence this, E-commerce platform was created.
         </p>
       </div>
     </div>
@@ -139,50 +123,37 @@
         <img class="main py-3" src="images/butcher.jpg" alt="" />
         <h6>Butcher</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          We specialize in various types of raw meat items. We provide fresh and the best quality meat products in the whole town. We have different cuts of meet like chuck, wings, drumstick, steak and many more.
         </p>
       </div>
       <div class="col">
         <img class="main py-3" src="images/fishmonger.jpg" alt="" />
         <h6>FishMonger</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          We sell various types of fresh seasonal fish. We supply fresh fish from river and ocean. We have special fish like the alaskan salmon and tuna.
         </p>
       </div>
       <div class="col">
         <img class="main py-3" src="images/greengrocer.jpg" alt="" />
         <h6>GreenGrocer</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          We provide fresh fruits and vegetables directly to our customers from farms. We supply fruits and vegetables grown without any use of chemicals.
         </p>
       </div>
       <div class="col">
         <img class="main py-3" src="images/bakery.jpg" alt="" />
         <h6>Bakery</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          We have fresh baked products like croissant, doughnut, sourdough bread, milk bread and many more items. Each of our products are freshly baked every day.
         </p>
       </div>
       <div class="col">
         <img class="main py-3" src="images/deli.jpg" alt="" />
         <h6>Delicatessen</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          We provide our customers with our special cured meat items and delicate items.
+          We provide products like pepperoni, salami, sausages and many more.
+
         </p>
       </div>
     </div>
@@ -196,37 +167,21 @@
   <div class="container">
     <div class="row">
       <div class="col-lg" id="img">
-        <img src="images/grocery.jpg" alt="" class="w-100" />
+        <img src="images/about-us.jpeg" alt="" class="w-100" />
       </div>
-      <div class="col">
+      <div class="col py-5">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem rem
-          quasi ratione molestias perspiciatis dicta minima maiores, illum
-          laborum voluptate eligendi quo corporis exercitationem tenetur
-          praesentium doloremque cum esse! Magnam? Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Hic maxime repellat amet fugit iste
-          dolore harum voluptatem enim, pariatur quisquam facere distinctio
-          soluta mollitia aperiam excepturi numquam nihil reprehenderit rem.
+          This website is created by a team of 5 members. Members naming Sajid Miya, Ritesh Rajbhandari,Prashant Shrestha, Ujjwal Datheputhe and Sanil Baniya. We have worked for almost 4 months for the completion of this website. We have been conducting meetings 3 times a week till today. We all have given our best for this website. Each member of our team has given a fruitful amount of time to make this website attractive. We are very happy with this outcome and we hope everybody likes our work.
           <br />
           <br />
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-          fugiat reprehenderit odio consequatur voluptatibus consectetur,
-          exercitationem quam iure doloremque voluptate ratione sapiente,
-          perspiciatis numquam corporis aspernatur rem! Recusandae, molestias
-          harum? <br />
-          <br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-          iure deserunt ipsam, dolorum aperiam veniam nam odio cum possimus
-          ullam reiciendis quidem harum doloremque. Aut, officia sunt?
-          Voluptates, architecto soluta? Lorem ipsum dolor, sit amet
-          consectetur adipisicing elit. Sunt magnam enim rerum harum?
+
         </p>
       </div>
     </div>
   </div>
   <div class="container">
-    <div class="row">
-      <div class="col">
+    <div class="row py-5">
+      <div class="col py-5">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem rem
           quasi ratione molestias perspiciatis dicta minima maiores, illum
@@ -237,21 +192,11 @@
           soluta mollitia aperiam excepturi numquam nihil reprehenderit rem.
           <br />
           <br />
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-          fugiat reprehenderit odio consequatur voluptatibus consectetur,
-          exercitationem quam iure doloremque voluptate ratione sapiente,
-          perspiciatis numquam corporis aspernatur rem! Recusandae, molestias
-          harum? <br />
-          <br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-          iure deserunt ipsam, dolorum aperiam veniam nam odio cum possimus
-          ullam reiciendis quidem harum doloremque. Aut, officia sunt?
-          Voluptates, architecto soluta? Lorem ipsum dolor, sit amet
-          consectetur adipisicing elit. Sunt magnam enim rerum harum?
+
         </p>
       </div>
       <div class="col-lg" id="img">
-        <img src="images/grocery.jpg" alt="" class="w-100" />
+        <img src="images/about-us1.jpeg" alt="" class="w-100" />
       </div>
     </div>
   </div>
@@ -263,54 +208,40 @@
   <div class="container">
     <div class="row-1 lead" id="about">Tech Team</div>
     <div class="row row-cols-lg-5 about-team">
-      <div class="col">
+      <div class="col text-center lead">
         <img class="main" src="images/sazid.jpg" alt="" />
         <h6>Sajid Miya</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          Front End Developer
         </p>
       </div>
-      <div class="col">
+      <div class="col text-center lead">
         <img class="main" src="images/sanjil.jpg" alt="" />
         <h6>Sanjil Baniya</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          Developer
         </p>
       </div>
-      <div class="col">
+
+      <div class="col text-center lead">
         <img class="main" src="images/ujwal.jpg" alt="" />
         <h6>Ujwal Datheputhae</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          Documentation Manager/Developer
         </p>
       </div>
-      <div class="col">
-        <img class="main" src="images/ritesh.jpg" alt="" />
+      <div class="col text-center lead">
+        <img class="main " src="images/ritesh.jpg" alt="" />
         <h6>Ritesh Rajbhandari</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          Backend Developer
         </p>
       </div>
-      <div class="col">
+      <div class="col text-center lead">
         <img class="main" src="images/prashant.jpg" alt="" />
         <h6>Prashant Shrestha</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-          consequatur eum, ad nisi ipsa asperiores assumenda, minima officiis
-          voluptates explicabo corrupti, alias porro ducimus! Nesciunt
-          voluptatibus explicabo ut rerum eius.
+          Documentation Manager/Developer.
         </p>
       </div>
     </div>

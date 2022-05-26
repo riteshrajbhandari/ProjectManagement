@@ -103,6 +103,9 @@ include('../connection.php');
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./update.php" id="update">Update/delete</a>
             </li>
+            <li class="nav-item py-3">
+                <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+            </li>
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
@@ -118,6 +121,9 @@ include('../connection.php');
                 <li class="nav-item">
                     <a class="nav-link text-white lead" href="./update.php" id="contactinfo">Update/delete</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+                </li>
             </ul>
 
             <!-- shop details -->
@@ -126,35 +132,37 @@ include('../connection.php');
                 <div class="card col-lg-3" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
                     <div class="card-header">
                         <a href="#">
-                            <img src="../images/butchers-knife-17307-1.jpg" alt="">
+                            <?php
+                            $user_id = $_SESSION['user_id'];
+
+                            $stid = oci_parse($connection, "SELECT IMG_URL FROM PRODUCT, SHOP
+                            WHERE PRODUCT.FK2_SHOP_ID = SHOP.SHOP_ID AND SHOP.USER_ID = '$user_id' AND ROWNUM=1");
+                            oci_execute($stid);
+                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                $img_url = $row['IMG_URL'];
+                                echo '<img src="../' . $img_url . '" alt="">';
+                            }
+                            ?>
                         </a>
                     </div>
                 </div>
-
-
-
                 <div class=" row justify-content-md-center p-5 m-5 border">
-                    <div class="col-md-auto text-center ">
-                        <div class="card " style="width: 200px; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
 
-
-                            <head>Shop name</head>
+                    <?php
+                    $stid = oci_parse($connection, "SELECT DISTINCT(SHOP_NAME) FROM PRODUCT, SHOP
+                            WHERE PRODUCT.FK2_SHOP_ID = SHOP.SHOP_ID AND SHOP.USER_ID = '$user_id'");
+                    oci_execute($stid);
+                    while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                        $shop_name = $row['SHOP_NAME'];
+                    ?>
+                        <div class="col-md-auto text-center ">
+                            <div class="card " style="width: 200px; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+                                <head><?php echo $shop_name; ?></head>
+                            </div>
                         </div>
-
-
-
-
-
-                    </div>
-                    <div class="col-md-auto text-center">
-                        <div class="card" style="width: 200px; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
-
-
-                            <head>shop name</head>
-                        </div>
-
-                    </div>
-
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
 

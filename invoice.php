@@ -143,7 +143,7 @@ AND O.FK2_SLOT_ID = CS.SLOT_ID"
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-5">
-                        <button onclick="printFunction()">Save as button</button>
+                        <button onclick="printFunction()">Save as Pdf</button>
 
                         <script>
                             function printFunction() {

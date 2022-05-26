@@ -170,7 +170,7 @@ session_start();
                                 </div>
                                 <?php
                                 if ($stock > 0) {
-                                    echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">';
+                                    echo '<input class="btn btn-primary mx-3" type="submit" value="Add to cart" name="add-to-cart">';
                                     echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">';
                                 } else {
                                     echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart" disabled>';

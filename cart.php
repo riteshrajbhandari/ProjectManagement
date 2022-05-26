@@ -274,7 +274,8 @@ include('connection.php');
                             </select></div>
                         <!-- input -->
                         <input type="number" step="0.1" name="total" id="total" value="<?php echo $total; ?>" hidden>
-                        <input type="submit" value="Proceed to Checkout">
+                        <div class="text-center py-3"><input type="submit" value="Proceed to Checkout"></div>
+
                     </form>
                     <!-- <form action="cart.php" method="post" id="cart"> -->
 

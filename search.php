@@ -147,7 +147,7 @@ include('connection.php');
                             $img_url = $row['IMG_URL'];
                             // $rating = $row['RATING']; TODO :::::::::::::::
                     ?>
-                            <div class="col " >
+                            <div class="col ">
                                 <a href="./product.php?pid=<?php echo $pid ?>">
                                     <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                                         <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
@@ -155,7 +155,7 @@ include('connection.php');
                                             <span class="card-text text-white">
                                                 <?php echo $product_name; ?>
                                             </span>
-                                            <p class="text-end" style="color:white;">
+                                            <p class="text-end " style="color:white;">
                                                 $<?php echo $unit_price; ?>
                                             </p>
                                         </div>
