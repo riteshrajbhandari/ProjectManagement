@@ -170,7 +170,7 @@ session_start();
                                 </div>
                                 <?php
                                 if ($stock > 0) {
-                                    echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart">';
+                                    echo '<input class="btn btn-primary mx-3" type="submit" value="Add to cart" name="add-to-cart">';
                                     echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">';
                                 } else {
                                     echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart" disabled>';
@@ -269,19 +269,6 @@ session_start();
                                     }
                                 }
                             }
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
 
 
 
@@ -289,52 +276,65 @@ session_start();
 
 
 
-//wislist instead of cart
-
-
-                            $stid = oci_parse($connection, "SELECT fk1_user_id FROM wishlist WHERE fk1_user_id = '$user_id'");
-                            oci_execute($stid);
-                            if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
-                                //user doesn't have a cart yet//CREATE THE CART
-                                $stid = oci_parse($connection, "INSERT INTO wishlist (fk1_user_id) VALUES ('$user_id')");
-                                oci_execute($stid);
-                            }
-                            //they already have a cart, now insert in cart_product
-
-                            $stid = oci_parse($connection, "SELECT fk1_user_id FROM wishlist, cart_product
-                            WHERE wishlist.cart_id = cart_product.cart_id and wishlist.fk1_user_id = '$user_id' and cart_product.product_id = '$pid'");
-                            oci_execute($stid);
-
-                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                                echo "You already have this item in your <a href = './cart.php'>Cart</a>";
-                            } else {
 
 
 
-                                $stid1 = oci_parse($connection, "SELECT PRODUCT_QUANTITY FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk1_user_id = '$user_id')");
-                                oci_execute($stid1);
 
-                                $cart_product_empty = true;
-                                $total_no_of_product = 0;
-                                // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                                while (($row = oci_fetch_array($stid1, OCI_ASSOC)) != false) {
 
-                                    $cart_product_empty = false;
-                                    $total_no_of_product += $row['PRODUCT_QUANTITY'];
 
-                                    // if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
-                                }
-                                if ($total_no_of_product >= 20) echo "You already have the max number of items in your cart.";
 
-                                else {                                    //TODO: IS THIS WORKING? 
-                                    $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
-                                        VALUES ((SELECT cart_id FROM cart WHERE fk1_user_id = '$user_id'),
-                                        '$pid','$quantity','$total_price')");
-                                    oci_execute($stid);
 
-                                    echo "Item added";
-                                }
-                            }
+
+
+
+
+
+                            //wislist instead of cart
+
+
+                            // $stid = oci_parse($connection, "SELECT fk1_user_id FROM wishlist WHERE fk1_user_id = '$user_id'");
+                            // oci_execute($stid);
+                            // if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
+                            //     //user doesn't have a cart yet//CREATE THE CART
+                            //     $stid = oci_parse($connection, "INSERT INTO wishlist (fk1_user_id) VALUES ('$user_id')");
+                            //     oci_execute($stid);
+                            // }
+                            // //they already have a cart, now insert in cart_product
+
+                            // $stid = oci_parse($connection, "SELECT fk1_user_id FROM wishlist, cart_product
+                            // WHERE wishlist.cart_id = cart_product.cart_id and wishlist.fk1_user_id = '$user_id' and cart_product.product_id = '$pid'");
+                            // oci_execute($stid);
+
+                            // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                            //     echo "You already have this item in your <a href = './cart.php'>Cart</a>";
+                            // } else {
+
+
+
+                            //     $stid1 = oci_parse($connection, "SELECT PRODUCT_QUANTITY FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk1_user_id = '$user_id')");
+                            //     oci_execute($stid1);
+
+                            //     $cart_product_empty = true;
+                            //     $total_no_of_product = 0;
+                            //     // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                            //     while (($row = oci_fetch_array($stid1, OCI_ASSOC)) != false) {
+
+                            //         $cart_product_empty = false;
+                            //         $total_no_of_product += $row['PRODUCT_QUANTITY'];
+
+                            //         // if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
+                            //     }
+                            //     if ($total_no_of_product >= 20) echo "You already have the max number of items in your cart.";
+
+                            //     else {                                    //TODO: IS THIS WORKING? 
+                            //         $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
+                            //             VALUES ((SELECT cart_id FROM cart WHERE fk1_user_id = '$user_id'),
+                            //             '$pid','$quantity','$total_price')");
+                            //         oci_execute($stid);
+
+                            //         echo "Item added";
+                            //     }
+                            // }
                         } else echo 'Please <a href="login.php">Login</a> first.'
 
                         ?>
