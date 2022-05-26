@@ -901,7 +901,33 @@ REVIEW_DATE,
 RATING,
 FK1_PRODUCT_ID,
 FK2_USER_ID)
-VALUES('very very good', 'I looovveeeee browniessss','05/11/2022', 4.5, 14, 101);
+VALUES('very very good', 'I looovveeeee this product! Would buy again!','05/11/2022', 4.5, 14, 101);
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
 VALUES('Ritesh', 'Rajbhandari', '05/06/2022', 'customer', 'db8ac1c259eb89d4a131b253bacfca5f319d54f2', 'Customer', 'rajbhandari.ritesh@hotmail.com', 'images/deli.jpg', 'M', 1, '12/01/2000');
+
+insert into payment (
+PAYMENT_METHOD,
+NET_PRICE,
+PAYED_AMT,
+RETURNED_AMT,
+PAYMENT_DATE,
+FK1_USER_ID)
+VALUES('paypal', 50, 50, 0, '05/26/2022',107);
+
+insert into collection_slot(COLLECTION_DAY, COLLECTION_TIME)
+VALUES('Wed 01-Jun-22', '13:00 - 16:00');
+
+insert into orders(
+GROSS_PRICE,
+ORDER_DATE,
+FK1_PAYMENT_ID,
+FK2_SLOT_ID,
+FK3_USER_ID)
+VALUES(5,'05/26/2022',1, 1, 107);
+
+insert into order_product(
+ORDER_ID,
+PRODUCT_ID,
+PRODUCT_QUANTITY
+)VALUES(1, 25, 2);

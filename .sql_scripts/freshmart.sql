@@ -658,6 +658,19 @@ begin
   end if; 
 end;
 /
+
+DROP SEQUENCE wishlist_seq;
+CREATE SEQUENCE wishlist_seq;
+create or replace trigger add_new_wishlist
+BEFORE
+insert on wishlist
+for each row
+begin
+  if :NEW.wishlist_id is null then 
+    select wishlist_seq.nextval into :NEW.wishlist_id from sys.dual; 
+  end if; 
+end;
+/
 commit;
 /
 --select u.user_id, u.first_name, u.last_name, s.shop_id, s.shop_name, p.product_id, p.product_name, c.category_id, c.category_name from shop s, product p, users u, category c where u.user_id = s.user_id and s.shop_id = p.FK2_SHOP_ID and c.category_id = p.fk3_category_id
