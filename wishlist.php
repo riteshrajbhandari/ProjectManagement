@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +71,6 @@ include('connection.php');
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
 
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
@@ -108,17 +108,8 @@ include('connection.php');
 
     <?php
 
-    // $cookie_name = 'cart';
-
-
-    // if (!isset($_COOKIE[$cookie_name])) {
-    //     echo "Cookie named '" . $cookie_name . "' is not set!";
-    // } else {
-    //     echo "Cookie '" . $cookie_name . "' is set!<br>";
-    //     echo "Value is: " . $_COOKIE[$cookie_name];
-    // }
-
-
+    // select from wishlist, wishlist product, product, users where userid = session user id
+    //add to cart button, remove from wishlist button
 
 
 
@@ -131,9 +122,6 @@ include('connection.php');
         oci_execute($stid);
     ?>
         <div class="container">
-
-
-
             <div class="row product m-5 " style=" border-radius: 2em; background-color:white;box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;">
                 <div class="col-lg-8 text-center">
 
@@ -144,9 +132,12 @@ include('connection.php');
                                 <td>Price</td>
                             </tr>
                             <?php
+                            $list_of_pid_quantity = "";
+                            $counter = 0;
                             while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                $counter++;
                                 $error = false;
-                                $wishlist_id = $row['wishlist_ID'];
+                                $wishlist_id = $row['WISHLIST_ID'];
                                 $product_img_url = $row['IMG_URL'];
                                 $product_name = $row['PRODUCT_NAME'];
                                 $product_desc = $row['SHORT_DESCRIPTION'];
@@ -161,124 +152,141 @@ include('connection.php');
                                     <td>
                                         <?php echo $unit_price; ?>
                                     </td>
-                                    
                                     <td>
-                                        <form action="wishlist.php" method="post">
-                                            <input type="number" name="producttoremove" id="producttoremove" hidden value="<?php echo $product_id; ?>">
+                                        <form action="./wishlist.php" method="post">
+                                            <input type="number" name="productid" id="productid" hidden value="<?php echo $product_id; ?>">
                                             <input type="number" name="user_id" id="user_id" hidden value="<?php echo $user_id; ?>">
-                                            <input type="submit" value="Delete">
-                                            <input type="submit" value="add-to-cart">
+                                            <input type="submit" value="Remove from Wishlist" name="remove-from-wishlist"><br>
+                                            <input type="number" value="1" min="1" max="20" class="quantity-field" name="quantity">
+                                            <input type="submit" value="Add to cart" name="add-to-cart">
                                         </form>
-                                        <?php
-                                            if(isset($_POST['Delete'])){
-                                                $user_id = $_POST['user_id'];
-                                                $product_id = $_POST['producttoremove'];
-                                                
-                                                $stid = oci_parse($connection, "DELETE FROM WISHLIST_PRODUCT WHERE WISHLIST_ID = 
-                                                (SELECT WISHLIST_ID FROM WISHLIST WHERE FK1_USER_ID = '$user_id')
-                                                AND PRODUCT_ID ='$product_id'");
-                                            }}
-                                        ?>
-
-
-
-
-
-
-
-<?php
-
-
-if (isset($_POST['add-to-wishlist'])) {
-
-    if (isset($_SESSION['user_id'])) {
-
-
-$user_id = $_SESSION['user_id'];
-
-
-$total_price = $unit_price;
-
-$stid = oci_parse($connection, "SELECT fk2_user_id FROM cart WHERE fk2_user_id = '$user_id'");
-oci_execute($stid);
-if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
-    //user doesn't have a cart yet//CREATE THE CART
-    $stid = oci_parse($connection, "INSERT INTO cart (fk2_user_id) VALUES ('$user_id')");
-    oci_execute($stid);
-}
-//they already have a cart, now insert in cart_product
-
-$stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
-WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$pid'");
-oci_execute($stid);
-
-if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-    echo "You already have this item in your <a href = './cart.php'>Cart</a>";
-} else {
-
-
-
-    $stid1 = oci_parse($connection, "SELECT PRODUCT_QUANTITY FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id')");
-    oci_execute($stid1);
-
-    $cart_product_empty = true;
-    $total_no_of_product = 0;
-    // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-    while (($row = oci_fetch_array($stid1, OCI_ASSOC)) != false) {
-
-        $cart_product_empty = false;
-        $total_no_of_product += $row['PRODUCT_QUANTITY'];
-
-        // if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
-    }
-    if ($total_no_of_product >= 20) echo "You already have the max number of items in your cart.";
-
-    else {                                    //TODO: IS THIS WORKING? 
-        $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
-            VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
-            '$pid',1,'$total_price')");
-        if (oci_execute($stid)) echo "Item added";
-    }        
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     </td>
                                 </tr><?php
                                         // echo '<a href="delete.php?pid=">Remove</a>'
-                                    } ?>
+                                    }
+                                    if ($counter < 1) echo "You don't have anything in your wishlist yet.";
+
+                                    if (isset($_POST['remove-from-wishlist'])) {
+                                        $product_id = $_POST['productid'];
+                                        $user_id = $_POST['user_id'];
+                                        $stid = oci_parse($connection, "DELETE FROM WISHLIST_PRODUCT WHERE WISHLIST_ID = 
+                                    (SELECT WISHLIST_ID FROM WISHLIST WHERE FK1_USER_ID = '$user_id')
+                                    AND PRODUCT_ID ='$product_id'");
+                                        oci_execute($stid);
+                                        ?><script>
+                                    location.replace('wishlist.php');
+                                </script>
+                                <?php
+                                    }
+                                    if (isset($_POST['add-to-cart'])) {
+                                        $product_id = $_POST['productid'];
+                                        $user_id = $_POST['user_id'];
+                                        $quantity = $_POST['quantity'];
+
+                                        //rerieve unit price from product table using produt id first
+                                        $stid = oci_parse($connection, "SELECT unit_price from product where product_id = '$product_id'");
+                                        oci_execute($stid);
+                                        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                            $unitprice = $row['UNIT_PRICE'];
+                                        }
+
+                                        $total_price = $unitprice * $quantity;
+
+
+                                        //check if that user_id has a cart. 
+                                        // if it does, go to cart_product to 
+                                        // add the prouct there. 
+                                        // If no cart for current user_id then 
+                                        // create a cart, and then go to cart_product to add
+
+                                        $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart WHERE fk2_user_id = '$user_id'");
+                                        oci_execute($stid);
+                                        if (!($row = oci_fetch_array($stid, OCI_ASSOC))) {
+                                            //user doesn't have a cart yet//CREATE THE CART
+                                            $stid = oci_parse($connection, "INSERT INTO cart (fk2_user_id) VALUES ('$user_id')");
+                                            oci_execute($stid);
+                                        }
+                                        //they already have a cart, now insert in cart_product
+
+                                        $stid = oci_parse($connection, "SELECT fk2_user_id FROM cart, cart_product
+                                            WHERE cart.cart_id = cart_product.cart_id and cart.fk2_user_id = '$user_id' and cart_product.product_id = '$product_id'");
+                                        oci_execute($stid);
+
+                                        if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                            echo "You already have this item in your <a href = './cart.php'>Cart</a>";
+                                        } else {
+
+
+
+                                            $stid1 = oci_parse($connection, "SELECT PRODUCT_QUANTITY FROM CART_PRODUCT WHERE CART_ID = (SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id')");
+                                            oci_execute($stid1);
+
+                                            $cart_product_empty = true;
+                                            $total_no_of_product = 0;
+                                            // if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                            while (($row = oci_fetch_array($stid1, OCI_ASSOC)) != false) {
+
+                                                $cart_product_empty = false;
+                                                $total_no_of_product += $row['PRODUCT_QUANTITY'];
+
+                                                // if ($row['SUM(PRODUCT_QUANTITY)'] >= 20) echo "You already have the max number of items in your cart.";
+                                            }
+                                            if ($total_no_of_product >= 20) echo "You already have the max number of items in your cart.";
+
+                                            else {                                    //TODO: IS THIS WORKING? 
+                                                $stid = oci_parse($connection, "INSERT INTO cart_product (cart_id, product_id, product_quantity, total_price)
+                                                        VALUES ((SELECT cart_id FROM cart WHERE fk2_user_id = '$user_id'),
+                                                        '$product_id','$quantity','$total_price')");
+                                                if (oci_execute($stid)) {
+
+
+
+                                                    $_SESSION['status'] = "Item added";
+                                                    if (isset($_SESSION['status'])) {
+                                ?>
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    <?php echo $_SESSION['status'];
+                                                        $_SESSION['status'] = null; ?>
+
+                                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                            <?php
+                                                        unset($_SESSION['status']);
+                                                    }
+
+                                                    //inserted into cart, so remove from wislist
+                                                    $stid = oci_parse($connection, "DELETE FROM WISHLIST_PRODUCT WHERE WISHLIST_ID = 
+                                                    (SELECT WISHLIST_ID FROM WISHLIST WHERE FK1_USER_ID = '$user_id')
+                                                    AND PRODUCT_ID ='$product_id'");
+                                                    oci_execute($stid);
+                                            ?><script>
+                                                location.replace('wishlist.php');
+                                            </script>
+                            <?php
+
+                                                }
+                                                //echo "Item added";
+                                            }
+                                        }
+                                    }
+                            ?>
                         </thead>
                     </table>
 
                     <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe esse ea odit obcaecati neque dolore maiores assumenda, doloremque accusamus suscipit. -->
                 </div>
-                
+
+
             </div>
         </div><?php
-            } else echo '<a href="login.php">Login</a> to display your cart' }?>
+            } else echo '<a href="login.php">Login</a> to display your cart' ?>
 
 
 
-<?php
-    }
 
-    ?>
 
 
 
@@ -313,10 +321,8 @@ if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
                     <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
                     <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
                     <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
-                    
+
                     <!-- <div class='paypal-ko-details' id='paypal-ko-details'></div> -->
-                    
-                
 
 
 
@@ -326,56 +332,14 @@ if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
 
 
-                    
+
+
+
                 </div>
             </div>
         </div>
         <br>
     </div>
-
-    <!-- paypal  -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AaNtGY8TocSYYuuJVpWFdXZ6tBxYh9rKu4Vals3L1V8LfF0qzyQFz-hWin5KOpeQG4hlbQbs-LmfvjCa"></script>
-
-    <!-- <script src="./index.js"></script> -->
-    <script>
-        paypal.Buttons({
-            style: {
-                color: 'blue',
-                shape: 'pill',
-                layout: 'horizontal'
-            },
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '<?php echo $total; ?>'
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                   console.log(details);
-                //    const detailobj = details.status;
-                //    document.getElementById("paypal-ko-details").innerHTML=details.status; 
-                    // const detailobj = details;
-                    window.location.replace("http://localhost/ProjectManagement/checkpaypal.php?payment="+details.status);
-                })
-            },
-            onCancel: function(data) {
-                window.location.replace("http://localhost/ProjectManagement/paypal_integration/Oncancel.php")
-            }
-        }).render('#paypal-payment-button');
-    </script>
-
-
-    <?php
-    if (isset($_POST['checkout'])) {
-    }
-    ?>
-
-
-
 
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
