@@ -61,6 +61,11 @@
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="cart.php">
+                                Wishlist
+                            </a>
+                        </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
