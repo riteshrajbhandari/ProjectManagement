@@ -62,7 +62,7 @@
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart.php">
+                            <a class="nav-link" href="wishlist.php">
                                 Wishlist
                             </a>
                         </li>
