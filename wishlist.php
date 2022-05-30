@@ -64,7 +64,7 @@ session_start();
                                 Cart</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="cart.php">
+                            <a class="nav-link" href="wishlist.php">
                                 Wishlist
                             </a>
                         </li>
@@ -144,7 +144,10 @@ session_start();
                                 $unit_price = $row['UNIT_PRICE'];
                                 $product_id = $row['PRODUCT_ID']; ?>
                                 <tr>
-                                    <td class="text-start"><img class="img-cart img-thumbnail w-50" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                    <td class="text-start">
+                                        <a href="product.php?pid=<?php echo $product_id ?>">
+                                        <img class="img-cart img-thumbnail w-50" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                        </a>
                                         <?php
                                         echo $product_name . '<br>';
                                         echo $product_desc; ?>

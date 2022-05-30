@@ -59,7 +59,7 @@ session_start();
                             </ul>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact-us.php">Contact</a>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
