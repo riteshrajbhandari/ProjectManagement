@@ -141,7 +141,7 @@ session_start();
         ?>
                 <div class="row product ">
                     <div class="col-lg-6">
-                        <div class="w-100 py-3" style="">
+                        <div class="w-100 py-3">
                             <img src="<?php echo $img_url; ?>" alt="" srcset="" style="width: 400px; height: 350px;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;border: radius 0.5em;">
                         </div>
 
@@ -171,13 +171,17 @@ session_start();
                             <form action="./product.php?pid=<?php echo $pid; ?>" method="post">
                                 <div class="quantity pb-3">
                                     Quantity:
-                                    <input type="number" value="1" min="1" max="20" class="quantity-field" name="quantity">
-                                </div>
+                                    
+                                
                                 <?php
                                 if ($stock > 0) {
+                                    echo '<input type="number" value="1" min="1" max="'.$stock.'" class="quantity-field" name="quantity">';
+                                    echo '</div>';
                                     echo '<input class="btn btn-primary mx-3" type="submit" value="Add to cart" name="add-to-cart">';
                                     echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist">';
                                 } else {
+                                    echo '<input type="text" value="Out of Stock" class="quantity-field" disabled>';
+                                    echo '</div>';
                                     echo '<input class="btn btn-primary" type="submit" value="Add to cart" name="add-to-cart" disabled>';
                                     echo '<input class="btn btn-primary" type="submit" value="Add to wishlist" name="add-to-wishlist" disabled>';
                                 }
@@ -339,7 +343,7 @@ session_start();
 
 
 
-                        <div class="col-8 add-review py-3 my-5" style="">
+                        <div class="col-8 add-review py-3 my-5">
                             <form method="POST" action="./product.php?pid=<?php echo $pid; ?>">
                                 <div class="grid mt-5 px-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; background-color:#eee;">
                                     <div class="col-lg pt-3">
