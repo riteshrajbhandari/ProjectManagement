@@ -36,19 +36,19 @@ insert into category(CATEGORY_NAME, CATEGORY_DESC) values ('Delicatessen', 'this
 
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
-VALUES('Tej', 'Rana', '05/06/2022', 'tejj', '92ebd8ec0b6f26d2c2b1ef25b3260a9a44cf730a', 'Trader', 'tej.r12@gmail.com', 'images/baker.jpeg', 'M', 1, '12/01/2000');
+VALUES('Tej', 'Rana', '05/06/2022', 'tejj', '92ebd8ec0b6f26d2c2b1ef25b3260a9a44cf730a', 'Trader', 'tej.r12@gmail.com', 'images/bakery.jpg', 'M', 1, '12/01/2000');
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
-VALUES('Madan', 'Karki', '05/06/2022', 'kmadan', 'fb464ec99929d760e016f677dd8537570621835b', 'Trader', 'karkimadan@gmail.com.com', 'images/butcher.jpeg', 'M', 1, '12/01/2000');
+VALUES('Madan', 'Karki', '05/06/2022', 'kmadan', 'fb464ec99929d760e016f677dd8537570621835b', 'Trader', 'karkimadan@gmail.com.com', 'images/butcher.jpg', 'M', 1, '12/01/2000');
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
-VALUES('Hari', 'Shrestha', '05/06/2022', 'harish', '46ebaaa2b80c7a3459b80353e085aaeed5aff2ff', 'Trader', 'shari@gmail.com', 'images/greengrocer.jpeg', 'M', 1, '12/01/2000');
+VALUES('Hari', 'Shrestha', '05/06/2022', 'harish', '46ebaaa2b80c7a3459b80353e085aaeed5aff2ff', 'Trader', 'shari@gmail.com', 'images/greengrocer.jpg', 'M', 1, '12/01/2000');
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
-VALUES('Krishna', 'Poudel', '05/06/2022', 'krishnaa', '8e3ee9d5d3c305f9525b9cb6d284c5236c15c503', 'Trader', 'poudelk1h@gmail.com.com', 'images/fishmonger.png', 'M', 1, '12/01/2000');
+VALUES('Krishna', 'Poudel', '05/06/2022', 'krishnaa', '8e3ee9d5d3c305f9525b9cb6d284c5236c15c503', 'Trader', 'poudelk1h@gmail.com.com', 'images/fishmonger.jpg', 'M', 1, '12/01/2000');
 
 INSERT INTO USERS(FIRST_NAME, LAST_NAME, DATE_JOINED, USERNAME, PASSWORD, USER_TYPE, EMAIL, PROFILE_PIC_URL, GENDER, VERIFIED, DATE_OF_BIRTH)
-VALUES('Ramesh', 'Shah', '05/06/2022', 'sramesh', '53edd6990376d7b5f512d2b5556613ca2567f04c', 'Trader', 'shah123@gmail.com', 'images/delecaties.jpeg', 'M', 1, '12/01/2000');
+VALUES('Ramesh', 'Shah', '05/06/2022', 'sramesh', '53edd6990376d7b5f512d2b5556613ca2567f04c', 'Trader', 'shah123@gmail.com', 'images/deli.jpg', 'M', 1, '12/01/2000');
 
 INSERT INTO SHOP(SHOP_NAME, USER_ID)
 VALUES('Tej Bakery', 102);

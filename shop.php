@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include('connection.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,71 +97,118 @@
             </div>
         </nav>
     </div>
-
+<div>
     <div class="container p-5 my-5 border" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
         <div class="row">
 
             <div class="col-lg-2">
                 <div class="card">
                     <div class="card-header">
-                        <p>Trader name</p>
+                        <?php
+
+                        if (isset($_GET['id'])) {
+                            $shop_id =  $_GET['id'];
+                            $stid = oci_parse($connection, "SELECT (FIRST_NAME||' '||LAST_NAME) AS FULLNAME, PROFILE_PIC_URL FROM users, shop WHERE SHOP.shop_id = '$shop_id' and shop.user_id = users.user_id");
+                            oci_execute($stid);
+                            if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                $fullname = $row['FULLNAME'];
+                                $profile_img_url = $row['PROFILE_PIC_URL'];
+                            }
+
+
+                            $stid = oci_parse($connection, "SELECT * FROM product, shop WHERE product.FK2_SHOP_ID = shop.shop_id 
+                                                            and shop.shop_id = '$shop_id'");
+                        ?>
+                            <p><?php echo $fullname; ?></p>
                     </div>
                     <div class="img-thumbnail">
-                        <img src="../ProjectManagement/images/butchers-knife-17307-1.jpg" alt="">
+                        <img src="<?php echo './' . $profile_img_url; ?>" alt="..." ">
                     </div>
                 </div>
             </div>
+            <?php
+                            oci_execute($stid);
+                            $shop_found = false;
+                            while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                $shop_found = true;
+                                $pid = $row['PRODUCT_ID'];
+                                $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
+                                $unit_price = $row['UNIT_PRICE'];
+                                $img_url = $row['IMG_URL'];
+            ?>
 
-            <div class="col-lg"></div>
-        </div>
 
-    </div>
+                <div class=" col-lg">
 
-
-
-
-
-    <div class="footer navcolor">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="#top">
-                        <img id="footer" src="images\logo.png" alt="" srcset="">
-                    </a>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md my-auto justify-content-center" id="footer">
-                    <ul id="footer">
-                        <li><a href="browse-by-category.php">Browse By Category</a></li>
-                        <li><a href="contact-us.php">Contact</a></li>
-                        <li><a href="login.php">Login</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-1"></div>
-
-                <div class="col-md my-auto" id="footer">
-                    <a href="./about.php">
-                        <h2>About Us</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <div class="row" id="footer-icons">
-                    <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
-                    <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
+                        <div class="col">
+                            <a href="./product.php?pid=<?php echo $pid ?>">
+                                <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                                    <img src="<?php echo $img_url; ?>" class="card-img-top" alt="..." ">
+                    <div class=" card-body" id="shops" style="background-color:cadetblue;">
+                                    <span class="card-text text-white">
+                                        <?php echo $product_name; ?>
+                                    </span>
+                                    <p class="text-end" style="color:white;">
+                                        $<?php echo $unit_price; ?>
+                                    </p>
+                                </div>
+                        </div>
+                        </a>
+                    </div><br>
+            <?php
+                            }
+                            if (!$shop_found) echo "<p>Shop not found.</p>";
+                        } else echo "Faulty Link";
+            ?>
                 </div>
             </div>
-        </div>
-        <br>
-    </div>
 
-    <!--Bootstrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!--Custom JS-->
-    <script src="scripts/javascript.js"></script>
+        </div>
+
+        </div>
+
+
+        <div class="footer navcolor" style="position:absolute !important; width: 100% !important; left:0 !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#top">
+                            <img id="footer" src="images\logo.png" alt="" srcset="">
+                        </a>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md my-auto justify-content-center" id="footer">
+                        <ul id="footer">
+                            <li><a href="browse-by-category.php">Browse By Category</a></li>
+                            <li><a href="contact-us.php">Contact</a></li>
+                            <li><a href="login.php">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md my-auto" id="footer">
+                        <a href="./about.php">
+                            <h2>About Us</h2>
+                        </a>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur cum voluptatibus, optio sequi officia? Natus ex soluta maxime aliquid.</p>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="row" id="footer-icons">
+                        <a href="http://"><img src="images\facebook.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\instagram.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\paypal.svg" alt="" srcset=""></a>
+                        <a href="http://"><img src="images\envelope.svg" alt="" srcset=""></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <!--Bootstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!--Custom JS-->
+        <script src="scripts/javascript.js"></script>
 </body>
 
 </html>
