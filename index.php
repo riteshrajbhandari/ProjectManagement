@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Your home to fresh products</title>
+    <title>Fresh Mart</title>
 </head>
 
 <body class="bg-light">
@@ -211,44 +211,58 @@
     <div class="container">
         <div class="row row-cols-2 row-cols-lg-5 g-4">
             <div class="col">
-                <div class="card shop">
-                    <img src="images\butchers-knife-17307-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops" style="background-color:cadetblue;">
-                        <p class="card-text text-white">Butchers</p>
+                <a href="shop.php?id=3">
+                    <div class="card shop">
+                        <img src="images\butchers-knife-17307-1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                            <p class="card-text text-white">Butchers</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col">
-                <div class="card shop">
-                    <img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops" style="background-color:cadetblue;">
-                        <p class="card-text text-white">Greencrocer</p>
+                <a href="shop.php?id=4">
+                    <div class="card shop">
+
+                        <img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" class="card-img-top" alt="...">
+                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                            <p class="card-text text-white">Greencrocer</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col">
-                <div class="card shop">
-                    <img src="images\fishmongers_256623856_1000.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops" style="background-color:cadetblue;">
-                        <p class="card-text text-white">Fishmonger</p>
+                <a href="shop.php?id=5">
+                    <div class="card shop">
+
+                        <img src="images\fishmongers_256623856_1000.jpg" class="card-img-top" alt="...">
+                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                            <p class="card-text text-white">Fishmonger</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col">
-                <div class="card shop">
-                    <img src="images\Screenshot 2022-04-09 184212.png" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops" style="background-color:cadetblue;">
-                        <p class="card-text text-white">Bakery</p>
+                <a href="shop.php?id=2">
+                    <div class="card shop">
+
+                        <img src="images\Screenshot 2022-04-09 184212.png" class="card-img-top" alt="...">
+                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                            <p class="card-text text-white">Bakery</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col">
-                <div class="card shop">
-                    <img src="images\Delicatessen-1024x688.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" id="shops" style="background-color:cadetblue;">
-                        <p class="card-text text-white">Delicatessen</p>
+                <a href="shop.php?id=6">
+                    <div class="card shop">
+
+                        <img src="images\Delicatessen-1024x688.jpg" class="card-img-top" alt="...">
+                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                            <p class="card-text text-white">Delicatessen</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div><br>
@@ -356,8 +370,56 @@
             </div>
         </div>
         <br>
+        <div class="text-end"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button></div>
     </div>
 
+    <style>
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        #myBtn:hover {
+            background-color: #eee;
+            color: black;
+        }
+    </style>
+
+
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--Custom JS-->
