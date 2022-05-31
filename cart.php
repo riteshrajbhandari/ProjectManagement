@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('connection.php');
 
 ?>
@@ -16,7 +17,7 @@ include('connection.php');
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Your home to fresh products</title>
+    <title>Cart</title>
 </head>
 
 
@@ -63,11 +64,14 @@ include('connection.php');
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="wishlist.php">
+                                Wishlist
+                            </a>
+                        </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
-
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
                                 } else echo 'Login/Register';
@@ -161,7 +165,10 @@ include('connection.php');
 
                                 $product_id = $row['PRODUCT_ID']; ?>
                                 <tr>
-                                    <td class="text-start"><img class="img-cart img-thumbnail w-50" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                    <td class="text-start">
+                                        <a href="product.php?pid=<?php echo $product_id ?>">
+                                            <img class="img-cart img-thumbnail w-50" src="<?php echo $product_img_url; ?>" alt="" srcset="">
+                                        </a>
                                         <?php
                                         echo $product_name . '<br>';
                                         echo $product_desc; ?>

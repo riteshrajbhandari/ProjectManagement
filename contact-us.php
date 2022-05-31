@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="contact_style.css">
 
-    <title>Document</title>
+    <title>Contact Us</title>
 </head>
 
 <body>
@@ -58,10 +59,14 @@
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="wishlist.php">
+                                Wishlist
+                            </a>
+                        </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
 
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';

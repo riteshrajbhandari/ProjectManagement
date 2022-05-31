@@ -57,6 +57,11 @@
               <a class="nav-link" href="cart.php">
                 <img src="images/bag-heart.svg" alt="" /> Cart</a>
             </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="wishlist.php">
+                Wishlist
+              </a>
+            </li>
             <li class="nav-item me-2 dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <?php
@@ -166,10 +171,10 @@
   <br />
   <div class="container">
     <div class="row">
-      <div class="col-lg" id="img">
-        <img src="images/about-us.jpeg" alt="" class="w-100" />
+      <div class="col-lg-4" id="img">
+        <img src="images/about-us.jpeg" alt="" class="w-100 rounded" / width="">
       </div>
-      <div class="col py-5">
+      <div class="col py-5 lead">
         <p>
           This website is created by a team of 5 members. Members naming Sajid Miya, Ritesh Rajbhandari,Prashant Shrestha, Ujjwal Datheputhe and Sanil Baniya. We have worked for almost 4 months for the completion of this website. We have been conducting meetings 3 times a week till today. We all have given our best for this website. Each member of our team has given a fruitful amount of time to make this website attractive. We are very happy with this outcome and we hope everybody likes our work.
           <br />
@@ -181,7 +186,7 @@
   </div>
   <div class="container">
     <div class="row py-5">
-      <div class="col py-5">
+      <div class="col-8 py-5 lead">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem rem
           quasi ratione molestias perspiciatis dicta minima maiores, illum
@@ -196,27 +201,31 @@
         </p>
       </div>
       <div class="col-lg" id="img">
-        <img src="images/about-us1.jpeg" alt="" class="w-100" />
+        <img src="images/about-us1.jpeg" alt="" class="w-100 rounded" />
       </div>
     </div>
   </div>
   <br />
-  <br />
+
   <hr />
-  <br />
-  <br />
+
+
+
+
+
+  </style>
   <div class="container">
     <div class="row-1 lead" id="about">Tech Team</div>
     <div class="row row-cols-lg-5 about-team">
       <div class="col text-center lead">
-        <img class="main" src="images/sazid.jpg" alt="" />
+        <img class="main" src="images/sazid.jpg" alt="" / style="width: 200px;">
         <h6>Sajid Miya</h6>
         <p>
           Front End Developer
         </p>
       </div>
       <div class="col text-center lead">
-        <img class="main" src="images/sanjil.jpg" alt="" />
+        <img class="main" src="images/sanjil.jpg" alt="" / style="width: 200px;">
         <h6>Sanjil Baniya</h6>
         <p>
           Developer
@@ -224,21 +233,21 @@
       </div>
 
       <div class="col text-center lead">
-        <img class="main" src="images/ujwal.jpg" alt="" />
+        <img class="main" src="images/ujwal.jpg" alt="" / style="width: 200px;">
         <h6>Ujwal Datheputhae</h6>
         <p>
           Documentation Manager/Developer
         </p>
       </div>
       <div class="col text-center lead">
-        <img class="main " src="images/ritesh.jpg" alt="" />
+        <img class="main " src="images/ritesh.jpg" alt="" / style="width: 200px;">
         <h6>Ritesh Rajbhandari</h6>
         <p>
           Backend Developer
         </p>
       </div>
       <div class="col text-center lead">
-        <img class="main" src="images/prashant.jpg" alt="" />
+        <img class="main" src="images/prashant.jpg" alt="" / style="width: 200px;">
         <h6>Prashant Shrestha</h6>
         <p>
           Documentation Manager/Developer.

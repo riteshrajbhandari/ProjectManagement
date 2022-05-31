@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include('connection.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Your home to fresh products</title>
+    <title>Shop</title>
 </head>
 
 <body class="bg-light">
@@ -96,31 +97,81 @@
             </div>
         </nav>
     </div>
+    <div>
+        <div class="container p-5 my-5 border" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
+            <div class="row">
 
-    <div class="container p-5 my-5 border" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
-        <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <?php
 
-            <div class="col-lg-2">
-                <div class="card">
-                    <div class="card-header">
-                        <p>Trader name</p>
-                    </div>
-                    <div class="img-thumbnail">
-                        <img src="../ProjectManagement/images/butchers-knife-17307-1.jpg" alt="">
+                            if (isset($_GET['id'])) {
+                                $shop_id =  $_GET['id'];
+                                $stid = oci_parse($connection, "SELECT (FIRST_NAME||' '||LAST_NAME) AS FULLNAME, PROFILE_PIC_URL FROM users, shop WHERE SHOP.shop_id = '$shop_id' and shop.user_id = users.user_id");
+                                oci_execute($stid);
+                                if ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                                    $fullname = $row['FULLNAME'];
+                                    $profile_img_url = $row['PROFILE_PIC_URL'];
+                                }
+
+
+                                $stid = oci_parse($connection, "SELECT * FROM product, shop WHERE product.FK2_SHOP_ID = shop.shop_id 
+                                                            and shop.shop_id = '$shop_id'");
+                            ?>
+                                <div class="text-center">
+                                    <p><?php echo $fullname; ?></p>
+                                </div>
+
+                        </div>
+                        <div class="img-thumbnail" style="height: 200px;">
+                            <img src="<?php echo './' . $profile_img_url; ?>" alt="..." ">
                     </div>
                 </div>
             </div>
+            <?php
+                                oci_execute($stid);
+                                $shop_found = false;
+                                while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+                                    $shop_found = true;
+                                    $pid = $row['PRODUCT_ID'];
+                                    $product_name = ucfirst(strtolower($row['PRODUCT_NAME']));
+                                    $unit_price = $row['UNIT_PRICE'];
+                                    $img_url = $row['IMG_URL'];
+            ?>
 
-            <div class="col-lg"></div>
+
+                <div class=" col-lg-8 align-item-center ">
+
+                            <div class=" row" style=" width: 500px; height:200px">
+                            <a href=" ./product.php?pid=<?php echo $pid ?>">
+                                <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                                    <img src="<?php echo $img_url; ?>" class="card-img-top" alt="..." ">
+                    <div class=" card-body" id="shops" style="background-color:cadetblue;">
+                                    <span class="card-text text-white">
+                                        <?php echo $product_name; ?>
+                                    </span>
+                                    <p class="card-text  " style="color:white;">
+                                        $<?php echo $unit_price; ?>
+                                    </p>
+                                </div>
+                        </div>
+                        </a>
+                    </div><br>
+            <?php
+                                }
+                                if (!$shop_found) echo "<p>Shop not found.</p>";
+                            } else echo "Faulty Link";
+            ?>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
 
-
-
-
-    <div class="footer navcolor">
+    <div class="footer navcolor" style="position:absolute !important; width: 100% !important; left:0 !important;">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('connection.php');
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include('connection.php');
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Your home to fresh products</title>
+    <title>Fresh Mart</title>
 </head>
 
 <body>
@@ -62,10 +63,14 @@ include('connection.php');
                             <a class="nav-link" href="cart.php"> <img src="images/bag-heart.svg" alt="">
                                 Cart</a>
                         </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link" href="wishlist.php">
+                                Wishlist
+                            </a>
+                        </li>
                         <li class="nav-item me-2 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                session_start();
 
                                 if (isset($_SESSION['user'])) {
                                     echo 'Welcome, ' . $_SESSION['user'] . '!';
@@ -151,11 +156,11 @@ include('connection.php');
                                 <a href="./product.php?pid=<?php echo $pid ?>">
                                     <div class="card shop " style="box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                                         <img src="<?php echo $img_url; ?>" class="card-img-top" alt="...">
-                                        <div class="card-body" id="shops" style="background-color:cadetblue;">
+                                        <div class="card-body p-0" id="shops" style="background-color:cadetblue;">
                                             <span class="card-text text-white">
                                                 <?php echo $product_name; ?>
                                             </span>
-                                            <p class="text-end " style="color:white;">
+                                            <p class=" " style="color:white;">
                                                 $<?php echo $unit_price; ?>
                                             </p>
                                         </div>

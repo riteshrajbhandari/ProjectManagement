@@ -67,7 +67,13 @@ for ($i = 0; $i < count($array_of_pid_quantity); $i += 2) {
         $stid = oci_parse($connection, "INSERT INTO ORDER_PRODUCT
         (ORDER_ID, PRODUCT_ID, PRODUCT_QUANTITY)
         VALUES((SELECT MAX(ORDER_ID) FROM ORDERS WHERE FK3_USER_ID = $user_id), '$pid', '$quantity')");
-        oci_execute($stid);
+
+        if (oci_execute($stid)) {
+            $stid1 = oci_parse($connection, "UPDATE PRODUCT SET STOCK = 
+            ((SELECT STOCK FROM PRODUCT WHERE PRODUCT_ID = '$pid') - '$quantity') 
+            WHERE PRODUCT_ID = '$pid'");
+            oci_execute($stid1);
+        }
     }
 }
 
@@ -82,7 +88,7 @@ if (!oci_execute($stid)) exit();
 // $_SESSION['cart_id'] = $cart_id;
 ?>
 
-<form action="update-delete.php?user_id=<?php echo $user_id;?>&total=<?php echo $total;?>" method="post" id="myForm">
+<form action="update-delete.php?user_id=<?php echo $user_id; ?>&total=<?php echo $total; ?>" method="post" id="myForm">
 
     <input type="text" value="<?php echo $_GET['payment']; ?>" name="paymentconfirm" type="submit">
 </form>

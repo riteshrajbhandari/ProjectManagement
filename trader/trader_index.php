@@ -100,6 +100,9 @@ include('../connection.php');
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./update.php" id="contactinfo">Update/delete</a>
             </li>
+            <li class="nav-item py-3">
+            <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+            </li>
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
@@ -114,6 +117,9 @@ include('../connection.php');
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./update.php" id="contactinfo">Update/delete</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
                 </li>
             </ul>
 

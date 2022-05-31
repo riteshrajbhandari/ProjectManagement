@@ -11,14 +11,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
     <!--Custom CSS-->
- <link rel="stylesheet" href="styles/style.css"> 
-    <title>Your home to fresh products</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Fresh Mart</title>
 </head>
 
 <body>
 
-    
-     <div class="container-nav flex-row ">
+
+    <div class="container-nav flex-row ">
         <nav class="navbar navbar-expand-md navbar-light navcolor">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.php">
@@ -64,7 +64,7 @@
                                 if (isset($_SESSION['user'])) {
                                     echo '<li><a class="dropdown-item" href="./account-settings/customersettings.php">Account Settings</a></li>';
                                     echo '<li><a class="dropdown-item" href="logout.php">Logout</a></li>';
-                                } else{
+                                } else {
                                     echo '<li><a class="dropdown-item" href="login.php">Login</a></li>';
                                     echo '<li><a class="dropdown-item" href="register.php">Register</a></li>';
                                 }

@@ -101,6 +101,9 @@ include('../connection.php');
             <li class="nav-item py-3">
                 <a class="nav-link text-white lead" href="./update.php" id="update">Update/delete</a>
             </li>
+            <li class="nav-item py-3">
+                <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+            </li>
         </ul>
         <div class="col settings-body ">
             <ul class="nav nav-pills d-flex settings-tabs text-light">
@@ -116,6 +119,9 @@ include('../connection.php');
                 <li class="nav-item">
                     <a class="nav-link text-white lead" href="./update.php" id="contactinfo">Update/delete</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+                </li>
             </ul>
 
 
@@ -130,10 +136,24 @@ include('../connection.php');
                     <div class="row py-5 m-3 box" style=" border-radius:3em; background-color:white">
                         <div class="col-md-3  p-3" id="side">
                             <div class="form-group p-5 m-2 " style=" border-radius:1em ;box-shadow: rgba(112, 112, 112, 0.8) 0px 2px 8px;">
-                                <label class="control-label col-sm" for="">Product Image:</label>
+                                <p><label class="control-label col-sm" for="file" style="cursor: pointer;">Upload Image</label></p>
+
                                 <div class="col-sm-10 py-3">
-                                    <input type="file" name="fileToUpload" id="fileToUpload">
+
+                                    <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+
+                                    <p><img id="output" width="200" /></p>
+
+                                    <script>
+                                        var loadFile = function(event) {
+                                            var image = document.getElementById('output');
+                                            image.src = URL.createObjectURL(event.target.files[0]);
+                                        };
+                                    </script>
+
+
                                     <div id="imageUploadError"></div>
+
                                 </div>
                             </div>
                         </div>
@@ -237,10 +257,10 @@ include('../connection.php');
 
 
                 $target_dir = "../images/";
-                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                $check = getimagesize($_FILES["image"]["tmp_name"]);
                 if ($check !== false) {
                     //   echo "File is an image - " . $check["mime"] . ".";
                     $uploadOk = 1;
@@ -249,13 +269,13 @@ include('../connection.php');
                     $uploadOk = 0;
                     $errors = true;
                 }
-                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                     // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
                 } else {
                     echo "Sorry, there was an error uploading your file.";
                     $errors = true;
                 }
-                $image_name = '.\images\\' . htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
+                $image_name = '.\images\\' . htmlspecialchars(basename($_FILES["image     "]["name"]));
 
 
 
