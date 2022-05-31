@@ -211,7 +211,7 @@
     <div class="container">
         <div class="row row-cols-2 row-cols-lg-5 g-4">
             <div class="col">
-                <a href="shop.php?id=3">
+                <a href="browse-by-category.php?category=Butchers">
                     <div class="card shop">
                         <img src="images\butchers-knife-17307-1.jpg" class="card-img-top" alt="...">
                         <div class="card-body" id="shops" style="background-color:cadetblue;">
@@ -221,7 +221,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="shop.php?id=4">
+                <a href="browse-by-category.php?category=Greengrocer">
                     <div class="card shop">
 
                         <img src="images\106926409_3180377422020755_2425918696468094178_n.jpg" class="card-img-top" alt="...">
@@ -232,7 +232,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="shop.php?id=5">
+                <a href="browse-by-category.php?category=Fishmonger">
                     <div class="card shop">
 
                         <img src="images\fishmongers_256623856_1000.jpg" class="card-img-top" alt="...">
@@ -243,7 +243,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="shop.php?id=2">
+                <a href="browse-by-category.php?category=Bakery">
                     <div class="card shop">
 
                         <img src="images\Screenshot 2022-04-09 184212.png" class="card-img-top" alt="...">
@@ -254,7 +254,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="shop.php?id=6">
+                <a href="browse-by-category.php?category=Delicatessen">
                     <div class="card shop">
 
                         <img src="images\Delicatessen-1024x688.jpg" class="card-img-top" alt="...">
