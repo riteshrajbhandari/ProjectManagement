@@ -116,6 +116,9 @@ include('../connection.php');
                     <a class="nav-link text-white lead
  active" aria-current="page" href="#" id="contactinfo">Update/delete</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white lead" href="http://127.0.0.1:8080/apex/f?p=101:LOGIN_DESKTOP:5831569504216:::::" id="update">Apex Application</a>
+                </li>
             </ul>
 
 
